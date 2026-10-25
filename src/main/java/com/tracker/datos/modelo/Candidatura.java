@@ -1,5 +1,6 @@
 package com.tracker.datos.modelo;
 
+import com.tracker.datos.enums.EstadoCandidatura;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -16,4 +17,5 @@ public class Candidatura {
     private LocalDate fechaPostulacion;
     private String enlace;
     private String notas;
+    private EstadoCandidatura estado;
 }
