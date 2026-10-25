@@ -1,0 +1,16 @@
+id;titulo;empresa;estado;fechaPostulacion;enlace;notas
+1;Desarrollador Java Junior;Indra;pendiente;22/07/2026;https://indra.com/empleo/dev-java-jr;Enviado a través del portal de empleo
+2;Backend Developer Spring Boot;Accenture;entrevista;30/07/2026;https://accenture.com/careers/backend-spring;Primera entrevista con RRHH superada
+3;Desarrollador Full Stack;Everis;rechazado;05/08/2026;https://everis.com/jobs/fullstack;No continuaron tras la prueba técnica
+4;Ingeniero QA Automatizacion;Telefonica;aceptado;10/08/2026;https://telefonica.com/empleo/qa-automation;Incorporación confirmada para noviembre
+5;Desarrollador Java Backend;Indra;entrevista;18/08/2026;https://indra.com/empleo/java-backend;Entrevista técnica programada
+6;DevOps Engineer;Santander;pendiente;25/08/2026;https://santander.com/careers/devops;Contacto inicial por LinkedIn
+7;Analista Programador;Everis;rechazado;01/09/2026;https://everis.com/jobs/analista-prog;Proceso cerrado, perfil no encajaba
+8;Java Developer Semi Senior;Accenture;aceptado;08/09/2026;https://accenture.com/careers/java-semisenior;Oferta aceptada, firma de contrato pendiente
+9;Frontend Developer React;Telefonica;pendiente;15/09/2026;https://telefonica.com/empleo/frontend-react;Enviado CV y carta de presentación
+10;Ingeniero de Datos;Santander;entrevista;20/09/2026;https://santander.com/careers/data-engineer;Segunda entrevista con el equipo técnico
+11;Desarrollador Backend Node;Indra;rechazado;27/09/2026;https://indra.com/empleo/backend-node;Descartado tras entrevista técnica
+12;QA Tester Manual;Everis;pendiente;02/10/2026;https://everis.com/jobs/qa-tester;A la espera de respuesta inicial
+13;Arquitecto de Software;Accenture;entrevista;06/10/2026;https://accenture.com/careers/arquitecto-sw;Entrevista con el arquitecto jefe agendada
+14;Scrum Master;Santander;aceptado;10/10/2026;https://santander.com/careers/scrum-master;Oferta formal recibida y aceptada
+15;Desarrollador Java Senior;Telefonica;rechazado;14/10/2026;https://telefonica.com/empleo/java-senior;No se avanzó tras la entrevista final
