@@ -32,7 +32,9 @@ public class EjecutorComandos {
     }
 
     private void borrar(ComandoInterpretado comando) {
-        System.out.println("PENDIENTE DE IMPLEMENTAR");
+        int id = obtenerId(comando.getArgumentoPosicional());
+        servicio.borrar(id);
+        System.out.println("Candidatura " + id + " eliminada correctamente.");
     }
 
     private int obtenerId(String crudo) {

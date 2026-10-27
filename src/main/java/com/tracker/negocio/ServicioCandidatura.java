@@ -22,4 +22,12 @@ public class ServicioCandidatura {
         return candidaturas.size();
     }
 
+    public void borrar(int id) {
+        Candidatura candidatura = repository.buscarPorId(id);
+        if (candidatura == null) {
+            throw new RuntimeException("No existe ninguna candidatura con ID " + id);
+        }
+        repository.eliminarPorId(id);
+    }
+
 }

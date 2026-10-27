@@ -13,7 +13,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class FileCandidaturaRepository implements CandidaturaRepository {
 
@@ -77,15 +76,23 @@ public class FileCandidaturaRepository implements CandidaturaRepository {
     }
 
     @Override
-    public Optional<Candidatura> buscarPorId(int id) {
-        // pediente logica para Eliminar
+    public Candidatura buscarPorId(int id) {
+        for (Candidatura c : buscarTodas()) {
+            if (c.getId() == id) {
+                return c;
+            }
+        }
         return null;
     }
 
     @Override
     public void eliminarPorId(int id) {
-        // pediente logica para Eliminar
-
+        List<Candidatura> todas = buscarTodas();
+        boolean eliminado = todas.removeIf(c -> c.getId() == id);
+        if (!eliminado) {
+            throw new RuntimeException("No existe ninguna candidatura con ID " + id);
+        }
+        escribirTodas(todas);
     }
 
     public static String crearStringDeCandidatura(Candidatura c) {
