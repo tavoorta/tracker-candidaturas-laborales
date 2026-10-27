@@ -1,7 +1,11 @@
 package com.tracker.presentacion;
 
+import com.tracker.datos.modelo.Candidatura;
 import com.tracker.negocio.ServicioCandidatura;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 public class EjecutorComandos {
@@ -19,8 +23,23 @@ public class EjecutorComandos {
         }
     }
 
+
     private void listar(ComandoInterpretado comando) {
-        System.out.println("PENDIENTE DE IMPLEMENTAR");
+        Map<String, String> opciones = comando.getOpciones();
+        List<Candidatura> resultado = servicio.filtrar(opciones.get("estado"), opciones.get("empresa"));
+
+        if (resultado.isEmpty()) {
+            System.out.println("No hay candidaturas que coincidan con los filtros indicados.");
+            return;
+        }
+
+        System.out.println("ID    TITULO    EMPRESA    ESTADO    FECHA");
+        for (Candidatura c : resultado) {
+            System.out.println(c.getId() + "  " + c.getTitulo() + "  " + c.getEmpresa() + "  "
+                    + c.getEstado().name().toLowerCase() + "  " + c.getFechaPostulacion().format(DATE_FORMAT));
+        }
+        System.out.println();
+        System.out.println("Total de candidaturas encontradas: " + resultado.size());
     }
 
     private void anadir(ComandoInterpretado comando) {

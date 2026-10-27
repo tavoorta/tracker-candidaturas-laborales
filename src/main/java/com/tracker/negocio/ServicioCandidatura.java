@@ -30,4 +30,11 @@ public class ServicioCandidatura {
         repository.eliminarPorId(id);
     }
 
+    public List<Candidatura> filtrar(String estado, String empresa) {
+        return repository.buscarTodas().stream()
+                .filter(c -> estado == null || c.getEstado().name().equalsIgnoreCase(estado))
+                .filter(c -> empresa == null || c.getEmpresa().toLowerCase().contains(empresa.toLowerCase()))
+                .toList();
+    }
+
 }
