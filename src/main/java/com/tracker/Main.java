@@ -22,9 +22,6 @@ public class Main {
             ComandoInterpretado comando = ComandoInterpretado.analizar(args);
             ejecutor.ejecutar(comando);
 
-
-
-
         } catch (RuntimeException e) {
             System.err.println("Error: " + e.getMessage());
             System.exit(1);

@@ -4,6 +4,7 @@ import com.tracker.datos.modelo.Candidatura;
 import com.tracker.negocio.ServicioCandidatura;
 import lombok.RequiredArgsConstructor;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import java.util.Map;
 public class EjecutorComandos {
 
     private final ServicioCandidatura servicio;
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public void ejecutar(ComandoInterpretado comando) {
         switch (comando.getOperacion()) {
@@ -22,7 +24,6 @@ public class EjecutorComandos {
             default -> throw new IllegalArgumentException("Operación desconocida: " + comando.getOperacion());
         }
     }
-
 
     private void listar(ComandoInterpretado comando) {
         Map<String, String> opciones = comando.getOpciones();
@@ -43,7 +44,16 @@ public class EjecutorComandos {
     }
 
     private void anadir(ComandoInterpretado comando) {
-        System.out.println("PENDIENTE DE IMPLEMENTAR");
+        Map<String, String> opciones = comando.getOpciones();
+        Candidatura nueva = servicio.anadir(
+                opciones.get("titulo"),
+                opciones.get("empresa"),
+                opciones.get("estado"),
+                opciones.get("fecha"),
+                opciones.get("enlace"),
+                opciones.get("notas")
+        );
+        System.out.println("Candidatura añadida correctamente con ID " + nueva.getId());
     }
 
     private void ver(ComandoInterpretado comando) {
@@ -65,7 +75,6 @@ public class EjecutorComandos {
         return (valor == null || valor.isBlank()) ? "-" : valor;
     }
 
-
     private void importar(ComandoInterpretado comando) {
         if (comando.getArgumentoPosicional() == null) {
             throw new IllegalArgumentException("Debes indicar la ruta del fichero CSV a importar.");
@@ -73,6 +82,4 @@ public class EjecutorComandos {
         int importadas = servicio.importar(comando.getArgumentoPosicional());
         System.out.println(importadas + " candidatura(s) importada(s) correctamente.");
     }
-
-
 }
