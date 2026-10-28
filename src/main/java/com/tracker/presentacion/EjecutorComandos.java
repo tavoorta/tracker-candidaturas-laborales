@@ -76,8 +76,14 @@ public class EjecutorComandos {
     }
 
     private int obtenerId(String crudo) {
-        System.out.println("PENDIENTE DE IMPLEMENTAR");
-        return 0;
+        if (crudo == null) {
+            throw new IllegalArgumentException("Debes indicar el ID de la candidatura.");
+        }
+        try {
+            return Integer.parseInt(crudo);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("El ID debe ser un número entero: " + crudo);
+        }
     }
 
     private String valorOGuion(String valor) {
