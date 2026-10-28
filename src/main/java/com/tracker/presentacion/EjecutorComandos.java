@@ -57,8 +57,17 @@ public class EjecutorComandos {
     }
 
     private void ver(ComandoInterpretado comando) {
-        System.out.println("PENDIENTE DE IMPLEMENTAR");
+        int id = obtenerId(comando.getArgumentoPosicional());
+        Candidatura c = servicio.ver(id);
+        System.out.println("ID:                " + c.getId());
+        System.out.println("Titulo:            " + c.getTitulo());
+        System.out.println("Empresa:           " + c.getEmpresa());
+        System.out.println("Estado:            " + c.getEstado().name().toLowerCase());
+        System.out.println("Fecha postulacion: " + c.getFechaPostulacion().format(DATE_FORMAT));
+        System.out.println("Enlace:            " + valorOGuion(c.getEnlace()));
+        System.out.println("Notas:             " + valorOGuion(c.getNotas()));
     }
+
 
     private void borrar(ComandoInterpretado comando) {
         int id = obtenerId(comando.getArgumentoPosicional());

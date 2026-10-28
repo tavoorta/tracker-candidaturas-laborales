@@ -62,6 +62,15 @@ public class ServicioCandidatura {
         return repository.guardar(candidatura);
     }
 
+    public Candidatura ver(int id) {
+        Candidatura candidatura = repository.buscarPorId(id);
+        if (candidatura == null) {
+            throw new RuntimeException("No existe ninguna candidatura con ID " + id);
+        }
+        return candidatura;
+    }
+
+
     //region Metodos privados de validación y parseo
 
     private void validarObligatorio(String valor, String campo) {
