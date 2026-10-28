@@ -8,7 +8,12 @@ import com.tracker.negocio.ServicioCandidatura;
 import com.tracker.presentacion.ComandoInterpretado;
 import com.tracker.presentacion.EjecutorComandos;
 
+/**
+ * Punto de entrada de la aplicación: construye las dependencias de cada capa
+ * y ejecuta la operación recibida por línea de comandos.
+ */
 public class Main {
+
     static void main(String[] args) {
 
         try {

@@ -14,12 +14,17 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementación de {@link CandidaturaRepository} que persiste las candidaturas
+ * en un fichero de texto plano, con los campos separados por {@code ;}.
+ */
 public class FileCandidaturaRepository implements CandidaturaRepository {
 
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     private final Path rutaFichero;
 
+    /** @param configuracion servicio del que se lee la propiedad {@code fichero} */
     public FileCandidaturaRepository(ServicioConfiguracion configuracion) {
         this.rutaFichero = Path.of(configuracion.obtenerPropiedad("fichero"));
     }

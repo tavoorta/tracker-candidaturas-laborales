@@ -10,8 +10,17 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Lee un fichero CSV externo y lo convierte en una lista de {@link Candidatura},
+ * reutilizando el parseo de {@link FileCandidaturaRepository}.
+ */
 public class ImportadorCsv {
 
+    /**
+     * @param rutaCsv ruta del fichero CSV a importar
+     * @return las candidaturas leídas del CSV (sin cabecera)
+     * @throws RuntimeException si el fichero no existe o no se puede leer
+     */
     public List<Candidatura> importarCsv(String rutaCsv) {
         Path ruta = Path.of(rutaCsv);
         if (!Files.exists(ruta)) {

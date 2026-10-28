@@ -12,6 +12,11 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Lógica de negocio de las candidaturas: validaciones, filtrado y conversión
+ * de los datos de entrada a los tipos del modelo. No sabe de dónde vienen ni
+ * a dónde van los datos, eso lo resuelve {@link CandidaturaRepository}.
+ */
 @RequiredArgsConstructor
 public class ServicioCandidatura {
 
@@ -19,6 +24,10 @@ public class ServicioCandidatura {
     private final ImportadorCsv importadorCsv;
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
+    /**
+     * @param rutaCsv ruta del fichero CSV a importar
+     * @return el número de candidaturas importadas
+     */
     public int importar(String rutaCsv) {
         List<Candidatura> candidaturas = importadorCsv.importarCsv(rutaCsv);
         for (Candidatura c : candidaturas) {
@@ -28,6 +37,10 @@ public class ServicioCandidatura {
         return candidaturas.size();
     }
 
+    /**
+     * @param id identificador de la candidatura a eliminar
+     * @throws RuntimeException si no existe ninguna candidatura con ese id
+     */
     public void borrar(int id) {
         Candidatura candidatura = repository.buscarPorId(id);
         if (candidatura == null) {
@@ -36,6 +49,11 @@ public class ServicioCandidatura {
         repository.eliminarPorId(id);
     }
 
+    /**
+     * @param estado  nombre del estado a filtrar (ignora mayúsculas/minúsculas), o {@code null}
+     * @param empresa texto a buscar en el nombre de empresa, o {@code null}
+     * @return las candidaturas que cumplen los filtros indicados
+     */
     public List<Candidatura> filtrar(String estado, String empresa) {
         return repository.buscarTodas().stream()
                 .filter(c -> estado == null || c.getEstado().name().equalsIgnoreCase(estado))
@@ -43,6 +61,10 @@ public class ServicioCandidatura {
                 .toList();
     }
 
+    /**
+     * @param fecha formato dd/MM/yyyy
+     * @throws RuntimeException si falta un campo obligatorio o algún valor es inválido
+     */
     public Candidatura anadir(String titulo, String empresa, String estado, String fecha,
                               String enlace, String notas) {
         validarObligatorio(titulo, "titulo");
@@ -62,6 +84,11 @@ public class ServicioCandidatura {
         return repository.guardar(candidatura);
     }
 
+    /**
+     * @param id identificador de la candidatura
+     * @return la candidatura encontrada
+     * @throws RuntimeException si no existe ninguna candidatura con ese id
+     */
     public Candidatura ver(int id) {
         Candidatura candidatura = repository.buscarPorId(id);
         if (candidatura == null) {

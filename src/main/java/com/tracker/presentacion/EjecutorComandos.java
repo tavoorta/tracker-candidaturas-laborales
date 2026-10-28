@@ -8,12 +8,20 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Ejecuta un {@link ComandoInterpretado}: llama al método correspondiente de
+ * {@link ServicioCandidatura} y muestra el resultado por consola.
+ */
 @RequiredArgsConstructor
 public class EjecutorComandos {
 
     private final ServicioCandidatura servicio;
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
+    /**
+     * @param comando comando ya interpretado
+     * @throws IllegalArgumentException si la operación no es reconocida
+     */
     public void ejecutar(ComandoInterpretado comando) {
         switch (comando.getOperacion()) {
             case "-listar" -> listar(comando);
@@ -24,6 +32,8 @@ public class EjecutorComandos {
             default -> throw new IllegalArgumentException("Operación desconocida: " + comando.getOperacion());
         }
     }
+
+    //region Metodos privados
 
     private void listar(ComandoInterpretado comando) {
         Map<String, String> opciones = comando.getOpciones();
@@ -97,4 +107,6 @@ public class EjecutorComandos {
         int importadas = servicio.importar(comando.getArgumentoPosicional());
         System.out.println(importadas + " candidatura(s) importada(s) correctamente.");
     }
+
+    //endregion Metodos privados
 }

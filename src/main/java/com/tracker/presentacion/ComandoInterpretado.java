@@ -6,6 +6,10 @@ import lombok.Getter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * Datos de un comando ya interpretado (operación, argumento posicional y
+ * opciones {@code --flag valor}) y la lógica que los extrae de {@code args}.
+ */
 @Getter
 @AllArgsConstructor
 public class ComandoInterpretado {
