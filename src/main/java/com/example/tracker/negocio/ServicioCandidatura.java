@@ -1,9 +1,9 @@
-package com.tracker.negocio;
+package com.example.tracker.negocio;
 
-import com.tracker.datos.ayuda.ImportadorCsv;
-import com.tracker.datos.enums.EstadoCandidatura;
-import com.tracker.datos.modelo.Candidatura;
-import com.tracker.datos.repositorio.CandidaturaRepository;
+import com.example.tracker.datos.ayuda.ImportadorCsv;
+import com.example.tracker.datos.enums.EstadoCandidatura;
+import com.example.tracker.datos.modelo.Candidatura;
+import com.example.tracker.datos.repositorio.CandidaturaRepository;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDate;

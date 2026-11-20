@@ -1,16 +1,16 @@
-id;titulo;empresa;estado;fechaPostulacion;enlace;notas
-1;Desarrollador Java Junior;Indra;pendiente;22/07/2026;https://indra.com/empleo/dev-java-jr;Enviado a través del portal de empleo
-2;Backend Developer Spring Boot;Accenture;entrevista;30/07/2026;https://accenture.com/careers/backend-spring;Primera entrevista con RRHH superada
-3;Desarrollador Full Stack;Everis;rechazado;05/08/2026;https://everis.com/jobs/fullstack;No continuaron tras la prueba técnica
-4;Ingeniero QA Automatizacion;Telefonica;aceptado;10/08/2026;https://telefonica.com/empleo/qa-automation;Incorporación confirmada para noviembre
-5;Desarrollador Java Backend;Indra;entrevista;18/08/2026;https://indra.com/empleo/java-backend;Entrevista técnica programada
-6;DevOps Engineer;Santander;pendiente;25/08/2026;https://santander.com/careers/devops;Contacto inicial por LinkedIn
-7;Analista Programador;Everis;rechazado;01/09/2026;https://everis.com/jobs/analista-prog;Proceso cerrado, perfil no encajaba
-8;Java Developer Semi Senior;Accenture;aceptado;08/09/2026;https://accenture.com/careers/java-semisenior;Oferta aceptada, firma de contrato pendiente
-9;Frontend Developer React;Telefonica;pendiente;15/09/2026;https://telefonica.com/empleo/frontend-react;Enviado CV y carta de presentación
-10;Ingeniero de Datos;Santander;entrevista;20/09/2026;https://santander.com/careers/data-engineer;Segunda entrevista con el equipo técnico
-11;Desarrollador Backend Node;Indra;rechazado;27/09/2026;https://indra.com/empleo/backend-node;Descartado tras entrevista técnica
-12;QA Tester Manual;Everis;pendiente;02/10/2026;https://everis.com/jobs/qa-tester;A la espera de respuesta inicial
-13;Arquitecto de Software;Accenture;entrevista;06/10/2026;https://accenture.com/careers/arquitecto-sw;Entrevista con el arquitecto jefe agendada
-14;Scrum Master;Santander;aceptado;10/10/2026;https://santander.com/careers/scrum-master;Oferta formal recibida y aceptada
-15;Desarrollador Java Senior;Telefonica;rechazado;14/10/2026;https://telefonica.com/empleo/java-senior;No se avanzó tras la entrevista final
+titulo;empresa;descripcion;estado;fechaPostulacion;enlace;salario;notas
+Desarrollador Java Junior;Indra;Desarrollo de componentes backend en Java y Spring Boot;pendiente;22/07/2026;https://indra.com/empleo/dev-java-jr;24000.00;Enviado a través del portal de empleo
+Backend Developer Spring Boot;Accenture;Microservicios Spring Boot para clientes del sector banca;entrevista;30/07/2026;https://accenture.com/careers/backend-spring;30000.00;Primera entrevista con RRHH superada
+Desarrollador Full Stack;Everis;Desarrollo full stack con React y Java para proyecto interno;rechazado;05/08/2026;https://everis.com/jobs/fullstack;28000.00;No continuaron tras la prueba técnica
+Ingeniero QA Automatizacion;Telefonica;Automatización de pruebas con Selenium y Java;aceptado;10/08/2026;https://telefonica.com/empleo/qa-automation;32000.00;Incorporación confirmada para noviembre
+Desarrollador Java Backend;Indra;Mantenimiento y evolución de APIs REST en Java;entrevista;18/08/2026;https://indra.com/empleo/java-backend;26000.00;Entrevista técnica programada
+DevOps Engineer;Santander;Automatización de despliegues con Docker y Jenkins;pendiente;25/08/2026;https://santander.com/careers/devops;35000.00;Contacto inicial por LinkedIn
+Analista Programador;Everis;Desarrollo y mantenimiento de aplicaciones Java EE;rechazado;01/09/2026;https://everis.com/jobs/analista-prog;25000.00;Proceso cerrado, perfil no encajaba
+Java Developer Semi Senior;Accenture;Desarrollo de servicios backend para cliente retail;aceptado;08/09/2026;https://accenture.com/careers/java-semisenior;33000.00;Oferta aceptada, firma de contrato pendiente
+Frontend Developer React;Telefonica;Desarrollo de interfaces con React y TypeScript;pendiente;15/09/2026;https://telefonica.com/empleo/frontend-react;27000.00;Enviado CV y carta de presentación
+Ingeniero de Datos;Santander;Construcción de pipelines de datos con Python y SQL;entrevista;20/09/2026;https://santander.com/careers/data-engineer;38000.00;Segunda entrevista con el equipo técnico
+Desarrollador Backend Node;Indra;Desarrollo de APIs en Node.js para proyecto logístico;rechazado;27/09/2026;https://indra.com/empleo/backend-node;26000.00;Descartado tras entrevista técnica
+QA Tester Manual;Everis;Pruebas manuales funcionales sobre aplicación web;pendiente;02/10/2026;https://everis.com/jobs/qa-tester;22000.00;A la espera de respuesta inicial
+Arquitecto de Software;Accenture;Diseño de arquitectura para sistema distribuido en la nube;entrevista;06/10/2026;https://accenture.com/careers/arquitecto-sw;48000.00;Entrevista con el arquitecto jefe agendada
+Scrum Master;Santander;Gestión ágil de equipo de desarrollo bancario;aceptado;10/10/2026;https://santander.com/careers/scrum-master;40000.00;Oferta formal recibida y aceptada
+Desarrollador Java Senior;Telefonica;Desarrollo de microservicios Java para plataforma de telecomunicaciones;rechazado;14/10/2026;https://telefonica.com/empleo/java-senior;36000.00;No se avanzó tras la entrevista final

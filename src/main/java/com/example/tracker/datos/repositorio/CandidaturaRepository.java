@@ -1,6 +1,6 @@
-package com.tracker.datos.repositorio;
+package com.example.tracker.datos.repositorio;
 
-import com.tracker.datos.modelo.Candidatura;
+import com.example.tracker.datos.modelo.Candidatura;
 
 import java.util.List;
 

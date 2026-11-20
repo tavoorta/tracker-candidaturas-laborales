@@ -1,8 +1,8 @@
-package com.tracker.datos.repositorio;
+package com.example.tracker.datos.repositorio;
 
-import com.tracker.datos.ayuda.ServicioConfiguracion;
-import com.tracker.datos.enums.EstadoCandidatura;
-import com.tracker.datos.modelo.Candidatura;
+import com.example.tracker.datos.ayuda.ServicioConfiguracion;
+import com.example.tracker.datos.enums.EstadoCandidatura;
+import com.example.tracker.datos.modelo.Candidatura;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

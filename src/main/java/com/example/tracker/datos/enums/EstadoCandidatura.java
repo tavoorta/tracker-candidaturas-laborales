@@ -1,4 +1,4 @@
-package com.tracker.datos.enums;
+package com.example.tracker.datos.enums;
 
 public enum EstadoCandidatura {
 

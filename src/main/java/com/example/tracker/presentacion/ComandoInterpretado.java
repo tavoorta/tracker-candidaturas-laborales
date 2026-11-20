@@ -1,4 +1,4 @@
-package com.tracker.presentacion;
+package com.example.tracker.presentacion;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

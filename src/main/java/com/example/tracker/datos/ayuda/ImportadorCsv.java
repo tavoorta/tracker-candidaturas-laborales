@@ -1,7 +1,7 @@
-package com.tracker.datos.ayuda;
+package com.example.tracker.datos.ayuda;
 
-import com.tracker.datos.modelo.Candidatura;
-import com.tracker.datos.repositorio.FileCandidaturaRepository;
+import com.example.tracker.datos.modelo.Candidatura;
+import com.example.tracker.datos.repositorio.FileCandidaturaRepository;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

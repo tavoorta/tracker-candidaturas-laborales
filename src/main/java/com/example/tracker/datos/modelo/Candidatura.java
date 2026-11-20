@@ -1,6 +1,6 @@
-package com.tracker.datos.modelo;
+package com.example.tracker.datos.modelo;
 
-import com.tracker.datos.enums.EstadoCandidatura;
+import com.example.tracker.datos.enums.EstadoCandidatura;
 import lombok.*;
 
 import java.time.LocalDate;

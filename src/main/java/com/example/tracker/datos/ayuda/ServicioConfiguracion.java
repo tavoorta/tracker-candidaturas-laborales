@@ -1,4 +1,4 @@
-package com.tracker.datos.ayuda;
+package com.example.tracker.datos.ayuda;
 
 import java.io.FileReader;
 import java.io.IOException;

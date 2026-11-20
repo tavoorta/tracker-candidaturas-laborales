@@ -1,7 +1,7 @@
-package com.tracker.presentacion;
+package com.example.tracker.presentacion;
 
-import com.tracker.datos.modelo.Candidatura;
-import com.tracker.negocio.ServicioCandidatura;
+import com.example.tracker.datos.modelo.Candidatura;
+import com.example.tracker.negocio.ServicioCandidatura;
 import lombok.RequiredArgsConstructor;
 
 import java.time.format.DateTimeFormatter;

@@ -1,4 +1,4 @@
-package com.tracker.datos.ayuda;
+package com.example.tracker.datos.ayuda;
 
 import org.sqlite.SQLiteDataSource;
 
