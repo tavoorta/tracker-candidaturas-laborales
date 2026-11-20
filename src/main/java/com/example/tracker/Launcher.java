@@ -1,17 +1,14 @@
-package com.tracker;
+package com.example.tracker;
 
-import com.tracker.datos.ayuda.ImportadorCsv;
-import com.tracker.datos.ayuda.ServicioConfiguracion;
-import com.tracker.datos.repositorio.CandidaturaRepository;
-import com.tracker.datos.repositorio.FileCandidaturaRepository;
-import com.tracker.negocio.ServicioCandidatura;
-import com.tracker.presentacion.ComandoInterpretado;
-import com.tracker.presentacion.EjecutorComandos;
+import javafx.application.Application;
 
-/**
- * Punto de entrada de la aplicación: construye las dependencias de cada capa
- * y ejecuta la operación recibida por línea de comandos.
- */
+public class Launcher {
+    public static void main(String[] args) {
+        Application.launch(HelloApplication.class, args);
+    }
+}
+
+/*
 public class Main {
 
     static void main(String[] args) {
@@ -33,3 +30,4 @@ public class Main {
         }
     }
 }
+*/
