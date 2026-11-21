@@ -10,8 +10,10 @@ target/
 .idea/compiler.xml
 .idea/libraries/
 .idea/dataSources.xml
+.idea/dataSources.local.xml
 .idea/data_source_mapping.xml
 .idea/dataSources/
+.idea/workspace.xml
 *.iws
 *.iml
 *.ipr

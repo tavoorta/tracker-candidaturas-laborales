@@ -8,52 +8,52 @@
 <VBox spacing="16.0"
       xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.tracker.controllers.CandidaturasController"
-      >
+      fx:controller="com.example.tracker.presentacion.controllers.CandidaturasController"
+>
     <padding>
-        <Insets bottom="24.0" left="32.0" right="32.0" top="8.0" />
+        <Insets bottom="24.0" left="32.0" right="32.0" top="8.0"/>
     </padding>
     <Label text="Candidaturas">
         <font>
-            <Font name="System Bold" size="26.0" />
+            <Font name="System Bold" size="26.0"/>
         </font>
     </Label>
     <HBox alignment="CENTER_LEFT" spacing="10.0">
-        <TextField prefWidth="260.0" promptText="Buscar candidatura" />
-        <ComboBox fx:id="comboEstado" prefWidth="170.0" promptText="Todos los estados" />
-        <ComboBox fx:id="comboEmpresa" prefWidth="170.0" promptText="Todas las empresas" />
-        <Region HBox.hgrow="ALWAYS" />
-        <Button mnemonicParsing="false" onAction="#accionPendiente" text="Cargar candidatura" />
+        <TextField fx:id="txtBuscar" prefWidth="260.0" promptText="Buscar candidatura"/>
+        <ComboBox fx:id="comboEstado" prefWidth="170.0" promptText="Todos los estados"/>
+        <ComboBox fx:id="comboEmpresa" prefWidth="170.0" promptText="Todas las empresas"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button mnemonicParsing="false" onAction="#accionPendiente" text="Cargar candidatura"/>
     </HBox>
-    <VBox spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-border-color: #E2E8F0; -fx-border-radius: 12;" VBox.vgrow="ALWAYS">
+    <VBox spacing="10.0"
+          style="-fx-background-color: white; -fx-background-radius: 12; -fx-border-color: #E2E8F0; -fx-border-radius: 12;"
+          VBox.vgrow="ALWAYS">
         <padding>
-            <Insets bottom="16.0" left="20.0" right="20.0" top="16.0" />
+            <Insets bottom="16.0" left="20.0" right="20.0" top="16.0"/>
         </padding>
         <Label style="-fx-text-fill: #0F766E;" text="Todas las candidaturas">
             <font>
-                <Font name="System Bold" size="14.0" />
+                <Font name="System Bold" size="14.0"/>
             </font>
         </Label>
         <TableView fx:id="tablaCandidaturas" prefHeight="340.0" VBox.vgrow="ALWAYS">
             <columns>
-                <TableColumn fx:id="colEmpresa" prefWidth="170.0" text="Empresa" />
-                <TableColumn fx:id="colTitulo" prefWidth="210.0" text="Título" />
-                <TableColumn fx:id="colFecha" prefWidth="150.0" text="Fecha de entrevista" />
-                <TableColumn fx:id="colEstado" prefWidth="140.0" text="Estado" />
-                <TableColumn fx:id="colSalario" prefWidth="110.0" text="Salario" />
-                <TableColumn fx:id="colAcciones" prefWidth="200.0" text="" />
+                <TableColumn fx:id="colEmpresa" prefWidth="170.0" text="Empresa"/>
+                <TableColumn fx:id="colTitulo" prefWidth="210.0" text="Título"/>
+                <TableColumn fx:id="colFecha" prefWidth="150.0" text="Fecha de entrevista"/>
+                <TableColumn fx:id="colEstado" prefWidth="140.0" text="Estado"/>
+                <TableColumn fx:id="colSalario" prefWidth="110.0" text="Salario"/>
+                <TableColumn fx:id="colAcciones" prefWidth="200.0" text=""/>
             </columns>
         </TableView>
         <HBox alignment="CENTER_LEFT" spacing="12.0" style="-fx-border-color: #E2E8F0; -fx-border-width: 1 0 0 0;">
             <padding>
-                <Insets bottom="4.0" left="4.0" right="4.0" top="12.0" />
+                <Insets bottom="4.0" left="4.0" right="4.0" top="12.0"/>
             </padding>
-            <Label fx:id="lblResumen" style="-fx-text-fill: #64748B;" />
-            <Region HBox.hgrow="ALWAYS" />
-            <Button mnemonicParsing="false" onAction="#accionPendiente" text="Anterior" />
-            <Button mnemonicParsing="false" onAction="#accionPendiente" text="1" />
-            <Button mnemonicParsing="false" onAction="#accionPendiente" text="2" />
-            <Button mnemonicParsing="false" onAction="#accionPendiente" text="Siguiente" />
+            <Label fx:id="lblResumen" HBox.hgrow="ALWAYS" maxWidth="Infinity" style="-fx-text-fill: #64748B;"/>
+            <Button fx:id="btnAnterior" mnemonicParsing="false" onAction="#irPaginaAnterior" text="Anterior"/>
+            <HBox fx:id="contenedorPaginas" spacing="12.0"/>
+            <Button fx:id="btnSiguiente" mnemonicParsing="false" onAction="#irPaginaSiguiente" text="Siguiente"/>
         </HBox>
     </VBox>
 </VBox>

@@ -1,9 +1,9 @@
 package com.example.tracker.negocio;
 
-import com.example.tracker.datos.ayuda.ImportadorCsv;
-import com.example.tracker.datos.enums.EstadoCandidatura;
-import com.example.tracker.datos.modelo.Candidatura;
-import com.example.tracker.datos.repositorio.CandidaturaRepository;
+import com.example.tracker.datos.DAO.DAO;
+import com.example.tracker.datos.data.ImportadorCsv;
+import com.example.tracker.datos.enums.EstadoOferta;
+import com.example.tracker.datos.modelo.Oferta;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDate;
@@ -15,58 +15,66 @@ import java.util.List;
 /**
  * Lógica de negocio de las candidaturas: validaciones, filtrado y conversión
  * de los datos de entrada a los tipos del modelo. No sabe de dónde vienen ni
- * a dónde van los datos, eso lo resuelve {@link CandidaturaRepository}.
+ * a dónde van los datos, eso lo resuelve {@link DAO}.
  */
 @RequiredArgsConstructor
-public class ServicioCandidatura {
+public class OfertaCandidatura {
 
-    private final CandidaturaRepository repository;
-    private final ImportadorCsv importadorCsv;
+    private final DAO<Oferta> repository;
+    //private final ImportadorCsv importadorCsv;
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    /**
-     * @param rutaCsv ruta del fichero CSV a importar
-     * @return el número de candidaturas importadas
-     */
+    /*
     public int importar(String rutaCsv) {
-        List<Candidatura> candidaturas = importadorCsv.importarCsv(rutaCsv);
-        for (Candidatura c : candidaturas) {
+        List<Oferta> ofertas = importadorCsv.importarCsv(rutaCsv);
+        for (Oferta c : ofertas) {
             c.setId(0);
             repository.guardar(c);
         }
-        return candidaturas.size();
+        return ofertas.size();
     }
 
-    /**
-     * @param id identificador de la candidatura a eliminar
-     * @throws RuntimeException si no existe ninguna candidatura con ese id
-     */
     public void borrar(int id) {
-        Candidatura candidatura = repository.buscarPorId(id);
-        if (candidatura == null) {
-            throw new RuntimeException("No existe ninguna candidatura con ID " + id);
+        Oferta oferta = repository.buscarPorId(id);
+        if (oferta == null) {
+            throw new RuntimeException("No existe ninguna oferta con ID " + id);
         }
         repository.eliminarPorId(id);
     }
+    */
 
     /**
      * @param estado  nombre del estado a filtrar (ignora mayúsculas/minúsculas), o {@code null}
-     * @param empresa texto a buscar en el nombre de empresa, o {@code null}
+     * @param empresa nombre exacto de la empresa a filtrar, o {@code null}
+     * @param texto   texto a buscar en el título o en el nombre de empresa, o {@code null}
      * @return las candidaturas que cumplen los filtros indicados
      */
-    public List<Candidatura> filtrar(String estado, String empresa) {
-        return repository.buscarTodas().stream()
+    public List<Oferta> filtrar(String estado, String empresa, String texto) {
+        String busqueda = texto == null ? "" : texto.trim().toLowerCase();
+
+        return repository.findAll().stream()
                 .filter(c -> estado == null || c.getEstado().name().equalsIgnoreCase(estado))
-                .filter(c -> empresa == null || c.getEmpresa().toLowerCase().contains(empresa.toLowerCase()))
+                .filter(c -> empresa == null || c.getEmpresa().getNombre().equalsIgnoreCase(empresa))
+                .filter(c -> busqueda.isEmpty()
+                        || c.getTitulo().toLowerCase().contains(busqueda)
+                        || c.getEmpresa().getNombre().toLowerCase().contains(busqueda))
                 .toList();
     }
 
     /**
-     * @param fecha formato dd/MM/yyyy
-     * @throws RuntimeException si falta un campo obligatorio o algún valor es inválido
+     * @return los nombres de las empresas que tienen candidaturas, sin repetir y en orden alfabético
      */
-    public Candidatura anadir(String titulo, String empresa, String estado, String fecha,
-                              String enlace, String notas) {
+    public List<String> listarEmpresas() {
+        return repository.findAll().stream()
+                .map(c -> c.getEmpresa().getNombre())
+                .distinct()
+                .sorted(String.CASE_INSENSITIVE_ORDER)
+                .toList();
+    }
+
+    /*
+    public Oferta anadir(String titulo, String empresa, String estado, String fecha,
+                         String enlace, String notas) {
         validarObligatorio(titulo, "titulo");
         validarObligatorio(empresa, "empresa");
         validarObligatorio(estado, "estado");
@@ -76,27 +84,22 @@ public class ServicioCandidatura {
         validarSinSeparador(enlace, "enlace");
         validarSinSeparador(notas, "notas");
 
-        EstadoCandidatura estadoCandidatura = parsearEstado(estado);
+        EstadoOferta estadoOferta = parsearEstado(estado);
         LocalDate fechaPostulacion = parsearFecha(fecha);
 
-        Candidatura candidatura = new Candidatura(0, titulo, empresa, estadoCandidatura,
+        Oferta oferta = new Oferta(0, titulo, empresa, estadoOferta,
                 fechaPostulacion, enlace, notas);
-        return repository.guardar(candidatura);
+        return repository.guardar(oferta);
     }
 
-    /**
-     * @param id identificador de la candidatura
-     * @return la candidatura encontrada
-     * @throws RuntimeException si no existe ninguna candidatura con ese id
-     */
-    public Candidatura ver(int id) {
-        Candidatura candidatura = repository.buscarPorId(id);
-        if (candidatura == null) {
-            throw new RuntimeException("No existe ninguna candidatura con ID " + id);
+    public Oferta ver(int id) {
+        Oferta oferta = repository.buscarPorId(id);
+        if (oferta == null) {
+            throw new RuntimeException("No existe ninguna oferta con ID " + id);
         }
-        return candidatura;
+        return oferta;
     }
-
+    */
 
     //region Metodos privados de validación y parseo
 
@@ -112,12 +115,12 @@ public class ServicioCandidatura {
         }
     }
 
-    private EstadoCandidatura parsearEstado(String estado) {
+    private EstadoOferta parsearEstado(String estado) {
         try {
-            return EstadoCandidatura.valueOf(estado.toUpperCase());
+            return EstadoOferta.valueOf(estado.toUpperCase());
         } catch (IllegalArgumentException e) {
             throw new RuntimeException("Estado no válido: '" + estado
-                    + "'. Valores permitidos: " + Arrays.toString(EstadoCandidatura.values()));
+                    + "'. Valores permitidos: " + Arrays.toString(EstadoOferta.values()));
         }
     }
 

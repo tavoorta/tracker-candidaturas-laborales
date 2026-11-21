@@ -1,3 +1,4 @@
+/*
 package com.example.tracker.presentacion;
 
 import lombok.AllArgsConstructor;
@@ -6,10 +7,12 @@ import lombok.Getter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+*/
 /**
  * Datos de un comando ya interpretado (operación, argumento posicional y
  * opciones {@code --flag valor}) y la lógica que los extrae de {@code args}.
- */
+ *//*
+
 @Getter
 @AllArgsConstructor
 public class ComandoInterpretado {
@@ -49,3 +52,4 @@ public class ComandoInterpretado {
         return new ComandoInterpretado(operacion, argumentoPosicional, opciones);
     }
 }
+*/

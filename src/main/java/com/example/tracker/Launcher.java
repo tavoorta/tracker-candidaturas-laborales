@@ -4,7 +4,7 @@ import javafx.application.Application;
 
 public class Launcher {
     public static void main(String[] args) {
-        Application.launch(HelloApplication.class, args);
+        Application.launch(App.class, args);
     }
 }
 
@@ -15,10 +15,10 @@ public class Main {
 
         try {
             ServicioConfiguracion configuracion = new ServicioConfiguracion();
-            CandidaturaRepository repository = new FileCandidaturaRepository(configuracion);
+            OfertaRepository repository = new FileOfertaRepository(configuracion);
 
             ImportadorCsv importadorCsv = new ImportadorCsv();
-            ServicioCandidatura servicio = new ServicioCandidatura(repository, importadorCsv);
+            OfertaCandidatura servicio = new OfertaCandidatura(repository, importadorCsv);
             EjecutorComandos ejecutor = new EjecutorComandos(servicio);
 
             ComandoInterpretado comando = ComandoInterpretado.analizar(args);

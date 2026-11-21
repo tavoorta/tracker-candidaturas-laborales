@@ -8,7 +8,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane style="-fx-background-color: #222222;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tracker.controllers.ShellController">
+<BorderPane style="-fx-background-color: #222222;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tracker.presentacion.controllers.ShellController">
     <left>
         <BorderPane prefWidth="220.0" style="-fx-background-color: #222222;">
             <!-- Parte superior: Logo y opciones centrales -->
@@ -16,13 +16,10 @@
                 <VBox spacing="4.0" style="-fx-background-color: #222222;">
                     <ImageView fitHeight="86.0" fitWidth="220.0">
                         <VBox.margin>
-                            <Insets bottom="50.0" top="35.0" />
+                            <Insets bottom="74.0" top="35.0" />
                         </VBox.margin>
                         <Image url="@../images/logo.png" />
                     </ImageView>
-
-                    <!-- Espaciador para centrar verticalmente -->
-                    <Region minHeight="20.0" style="-fx-background-color: #222222;" />
 
                     <!-- Dashboard -->
                     <Label fx:id="btnDashboard" graphicTextGap="12.0" maxWidth="220.0" onMouseClicked="#irDashboard" style="-fx-text-fill: white; -fx-background-color: #0F766E; -fx-background-radius: 0; -fx-padding: 12 16; -fx-cursor: hand;" text="Dashboard">
@@ -75,7 +72,7 @@
                     <padding>
                         <Insets bottom="20.0" left="32.0" right="32.0" top="20.0" />
                     </padding>
-                    <Button mnemonicParsing="false" onAction="#accionPendiente" text="Modo oscuro" />
+                    <Button mnemonicParsing="false" onAction="#modoOscuro" text="Modo oscuro" />
                     <TextField prefWidth="320.0" promptText="Buscar" />
                     <Region HBox.hgrow="ALWAYS" />
                     <Label text="Notificaciones" />
@@ -99,7 +96,6 @@
                 </HBox>
             </top>
             <center>
-
                 <!-- Parte central para agregar todas las vistas -->
                 <StackPane fx:id="contenido" style="-fx-background-color: #EEF1F4;" />
             </center>

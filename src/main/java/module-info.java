@@ -7,7 +7,7 @@ module tracker.ofertas.laborales {
 
     opens com.example.tracker to javafx.fxml;
     exports com.example.tracker;
-    exports com.example.tracker.controllers;
-    opens com.example.tracker.controllers to javafx.fxml;
+    exports com.example.tracker.presentacion.controllers;
+    opens com.example.tracker.presentacion.controllers to javafx.fxml;
 
 }

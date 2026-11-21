@@ -24,7 +24,6 @@ public class OfertaDAO implements DAO<Oferta> {
                     "JOIN EMPRESA e ON o.EmpresaId = e.EmpresaId " +
                     "WHERE o.Active = 1";
 
-
     private static String sqlInsert = "INSERT INTO OFERTA (EmpresaId, Titulo, Descripcion, Estado, FechaPostulacion, Enlace, Salario, Notas) "
             + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 

@@ -1,27 +1,32 @@
+/*
 package com.example.tracker.presentacion;
 
-import com.example.tracker.datos.modelo.Candidatura;
-import com.example.tracker.negocio.ServicioCandidatura;
+import com.example.tracker.datos.modelo.Oferta;
+import com.example.tracker.negocio.OfertaCandidatura;
 import lombok.RequiredArgsConstructor;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
+*/
 /**
  * Ejecuta un {@link ComandoInterpretado}: llama al método correspondiente de
- * {@link ServicioCandidatura} y muestra el resultado por consola.
- */
+ * {@link OfertaCandidatura} y muestra el resultado por consola.
+ *//*
+
 @RequiredArgsConstructor
 public class EjecutorComandos {
 
-    private final ServicioCandidatura servicio;
+    private final OfertaCandidatura servicio;
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    /**
+    */
+/**
      * @param comando comando ya interpretado
      * @throws IllegalArgumentException si la operación no es reconocida
-     */
+     *//*
+
     public void ejecutar(ComandoInterpretado comando) {
         switch (comando.getOperacion()) {
             case "-listar" -> listar(comando);
@@ -37,7 +42,7 @@ public class EjecutorComandos {
 
     private void listar(ComandoInterpretado comando) {
         Map<String, String> opciones = comando.getOpciones();
-        List<Candidatura> resultado = servicio.filtrar(opciones.get("estado"), opciones.get("empresa"));
+        List<Oferta> resultado = servicio.filtrar(opciones.get("estado"), opciones.get("empresa"));
 
         if (resultado.isEmpty()) {
             System.out.println("No hay candidaturas que coincidan con los filtros indicados.");
@@ -45,7 +50,7 @@ public class EjecutorComandos {
         }
 
         System.out.println("ID    TITULO    EMPRESA    ESTADO    FECHA");
-        for (Candidatura c : resultado) {
+        for (Oferta c : resultado) {
             System.out.println(c.getId() + "  " + c.getTitulo() + "  " + c.getEmpresa() + "  "
                     + c.getEstado().name().toLowerCase() + "  " + c.getFechaPostulacion().format(DATE_FORMAT));
         }
@@ -55,7 +60,7 @@ public class EjecutorComandos {
 
     private void anadir(ComandoInterpretado comando) {
         Map<String, String> opciones = comando.getOpciones();
-        Candidatura nueva = servicio.anadir(
+        Oferta nueva = servicio.anadir(
                 opciones.get("titulo"),
                 opciones.get("empresa"),
                 opciones.get("estado"),
@@ -63,12 +68,12 @@ public class EjecutorComandos {
                 opciones.get("enlace"),
                 opciones.get("notas")
         );
-        System.out.println("Candidatura añadida correctamente con ID " + nueva.getId());
+        System.out.println("Oferta añadida correctamente con ID " + nueva.getId());
     }
 
     private void ver(ComandoInterpretado comando) {
         int id = obtenerId(comando.getArgumentoPosicional());
-        Candidatura c = servicio.ver(id);
+        Oferta c = servicio.ver(id);
         System.out.println("ID:                " + c.getId());
         System.out.println("Titulo:            " + c.getTitulo());
         System.out.println("Empresa:           " + c.getEmpresa());
@@ -82,7 +87,7 @@ public class EjecutorComandos {
     private void borrar(ComandoInterpretado comando) {
         int id = obtenerId(comando.getArgumentoPosicional());
         servicio.borrar(id);
-        System.out.println("Candidatura " + id + " eliminada correctamente.");
+        System.out.println("Oferta " + id + " eliminada correctamente.");
     }
 
     private int obtenerId(String crudo) {
@@ -110,3 +115,4 @@ public class EjecutorComandos {
 
     //endregion Metodos privados
 }
+*/

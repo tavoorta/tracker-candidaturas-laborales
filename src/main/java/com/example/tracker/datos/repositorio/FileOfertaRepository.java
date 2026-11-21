@@ -1,8 +1,9 @@
+/*
 package com.example.tracker.datos.repositorio;
 
-import com.example.tracker.datos.ayuda.ServicioConfiguracion;
-import com.example.tracker.datos.enums.EstadoCandidatura;
-import com.example.tracker.datos.modelo.Candidatura;
+import com.example.tracker.datos.data.ServicioConfiguracion;
+import com.example.tracker.datos.enums.EstadoOferta;
+import com.example.tracker.datos.modelo.Oferta;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -14,32 +15,36 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+*/
 /**
- * Implementación de {@link CandidaturaRepository} que persiste las candidaturas
+ * Implementación de {@link OfertaRepository} que persiste las candidaturas
  * en un fichero de texto plano, con los campos separados por {@code ;}.
- */
-public class FileCandidaturaRepository implements CandidaturaRepository {
+ *//*
+
+public class FileOfertaRepository implements OfertaRepository {
 
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     private final Path rutaFichero;
 
-    /** @param configuracion servicio del que se lee la propiedad {@code fichero} */
-    public FileCandidaturaRepository(ServicioConfiguracion configuracion) {
+    */
+/** @param configuracion servicio del que se lee la propiedad {@code fichero} *//*
+
+    public FileOfertaRepository(ServicioConfiguracion configuracion) {
         this.rutaFichero = Path.of(configuracion.obtenerPropiedad("fichero"));
     }
 
-    public static Candidatura crearCandidaturaDeString(String linea) {
+    public static Oferta crearCandidaturaDeString(String linea) {
         String[] campos = linea.split(";", -1);
         if (campos.length < 7) {
             throw new RuntimeException("Línea con formato inválido, se esperan 7 campos: " + linea);
         }
         try {
-            return new Candidatura(
+            return new Oferta(
                     Integer.parseInt(campos[0].trim()),
                     campos[1].trim(),
                     campos[2].trim(),
-                    EstadoCandidatura.valueOf(campos[3].trim().toUpperCase()),
+                    EstadoOferta.valueOf(campos[3].trim().toUpperCase()),
                     LocalDate.parse(campos[4].trim(), DATE_FORMAT),
                     campos[5].trim(),
                     campos[6].trim()
@@ -50,39 +55,39 @@ public class FileCandidaturaRepository implements CandidaturaRepository {
     }
 
     @Override
-    public Candidatura guardar(Candidatura candidatura) {
-        List<Candidatura> todas = buscarTodas();
+    public Oferta guardar(Oferta oferta) {
+        List<Oferta> todas = buscarTodas();
 
-        if (candidatura.getId() <= 0) {
-            candidatura.setId(obtenerSiguienteId(todas));
+        if (oferta.getId() <= 0) {
+            oferta.setId(obtenerSiguienteId(todas));
         }
 
-        todas.add(candidatura);
+        todas.add(oferta);
         escribirTodas(todas);
-        return candidatura;
+        return oferta;
     }
 
     @Override
-    public List<Candidatura> buscarTodas() {
+    public List<Oferta> buscarTodas() {
         if (!Files.exists(rutaFichero)) {
             return new ArrayList<>();
         }
         try {
-            List<Candidatura> candidaturas = new ArrayList<>();
+            List<Oferta> ofertas = new ArrayList<>();
             for (String linea : Files.readAllLines(rutaFichero, StandardCharsets.UTF_8)) {
                 if (!linea.isBlank()) {
-                    candidaturas.add(crearCandidaturaDeString(linea));
+                    ofertas.add(crearCandidaturaDeString(linea));
                 }
             }
-            return candidaturas;
+            return ofertas;
         } catch (IOException e) {
             throw new RuntimeException("No se pudo leer el fichero de candidaturas: " + rutaFichero, e);
         }
     }
 
     @Override
-    public Candidatura buscarPorId(int id) {
-        for (Candidatura c : buscarTodas()) {
+    public Oferta buscarPorId(int id) {
+        for (Oferta c : buscarTodas()) {
             if (c.getId() == id) {
                 return c;
             }
@@ -92,7 +97,7 @@ public class FileCandidaturaRepository implements CandidaturaRepository {
 
     @Override
     public void eliminarPorId(int id) {
-        List<Candidatura> todas = buscarTodas();
+        List<Oferta> todas = buscarTodas();
         boolean eliminado = todas.removeIf(c -> c.getId() == id);
         if (!eliminado) {
             throw new RuntimeException("No existe ninguna candidatura con ID " + id);
@@ -100,7 +105,7 @@ public class FileCandidaturaRepository implements CandidaturaRepository {
         escribirTodas(todas);
     }
 
-    public static String crearStringDeCandidatura(Candidatura c) {
+    public static String crearStringDeCandidatura(Oferta c) {
         return c.getId() + ";" +
                 c.getTitulo() + ";" +
                 c.getEmpresa() + ";" +
@@ -112,20 +117,20 @@ public class FileCandidaturaRepository implements CandidaturaRepository {
 
     //region Metodos privados
 
-    private void escribirTodas(List<Candidatura> candidaturas) {
+    private void escribirTodas(List<Oferta> ofertas) {
         try {
-            List<String> lineas = candidaturas.stream()
-                    .map(FileCandidaturaRepository::crearStringDeCandidatura)
+            List<String> lineas = ofertas.stream()
+                    .map(FileOfertaRepository::crearStringDeCandidatura)
                     .toList();
             Files.write(rutaFichero, lineas, StandardCharsets.UTF_8);
         } catch (IOException e) {
-            throw new RuntimeException("No se pudo escribir en el fichero de candidaturas: " + rutaFichero, e);
+            throw new RuntimeException("No se pudo escribir en el fichero de ofertas: " + rutaFichero, e);
         }
     }
 
-    private int obtenerSiguienteId(List<Candidatura> candidaturas) {
+    private int obtenerSiguienteId(List<Oferta> ofertas) {
         int maxId = 0;
-        for (Candidatura c : candidaturas) {
+        for (Oferta c : ofertas) {
             if (c.getId() > maxId) {
                 maxId = c.getId();
             }
@@ -135,3 +140,4 @@ public class FileCandidaturaRepository implements CandidaturaRepository {
 
     //endregion Metodos privados
 }
+*/
