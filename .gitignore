@@ -9,6 +9,9 @@ target/
 .idea/jarRepositories.xml
 .idea/compiler.xml
 .idea/libraries/
+.idea/dataSources.xml
+.idea/data_source_mapping.xml
+.idea/dataSources/
 *.iws
 *.iml
 *.ipr
@@ -37,3 +40,6 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Base de datos local (se genera al ejecutar) ###
+tracker.db

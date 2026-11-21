@@ -1,0 +1,94 @@
+package com.example.tracker.datos.data;
+
+import com.example.tracker.datos.enums.EstadoOferta;
+import com.example.tracker.datos.modelo.Empresa;
+import com.example.tracker.datos.modelo.Oferta;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Lee los CSV de datos iniciales y los convierte en objetos del modelo.
+ * Solo lee los ficheros: no guarda nada en la base de datos.
+ * - empresas.csv:     nombre;sector;web;ubicacion;linkedin;notas
+ * - candidaturas.csv: titulo;empresa;descripcion;estado;fechaPostulacion;enlace;salario;notas
+ */
+public class ImportadorCsv {
+
+    private static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    public List<Empresa> importarEmpresas(String rutaCsv) {
+        List<Empresa> empresas = new ArrayList<>();
+        for (String linea : leerLineas(rutaCsv, "nombre;")) {
+            empresas.add(crearEmpresaDeString(linea));
+        }
+        return empresas;
+    }
+
+    public List<Oferta> importarCsv(String rutaCsv) {
+        List<Oferta> ofertas = new ArrayList<>();
+        for (String linea : leerLineas(rutaCsv, "titulo;")) {
+            ofertas.add(crearOfertaDeString(linea));
+        }
+        return ofertas;
+    }
+
+    /** Devuelve las líneas del fichero sin la cabecera ni las líneas vacías. */
+    private List<String> leerLineas(String rutaCsv, String inicioCabecera) {
+        Path ruta = Path.of(rutaCsv);
+        if (!Files.exists(ruta)) {
+            throw new RuntimeException("No se encontró el fichero CSV: " + rutaCsv);
+        }
+
+        try {
+            List<String> salida = new ArrayList<>();
+            for (String linea : Files.readAllLines(ruta, StandardCharsets.UTF_8)) {
+                if (!linea.isBlank() && !linea.toLowerCase().startsWith(inicioCabecera)) {
+                    salida.add(linea);
+                }
+            }
+            return salida;
+        } catch (IOException e) {
+            throw new RuntimeException("Error al leer el fichero CSV: " + rutaCsv, e);
+        }
+    }
+
+    private Empresa crearEmpresaDeString(String linea) {
+        String[] campos = linea.split(";", -1);
+
+        Empresa empresa = new Empresa();
+        empresa.setNombre(campos[0]);
+        empresa.setSector(campos[1]);
+        empresa.setWeb(campos[2]);
+        empresa.setUbicacion(campos[3]);
+        empresa.setLinkedIn(campos[4]);
+        empresa.setNotas(campos[5]);
+        empresa.setFechaRegistro(LocalDate.now());
+        return empresa;
+    }
+
+    private Oferta crearOfertaDeString(String linea) {
+        String[] campos = linea.split(";", -1);
+
+        // La empresa solo trae el nombre; se reemplaza por la empresa guardada en la BD
+        Empresa empresa = new Empresa();
+        empresa.setNombre(campos[1]);
+
+        Oferta oferta = new Oferta();
+        oferta.setTitulo(campos[0]);
+        oferta.setEmpresa(empresa);
+        oferta.setDescripcion(campos[2]);
+        oferta.setEstado(EstadoOferta.valueOf(campos[3].toUpperCase()));
+        oferta.setFechaPostulacion(LocalDate.parse(campos[4], FORMATO_FECHA));
+        oferta.setEnlace(campos[5]);
+        oferta.setSalario(campos[6].isBlank() ? 0 : Double.parseDouble(campos[6]));
+        oferta.setNotas(campos[7]);
+        return oferta;
+    }
+}

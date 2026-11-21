@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="362c0153-1bfa-4374-b8ee-6b03aee693ad" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/empresas.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/identifier.sqlite" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/tracker/datos/DAO/DAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/tracker/datos/DAO/EmpresaDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/tracker/datos/DAO/OfertaDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/tracker/datos/data/ImportadorCsv.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/tracker/datos/data/InicializadorBaseDatos.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/tracker/datos/data/PruebaConexion.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/tracker/datos/modelo/Actividad.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/tracker/datos/modelo/Empresa.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/tracker/datos/modelo/Entrevista.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/tracker/datos/repositorio/OfertaRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.properties" beforeDir="false" afterPath="$PROJECT_DIR$/app.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/configDB.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tracker/Launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tracker/Launcher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tracker/datos/ayuda/ConexionBaseDatos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tracker/datos/data/DataSourceFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tracker/datos/ayuda/ImportadorCsv.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tracker/datos/ayuda/PruebaConexion.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tracker/datos/ayuda/ServicioConfiguracion.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tracker/datos/enums/EstadoCandidatura.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tracker/datos/enums/EstadoOferta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tracker/datos/modelo/Candidatura.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tracker/datos/modelo/Oferta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tracker/datos/repositorio/CandidaturaRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tracker/datos/repositorio/FileCandidaturaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tracker/datos/repositorio/FileOfertaRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tracker/negocio/ServicioCandidatura.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tracker/negocio/OfertaCandidatura.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tracker/presentacion/ComandoInterpretado.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tracker/presentacion/ComandoInterpretado.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/tracker/presentacion/EjecutorComandos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/tracker/presentacion/EjecutorComandos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/database/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/database/schema.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/candidaturas-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/candidaturas-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/shell-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/shell-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tracker.db" beforeDir="false" afterPath="$PROJECT_DIR$/tracker.db" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CopilotPersistence">
+    <persistenceIdMap>
+      <entry key="_C:/Users/ggaro/OneDrive - Cesur-GCoremsa/Documentos CESUR/Daw2026-2027/Acceso a datos - Francisco Romero/Ejercicio integrador T1/tracker-candidaturas-laborales" value="3MQKDcirjEWxTQn0FpErKOlfPlz" />
+    </persistenceIdMap>
+  </component>
+  <component name="DatabaseLocalColorSettings">
+    <colors>
+      <entry key="1fb29843-02fb-4a66-b7db-a9b000e7ecc4" value="" />
+    </colors>
+  </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="51" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "tavoorta"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/tavoorta/tracker-candidaturas-laborales.git",
+    "accountId": "73486cdd-5f46-40b0-ab19-c2a968908ba7"
+  }
+}]]></component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 0
+}]]></component>
+  <component name="ProjectId" id="3MQKDeVjASKAIFOhZCFa3yWTgpv" />
+  <component name="ProjectSessionTemplates">
+    <option name="version" value="1" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Conexion.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "copilot.chat.legacySessionMetadata.migrated": "true",
+    "git-widget-placeholder": "main",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/ggaro/OneDrive - Cesur-GCoremsa/Documentos CESUR/Daw2026-2027/Acceso a datos - Francisco Romero/Ejercicio integrador T1/tracker-candidaturas-laborales",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "to.speed.mode.migration.done": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "sqlite"
+    ]
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="Conexion" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="com.example.tracker.datos.data.PruebaConexion" />
+      <module name="tracker-ofertas-laborales" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-a203e0a19954-intellij.indexing.shared.core-IU-262.10968.63" />
+        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-IU-262.10968.63" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="362c0153-1bfa-4374-b8ee-6b03aee693ad" name="Changes" comment="" />
+      <created>1795277232990</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1795277232990</updated>
+      <workItem from="1795277234003" duration="348000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

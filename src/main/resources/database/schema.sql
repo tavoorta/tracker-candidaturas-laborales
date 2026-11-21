@@ -3,6 +3,9 @@ create table if not exists EMPRESA (
     Nombre        VARCHAR(100) not null,
     Sector        VARCHAR(60),
     Web           VARCHAR(150),
+    Ubicacion     VARCHAR(100),
+    LinkedIn      VARCHAR(150),
+    Notas         VARCHAR(255),
     FechaRegistro DATE not null,
     Active        BOOLEAN not null default 1
 );

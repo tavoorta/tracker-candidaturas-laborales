@@ -1,6 +1,6 @@
 package com.example.tracker.datos.enums;
 
-public enum EstadoCandidatura {
+public enum EstadoOferta {
 
     /** La candidatura se ha enviado y aún no hay respuesta. */
     PENDIENTE,

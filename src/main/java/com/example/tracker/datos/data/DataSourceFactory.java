@@ -1,4 +1,4 @@
-package com.example.tracker.datos.ayuda;
+package com.example.tracker.datos.data;
 
 import org.sqlite.SQLiteDataSource;
 
@@ -9,38 +9,37 @@ import java.util.Properties;
 
 /**
  * Crea y guarda el único {@link DataSource} de la aplicación, apuntando al
- * archivo SQLite indicado en {@code configDB.properties}.
+ * archivo SQLite indicado en la propiedad {@code db.url} de {@code app.properties}.
  */
-public class ConexionBaseDatos {
+public class DataSourceFactory {
 
-    private static DataSource dataSource;
+    private static final String archivoConfiguracion = "app.properties";
+
+    private static DataSource dataSource = null;
 
     public static DataSource getDataSource() {
-
         if (dataSource == null) {
-            String url = leerUrlDesdeConfig();
+            String url = leerUrl();
 
             SQLiteDataSource ds = new SQLiteDataSource();
             ds.setUrl(url);
             dataSource = ds;
         }
-
         return dataSource;
     }
 
-    private static String leerUrlDesdeConfig() {
-
+    private static String leerUrl() {
         Properties propiedades = new Properties();
 
-        try (var lector = new FileReader("configDB.properties")) {
+        try (var lector = new FileReader(archivoConfiguracion)) {
             propiedades.load(lector);
         } catch (IOException e) {
-            throw new RuntimeException("No se pudo cargar el fichero de configuración configDB.properties", e);
+            throw new RuntimeException("No se pudo cargar el fichero de configuración " + archivoConfiguracion, e);
         }
 
         String url = propiedades.getProperty("db.url");
         if (url == null || url.isBlank()) {
-            throw new RuntimeException("Falta la propiedad 'db.url' en configDB.properties");
+            throw new RuntimeException("Falta la propiedad 'db.url' en " + archivoConfiguracion);
         }
         return url;
     }

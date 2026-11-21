@@ -1,6 +1,6 @@
 package com.example.tracker.datos.modelo;
 
-import com.example.tracker.datos.enums.EstadoCandidatura;
+import com.example.tracker.datos.enums.EstadoOferta;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -10,12 +10,15 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Candidatura {
-    private int id;
+public class Oferta {
+    private Long ofertaId;
+    private Empresa empresa;
     private String titulo;
-    private String empresa;
-    private EstadoCandidatura estado;
+    private String descripcion;
+    private EstadoOferta estado;
     private LocalDate fechaPostulacion;
     private String enlace;
+    private double salario;
     private String notas;
+    private boolean active;
 }

@@ -1,4 +1,4 @@
-module tracker.candidaturas.laborales {
+module tracker.ofertas.laborales {
     requires javafx.controls;
     requires javafx.fxml;
     requires static lombok;
