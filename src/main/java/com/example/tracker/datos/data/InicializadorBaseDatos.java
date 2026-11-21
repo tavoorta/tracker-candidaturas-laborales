@@ -12,18 +12,18 @@ import java.sql.Statement;
 
 public class InicializadorBaseDatos {
 
-    public static void initialize(DataSource ds) {
-        executeScript(ds, "/database/schema.sql");
+    public static void initialize(DataSource dataSource) {
+        executeScript(dataSource, "/database/schema.sql");
     }
 
-    private static void executeScript(DataSource ds, String resourcePath) {
-        InputStream is = InicializadorBaseDatos.class.getResourceAsStream(resourcePath);
-        if (is == null) {
+    private static void executeScript(DataSource dataSource, String resourcePath) {
+        InputStream inputStream = InicializadorBaseDatos.class.getResourceAsStream(resourcePath);
+        if (inputStream == null) {
             throw new RuntimeException("No se encontró el recurso " + resourcePath);
         }
 
         StringBuilder script = new StringBuilder();
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String trimmed = line.trim();
@@ -36,7 +36,7 @@ public class InicializadorBaseDatos {
             throw new RuntimeException(e);
         }
 
-        try (Connection conn = ds.getConnection();
+        try (Connection conn = dataSource.getConnection();
              Statement st = conn.createStatement()) {
             for (String statement : script.toString().split(";")) {
                 if (!statement.isBlank()) {

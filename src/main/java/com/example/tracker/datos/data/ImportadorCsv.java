@@ -1,5 +1,6 @@
 package com.example.tracker.datos.data;
 
+import com.example.tracker.datos.DAO.DAO;
 import com.example.tracker.datos.enums.EstadoOferta;
 import com.example.tracker.datos.modelo.Empresa;
 import com.example.tracker.datos.modelo.Oferta;
@@ -14,8 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Lee los CSV de datos iniciales y los convierte en objetos del modelo.
- * Solo lee los ficheros: no guarda nada en la base de datos.
+ * Carga los datos iniciales de los CSV en la base de datos, solo si las tablas están vacías.
  * - empresas.csv:     nombre;sector;web;ubicacion;linkedin;notas
  * - candidaturas.csv: titulo;empresa;descripcion;estado;fechaPostulacion;enlace;salario;notas
  */
@@ -23,7 +23,55 @@ public class ImportadorCsv {
 
     private static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    public List<Empresa> importarEmpresas(String rutaCsv) {
+    private final DAO<Empresa> empresaDAO;
+    private final DAO<Oferta> ofertaDAO;
+
+    public ImportadorCsv(DAO<Empresa> empresaDAO, DAO<Oferta> ofertaDAO) {
+        this.empresaDAO = empresaDAO;
+        this.ofertaDAO = ofertaDAO;
+    }
+
+    /**
+     * Importa primero las empresas y después las ofertas, para que cada oferta
+     * encuentre su empresa ya guardada. Si una tabla ya tiene datos, no la toca.
+     */
+    public void importar(String rutaEmpresas, String rutaOfertas) {
+
+        if (empresaDAO.findAll().isEmpty()) {
+            for (Empresa empresa : leerEmpresas(rutaEmpresas)) {
+                empresaDAO.save(empresa);
+            }
+        }
+
+        if (ofertaDAO.findAll().isEmpty()) {
+            List<Empresa> empresas = empresaDAO.findAll();
+
+            for (Oferta oferta : leerOfertas(rutaOfertas)) {
+                Empresa empresa = buscarEmpresa(empresas, oferta.getEmpresa().getNombre());
+
+                if (empresa == null) {
+                    empresa = oferta.getEmpresa();
+                    empresa.setFechaRegistro(LocalDate.now());
+                    empresaDAO.save(empresa);
+                    empresas.add(empresa);
+                }
+
+                oferta.setEmpresa(empresa);
+                ofertaDAO.save(oferta);
+            }
+        }
+    }
+
+    private Empresa buscarEmpresa(List<Empresa> empresas, String nombre) {
+        for (Empresa empresa : empresas) {
+            if (empresa.getNombre().equalsIgnoreCase(nombre)) {
+                return empresa;
+            }
+        }
+        return null;
+    }
+
+    private List<Empresa> leerEmpresas(String rutaCsv) {
         List<Empresa> empresas = new ArrayList<>();
         for (String linea : leerLineas(rutaCsv, "nombre;")) {
             empresas.add(crearEmpresaDeString(linea));
@@ -31,7 +79,7 @@ public class ImportadorCsv {
         return empresas;
     }
 
-    public List<Oferta> importarCsv(String rutaCsv) {
+    private List<Oferta> leerOfertas(String rutaCsv) {
         List<Oferta> ofertas = new ArrayList<>();
         for (String linea : leerLineas(rutaCsv, "titulo;")) {
             ofertas.add(crearOfertaDeString(linea));
@@ -76,7 +124,6 @@ public class ImportadorCsv {
     private Oferta crearOfertaDeString(String linea) {
         String[] campos = linea.split(";", -1);
 
-        // La empresa solo trae el nombre; se reemplaza por la empresa guardada en la BD
         Empresa empresa = new Empresa();
         empresa.setNombre(campos[1]);
 

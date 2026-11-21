@@ -143,10 +143,11 @@ db.url=jdbc:sqlite:tracker.db
 
 ### Carga inicial de datos
 
-`PruebaConexion` (paquete `datos.ayuda`) crea las tablas a partir de `schema.sql` si no
-existen e importa [`ofertas.csv`](./ofertas.csv) **solo si la tabla `OFERTA`
-está vacía**, para no duplicar los datos en cada ejecución. Las empresas del CSV se
-insertan en `EMPRESA` y cada oferta guarda su `EmpresaId`.
+Al arrancar la aplicación, `InicializadorBaseDatos` crea las tablas a partir de `schema.sql`
+si no existen y `ImportadorCsv` carga [`empresas.csv`](./empresas.csv) y
+[`candidaturas.csv`](./candidaturas.csv) **solo si las tablas están vacías**, para no
+duplicar los datos en cada ejecución. Primero se insertan las empresas y después las
+ofertas, que guardan el `EmpresaId` de su empresa.
 
 ### Interfaz gráfica
 
