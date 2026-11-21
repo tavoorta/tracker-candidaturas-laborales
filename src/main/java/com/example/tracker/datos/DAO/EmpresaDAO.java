@@ -19,6 +19,9 @@ public class EmpresaDAO implements DAO<Empresa> {
     private static String sqlSelect = "SELECT * FROM EMPRESA WHERE Active = 1";
     private static String sqlInsert = "INSERT INTO EMPRESA (Nombre, Sector, Web, Ubicacion, LinkedIn, Notas, FechaRegistro) "
             + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+    private static String sqlUpdate = "UPDATE EMPRESA SET Nombre = ?, Sector = ?, Web = ?, Ubicacion = ?, LinkedIn = ?, "
+            + "Notas = ?, FechaRegistro = ? WHERE EmpresaId = ?";
+    private static String sqlDelete = "UPDATE EMPRESA SET Active = 0 WHERE EmpresaId = ?";
 
     @Override
     public List<Empresa> findAll() {
@@ -65,6 +68,40 @@ public class EmpresaDAO implements DAO<Empresa> {
             throw new RuntimeException(e);
         }
         return entity;
+    }
+
+    @Override
+    public void update(Empresa entity) {
+        try (Connection conn = ds.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sqlUpdate)) {
+
+            ps.setString(1, entity.getNombre());
+            ps.setString(2, entity.getSector());
+            ps.setString(3, entity.getWeb());
+            ps.setString(4, entity.getUbicacion());
+            ps.setString(5, entity.getLinkedIn());
+            ps.setString(6, entity.getNotas());
+            ps.setString(7, entity.getFechaRegistro() != null ? entity.getFechaRegistro().toString() : null);
+            ps.setLong(8, entity.getEmpresaId());
+
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        try (Connection conn = ds.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sqlDelete)) {
+
+            ps.setLong(1, id);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     //region Method Mapper

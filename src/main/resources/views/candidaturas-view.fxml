@@ -23,7 +23,7 @@
         <ComboBox fx:id="comboEstado" prefWidth="170.0" promptText="Todos los estados"/>
         <ComboBox fx:id="comboEmpresa" prefWidth="170.0" promptText="Todas las empresas"/>
         <Region HBox.hgrow="ALWAYS"/>
-        <Button mnemonicParsing="false" onAction="#accionPendiente" text="Cargar candidatura"/>
+        <Button mnemonicParsing="false" onAction="#nuevaOferta" text="Cargar candidatura"/>
     </HBox>
     <VBox spacing="10.0"
           style="-fx-background-color: white; -fx-background-radius: 12; -fx-border-color: #E2E8F0; -fx-border-radius: 12;"

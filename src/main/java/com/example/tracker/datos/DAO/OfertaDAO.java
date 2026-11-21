@@ -27,6 +27,11 @@ public class OfertaDAO implements DAO<Oferta> {
     private static String sqlInsert = "INSERT INTO OFERTA (EmpresaId, Titulo, Descripcion, Estado, FechaPostulacion, Enlace, Salario, Notas) "
             + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
+    private static String sqlUpdate = "UPDATE OFERTA SET EmpresaId = ?, Titulo = ?, Descripcion = ?, Estado = ?, "
+            + "FechaPostulacion = ?, Enlace = ?, Salario = ?, Notas = ? WHERE OfertaId = ?";
+
+    private static String sqlDelete = "UPDATE OFERTA SET Active = 0 WHERE OfertaId = ?";
+
     @Override
     public List<Oferta> findAll() {
 
@@ -73,6 +78,41 @@ public class OfertaDAO implements DAO<Oferta> {
             throw new RuntimeException(e);
         }
         return entity;
+    }
+
+    @Override
+    public void update(Oferta entity) {
+        try (Connection conn = ds.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sqlUpdate)) {
+
+            ps.setLong(1, entity.getEmpresa().getEmpresaId());
+            ps.setString(2, entity.getTitulo());
+            ps.setString(3, entity.getDescripcion());
+            ps.setString(4, entity.getEstado() != null ? entity.getEstado().name() : null);
+            ps.setString(5, entity.getFechaPostulacion() != null ? entity.getFechaPostulacion().toString() : null);
+            ps.setString(6, entity.getEnlace());
+            ps.setDouble(7, entity.getSalario());
+            ps.setString(8, entity.getNotas());
+            ps.setLong(9, entity.getOfertaId());
+
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        try (Connection conn = ds.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sqlDelete)) {
+
+            ps.setLong(1, id);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     //region Method Mapper

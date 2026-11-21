@@ -3,13 +3,15 @@ package com.example.tracker.presentacion.controllers;
 import com.example.tracker.datos.enums.EstadoOferta;
 import com.example.tracker.datos.modelo.Oferta;
 import com.example.tracker.negocio.OfertaCandidatura;
-import com.example.tracker.presentacion.celdas.FabricaCeldaAcciones;
-import com.example.tracker.presentacion.celdas.FabricaCeldaEstado;
+import com.example.tracker.presentacion.celdas.CeldaAcciones;
+import com.example.tracker.presentacion.celdas.CeldaEstado;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -19,6 +21,7 @@ import javafx.scene.layout.HBox;
 
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class CandidaturasController implements Initializable {
@@ -68,7 +71,7 @@ public class CandidaturasController implements Initializable {
     private int paginaActual = 1;
 
     @javafx.fxml.FXML
-    public void accionPendiente(ActionEvent actionEvent) {
+    public void nuevaOferta(ActionEvent actionEvent) {
     }
 
     @Override
@@ -77,13 +80,43 @@ public class CandidaturasController implements Initializable {
         colEmpresa.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getEmpresa().getNombre()));
         colTitulo.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getTitulo()));
         colEstado.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().getEstado()));
-        colEstado.setCellFactory(new FabricaCeldaEstado());
-        colAcciones.setCellFactory(new FabricaCeldaAcciones<>(this::accionPendiente));
+        colEstado.setCellFactory(columna -> new CeldaEstado(this::cambiarEstado));
+        colAcciones.setCellFactory(columna -> new CeldaAcciones<>(this::verOferta, this::editarOferta, this::eliminarOferta));
         colFecha.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getFechaPostulacion().toString()));
         colSalario.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getSalario() + " €"));
 
         cargarFiltros();
         aplicarFiltros();
+    }
+
+    private void cambiarEstado(ActionEvent actionEvent) {
+        Oferta oferta = tablaCandidaturas.getSelectionModel().getSelectedItem();
+        servicio.cambiarEstado(oferta, oferta.getEstado());
+    }
+
+    private void eliminarOferta(ActionEvent actionEvent) {
+        Oferta oferta = tablaCandidaturas.getSelectionModel().getSelectedItem();
+
+        Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmacion.setTitle("Eliminar candidatura");
+        confirmacion.setHeaderText(null);
+        confirmacion.setContentText("¿Seguro que desea eliminar \"" + oferta.getTitulo()
+                + "\" de " + oferta.getEmpresa().getNombre() + "?");
+
+        Optional<ButtonType> respuesta = confirmacion.showAndWait();
+        if (respuesta.isPresent() && respuesta.get() == ButtonType.OK) {
+            servicio.borrar(oferta);
+
+            int pagina = paginaActual;
+            aplicarFiltros();
+            mostrarPagina(Math.min(pagina, totalPaginas()));
+        }
+    }
+
+    private void verOferta(ActionEvent actionEvent) {
+    }
+
+    private void editarOferta(ActionEvent actionEvent) {
     }
 
     @javafx.fxml.FXML

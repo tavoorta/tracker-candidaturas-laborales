@@ -40,7 +40,7 @@ create table if not exists ACTIVIDAD (
     OfertaId    INTEGER,
     Tipo        VARCHAR(20) not null,
     Descripcion VARCHAR(255) not null,
-    Fecha       DATE not null,
+    Fecha       DATETIME not null,
     Active      BOOLEAN not null default 1,
     CONSTRAINT FK_Actividad_Oferta FOREIGN KEY (OfertaId) REFERENCES OFERTA(OfertaId)
 );

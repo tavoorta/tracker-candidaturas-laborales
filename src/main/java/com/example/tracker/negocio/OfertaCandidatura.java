@@ -33,15 +33,20 @@ public class OfertaCandidatura {
         }
         return ofertas.size();
     }
-
-    public void borrar(int id) {
-        Oferta oferta = repository.buscarPorId(id);
-        if (oferta == null) {
-            throw new RuntimeException("No existe ninguna oferta con ID " + id);
-        }
-        repository.eliminarPorId(id);
-    }
     */
+
+    /**
+     * Borra una candidatura (borrado lógico: queda en la base de datos con Active = 0).
+     *
+     * @param oferta candidatura a borrar
+     * @throws RuntimeException si no se indica la candidatura o no tiene id
+     */
+    public void borrar(Oferta oferta) {
+        if (oferta == null || oferta.getOfertaId() == null) {
+            throw new RuntimeException("Debe indicar la candidatura a borrar.");
+        }
+        repository.deleteById(oferta.getOfertaId());
+    }
 
     /**
      * @param estado  nombre del estado a filtrar (ignora mayúsculas/minúsculas), o {@code null}
@@ -62,7 +67,22 @@ public class OfertaCandidatura {
     }
 
     /**
-     * @return los nombres de las empresas que tienen candidaturas, sin repetir y en orden alfabético
+     * Cambia el estado de una candidatura y lo guarda en la base de datos.
+     *
+     * @param oferta      candidatura a modificar
+     * @param nuevoEstado estado nuevo
+     * @throws RuntimeException si no se indica la candidatura o el estado
+     */
+    public void cambiarEstado(Oferta oferta, EstadoOferta nuevoEstado) {
+        if (oferta == null || nuevoEstado == null) {
+            throw new RuntimeException("Debe indicar la candidatura y el nuevo estado.");
+        }
+        oferta.setEstado(nuevoEstado);
+        repository.update(oferta);
+    }
+
+    /**
+     * @return los nombres de las empresas que tienen candidaturas
      */
     public List<String> listarEmpresas() {
         return repository.findAll().stream()
