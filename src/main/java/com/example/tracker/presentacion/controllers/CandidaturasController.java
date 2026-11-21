@@ -3,6 +3,9 @@ package com.example.tracker.presentacion.controllers;
 import com.example.tracker.datos.enums.EstadoOferta;
 import com.example.tracker.datos.modelo.Oferta;
 import com.example.tracker.negocio.OfertaCandidatura;
+import com.example.tracker.presentacion.celdas.FabricaCeldaAcciones;
+import com.example.tracker.presentacion.celdas.FabricaCeldaEstado;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -30,7 +33,7 @@ public class CandidaturasController implements Initializable {
     @javafx.fxml.FXML
     private TableColumn<Oferta, String> colFecha;
     @javafx.fxml.FXML
-    private TableColumn<Oferta, String> colEstado;
+    private TableColumn<Oferta, EstadoOferta> colEstado;
     @javafx.fxml.FXML
     private TableView<Oferta> tablaCandidaturas;
     @javafx.fxml.FXML
@@ -73,7 +76,9 @@ public class CandidaturasController implements Initializable {
 
         colEmpresa.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getEmpresa().getNombre()));
         colTitulo.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getTitulo()));
-        colEstado.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getEstado().toString()));
+        colEstado.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().getEstado()));
+        colEstado.setCellFactory(new FabricaCeldaEstado());
+        colAcciones.setCellFactory(new FabricaCeldaAcciones<>(this::accionPendiente));
         colFecha.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getFechaPostulacion().toString()));
         colSalario.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getSalario() + " €"));
 
