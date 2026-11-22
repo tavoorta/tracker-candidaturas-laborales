@@ -61,7 +61,7 @@ public class ServicioOferta {
     }
 
     /**
-     * @param estado  nombre del estado a filtrar (ignora mayúsculas/minúsculas), o {@code null}
+     * @param estado  texto del estado a filtrar (por ejemplo "Pendiente"), o {@code null}
      * @param empresa nombre exacto de la empresa a filtrar, o {@code null}
      * @param texto   texto a buscar en el título o en el nombre de empresa, o {@code null}
      * @return las candidaturas que cumplen los filtros indicados
@@ -70,7 +70,7 @@ public class ServicioOferta {
         String busqueda = texto == null ? "" : texto.trim().toLowerCase();
 
         return repository.findAll().stream()
-                .filter(c -> estado == null || c.getEstado().name().equalsIgnoreCase(estado))
+                .filter(c -> estado == null || c.getEstado().toString().equals(estado))
                 .filter(c -> empresa == null || c.getEmpresa().getNombre().equalsIgnoreCase(empresa))
                 .filter(c -> busqueda.isEmpty()
                         || c.getTitulo().toLowerCase().contains(busqueda)
