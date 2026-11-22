@@ -51,9 +51,7 @@
                 <Insets bottom="4.0" left="4.0" right="4.0" top="12.0"/>
             </padding>
             <Label fx:id="lblResumen" HBox.hgrow="ALWAYS" maxWidth="Infinity" style="-fx-text-fill: #64748B;"/>
-            <Button fx:id="btnAnterior" mnemonicParsing="false" onAction="#irPaginaAnterior" text="Anterior"/>
-            <HBox fx:id="contenedorPaginas" spacing="12.0"/>
-            <Button fx:id="btnSiguiente" mnemonicParsing="false" onAction="#irPaginaSiguiente" text="Siguiente"/>
+            <Pagination fx:id="paginacion" maxPageIndicatorCount="10"/>
         </HBox>
     </VBox>
 </VBox>

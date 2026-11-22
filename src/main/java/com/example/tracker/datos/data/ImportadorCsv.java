@@ -1,6 +1,7 @@
 package com.example.tracker.datos.data;
 
-import com.example.tracker.datos.DAO.DAO;
+import com.example.tracker.datos.DAO.EmpresaDAO;
+import com.example.tracker.datos.DAO.OfertaDAO;
 import com.example.tracker.datos.enums.EstadoOferta;
 import com.example.tracker.datos.modelo.Empresa;
 import com.example.tracker.datos.modelo.Oferta;
@@ -23,10 +24,10 @@ public class ImportadorCsv {
 
     private static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    private final DAO<Empresa> empresaDAO;
-    private final DAO<Oferta> ofertaDAO;
+    private final EmpresaDAO empresaDAO;
+    private final OfertaDAO ofertaDAO;
 
-    public ImportadorCsv(DAO<Empresa> empresaDAO, DAO<Oferta> ofertaDAO) {
+    public ImportadorCsv(EmpresaDAO empresaDAO, OfertaDAO ofertaDAO) {
         this.empresaDAO = empresaDAO;
         this.ofertaDAO = ofertaDAO;
     }

@@ -18,6 +18,36 @@ public class ServicioOferta {
     private final DAO<Oferta> repository;
 
     /**
+     * Valida la candidatura y la guarda: si no tiene id la crea, si tiene id la actualiza.
+     *
+     * @param oferta candidatura con los datos del formulario
+     * @throws RuntimeException si falta un campo obligatorio o el salario es negativo
+     */
+    public void guardar(Oferta oferta) {
+        if (oferta.getTitulo() == null || oferta.getTitulo().isBlank()) {
+            throw new RuntimeException("El título es obligatorio.");
+        }
+        if (oferta.getEmpresa() == null) {
+            throw new RuntimeException("La empresa es obligatoria.");
+        }
+        if (oferta.getEstado() == null) {
+            throw new RuntimeException("El estado es obligatorio.");
+        }
+        if (oferta.getFechaPostulacion() == null) {
+            throw new RuntimeException("La fecha de aplicación es obligatoria.");
+        }
+        if (oferta.getSalario() < 0) {
+            throw new RuntimeException("El salario no puede ser negativo.");
+        }
+
+        if (oferta.getOfertaId() == null) {
+            repository.save(oferta);
+        } else {
+            repository.update(oferta);
+        }
+    }
+
+    /**
      * Borra una candidatura (borrado lógico: queda en la base de datos con Active = 0).
      *
      * @param oferta candidatura a borrar

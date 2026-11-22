@@ -1,12 +1,15 @@
 package com.example.tracker;
 
 import com.example.tracker.presentacion.controllers.CandidaturasController;
+import com.example.tracker.presentacion.controllers.FormularioOfertaController;
 import com.example.tracker.presentacion.controllers.LoginController;
 import com.example.tracker.presentacion.controllers.ShellController;
+import com.example.tracker.negocio.ServicioEmpresa;
 import com.example.tracker.negocio.ServicioOferta;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -16,6 +19,7 @@ public class SceneNavigator {
     private static Stage stage;
 
     private static ServicioOferta servicioOferta;
+    private static ServicioEmpresa servicioEmpresa;
 
     public static void setStage(Stage stage) {
         SceneNavigator.stage = stage;
@@ -23,6 +27,10 @@ public class SceneNavigator {
 
     public static void setServicioOferta(ServicioOferta servicioOferta) {
         SceneNavigator.servicioOferta = servicioOferta;
+    }
+
+    public static void setServicioEmpresa(ServicioEmpresa servicioEmpresa) {
+        SceneNavigator.servicioEmpresa = servicioEmpresa;
     }
 
     /** Utilizado para navegar a una vista específica. */
@@ -55,6 +63,23 @@ public class SceneNavigator {
         }
     }
 
+    /** Abre la vista en una ventana modal y espera a que se cierre. */
+    public static void abrirModal(String fxml, String title) {
+
+        FXMLLoader fxmlLoader = crearLoader(fxml);
+
+        try {
+            Stage modal = new Stage();
+            modal.initOwner(stage);
+            modal.initModality(Modality.APPLICATION_MODAL);
+            modal.setTitle(title);
+            modal.setScene(new Scene(fxmlLoader.load()));
+            modal.showAndWait();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     /** utilizado para crear un FXMLLoader con la ruta y el controllerFactory que crea cada controlador con su servicio. */
     private static FXMLLoader crearLoader(String fxml) {
 
@@ -65,6 +90,7 @@ public class SceneNavigator {
                 case "login-view.fxml" -> new LoginController();
                 case "shell-view.fxml" -> new ShellController();
                 case "candidaturas-view.fxml" -> new CandidaturasController(servicioOferta);
+                case "formulario-oferta-view.fxml" -> new FormularioOfertaController(servicioOferta, servicioEmpresa);
                 default -> throw new IllegalArgumentException("Error con fxml: " + fxml);
             };
         });

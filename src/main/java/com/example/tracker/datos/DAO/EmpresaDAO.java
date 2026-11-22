@@ -7,6 +7,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class EmpresaDAO implements DAO<Empresa> {
 
@@ -17,12 +18,30 @@ public class EmpresaDAO implements DAO<Empresa> {
     }
 
     private static String sqlSelect = "SELECT * FROM EMPRESA WHERE Active = 1";
+    private static String sqlFindById = sqlSelect + " AND EmpresaId = ?";
     private static String sqlInsert = "INSERT INTO EMPRESA (Nombre, Sector, Web, Ubicacion, LinkedIn, Notas, FechaRegistro) "
             + "VALUES (?, ?, ?, ?, ?, ?, ?)";
     private static String sqlUpdate = "UPDATE EMPRESA SET Nombre = ?, Sector = ?, Web = ?, Ubicacion = ?, LinkedIn = ?, "
             + "Notas = ?, FechaRegistro = ? WHERE EmpresaId = ?";
     private static String sqlDelete = "UPDATE EMPRESA SET Active = 0 WHERE EmpresaId = ?";
     private static String sqlCount = "SELECT COUNT(*) FROM EMPRESA";
+
+    @Override
+    public Optional<Empresa> findById(Long id) {
+        try (Connection conn = ds.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sqlFindById)) {
+            ps.setLong(1, id);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return Optional.ofNullable(mapper(rs));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return Optional.empty();
+    }
 
     @Override
     public List<Empresa> findAll() {
@@ -105,7 +124,6 @@ public class EmpresaDAO implements DAO<Empresa> {
         }
     }
 
-    @Override
     public boolean tablaVacia() {
         try (Connection conn = ds.getConnection();
              PreparedStatement ps = conn.prepareStatement(sqlCount);

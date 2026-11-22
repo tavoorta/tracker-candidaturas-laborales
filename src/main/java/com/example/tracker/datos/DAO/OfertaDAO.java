@@ -9,6 +9,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class OfertaDAO implements DAO<Oferta> {
 
@@ -24,6 +25,8 @@ public class OfertaDAO implements DAO<Oferta> {
                     "JOIN EMPRESA e ON o.EmpresaId = e.EmpresaId " +
                     "WHERE o.Active = 1";
 
+    private static String sqlFindById = sqlSelect + " AND o.OfertaId = ?";
+
     private static String sqlInsert = "INSERT INTO OFERTA (EmpresaId, Titulo, Descripcion, Estado, FechaPostulacion, Enlace, Salario, Notas) "
             + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -32,6 +35,23 @@ public class OfertaDAO implements DAO<Oferta> {
 
     private static String sqlDelete = "UPDATE OFERTA SET Active = 0 WHERE OfertaId = ?";
     private static String sqlCount = "SELECT COUNT(*) FROM OFERTA";
+
+    @Override
+    public Optional<Oferta> findById(Long id) {
+        try (Connection conn = ds.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sqlFindById)) {
+            ps.setLong(1, id);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return Optional.ofNullable(mapper(rs));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return Optional.empty();
+    }
 
     @Override
     public List<Oferta> findAll() {
@@ -116,7 +136,6 @@ public class OfertaDAO implements DAO<Oferta> {
         }
     }
 
-    @Override
     public boolean tablaVacia() {
         try (Connection conn = ds.getConnection();
              PreparedStatement ps = conn.prepareStatement(sqlCount);

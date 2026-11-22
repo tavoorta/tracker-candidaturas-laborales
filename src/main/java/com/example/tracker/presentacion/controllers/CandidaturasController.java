@@ -1,5 +1,7 @@
 package com.example.tracker.presentacion.controllers;
 
+import com.example.tracker.common.AppContext;
+import com.example.tracker.SceneNavigator;
 import com.example.tracker.datos.enums.EstadoOferta;
 import com.example.tracker.datos.modelo.Oferta;
 import com.example.tracker.negocio.ServicioOferta;
@@ -10,17 +12,17 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Pagination;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 
 import java.net.URL;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -56,11 +58,7 @@ public class CandidaturasController implements Initializable {
     @javafx.fxml.FXML
     private ComboBox<String> comboEmpresa;
     @javafx.fxml.FXML
-    private Button btnAnterior;
-    @javafx.fxml.FXML
-    private Button btnSiguiente;
-    @javafx.fxml.FXML
-    private HBox contenedorPaginas;
+    private Pagination paginacion;
     //endregion FXML
 
     private static final int TAMANO_PAGINA = 10;
@@ -72,6 +70,10 @@ public class CandidaturasController implements Initializable {
 
     @javafx.fxml.FXML
     public void nuevaOferta(ActionEvent actionEvent) {
+        AppContext.getInstance().getDatos().remove("oferta");
+        SceneNavigator.abrirModal("formulario-oferta-view.fxml", "Nueva candidatura");
+        cargarEmpresas();
+        recargarTabla();
     }
 
     @Override
@@ -83,7 +85,9 @@ public class CandidaturasController implements Initializable {
         colEstado.setCellFactory(columna -> new CeldaEstado(this::cambiarEstado));
         colAcciones.setCellFactory(columna -> new CeldaAcciones<>(this::verOferta, this::editarOferta, this::eliminarOferta));
         colFecha.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getFechaPostulacion().toString()));
-        colSalario.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getSalario() + " €"));
+        colSalario.setCellValueFactory(c -> new SimpleStringProperty(String.format(Locale.of("es", "ES"), "%,.0f €", c.getValue().getSalario())));
+
+        paginacion.currentPageIndexProperty().addListener((obs, anterior, nueva) -> mostrarPagina(nueva.intValue() + 1));
 
         cargarFiltros();
         aplicarFiltros();
@@ -123,16 +127,10 @@ public class CandidaturasController implements Initializable {
     }
 
     private void editarOferta(ActionEvent actionEvent) {
-    }
-
-    @javafx.fxml.FXML
-    public void irPaginaAnterior(ActionEvent actionEvent) {
-        mostrarPagina(paginaActual - 1);
-    }
-
-    @javafx.fxml.FXML
-    public void irPaginaSiguiente(ActionEvent actionEvent) {
-        mostrarPagina(paginaActual + 1);
+        AppContext.getInstance().put("oferta", tablaCandidaturas.getSelectionModel().getSelectedItem());
+        SceneNavigator.abrirModal("formulario-oferta-view.fxml", "Editar candidatura");
+        cargarEmpresas();
+        recargarTabla();
     }
 
     //region Paginación
@@ -151,25 +149,10 @@ public class CandidaturasController implements Initializable {
                 ? "No hay candidaturas"
                 : "Mostrando " + (desde + 1) + "-" + hasta + " de " + ofertas.size() + " candidaturas");
 
-        btnAnterior.setDisable(paginaActual == 1);
-        btnSiguiente.setDisable(paginaActual == totalPaginas());
-        crearBotonesPaginas();
+        paginacion.setPageCount(totalPaginas());
+        paginacion.setCurrentPageIndex(pagina - 1);
     }
 
-    /** Crea un botón por página (1, 2, ...) y resalta la página actual. */
-    private void crearBotonesPaginas() {
-        contenedorPaginas.getChildren().clear();
-
-        for (int i = 1; i <= totalPaginas(); i++) {
-            int numero = i;
-            Button boton = new Button(String.valueOf(numero));
-            if (numero == paginaActual) {
-                boton.setStyle("-fx-background-color: #0F766E; -fx-text-fill: white;");
-            }
-            boton.setOnAction(e -> mostrarPagina(numero));
-            contenedorPaginas.getChildren().add(boton);
-        }
-    }
     //endregion Paginación
 
     //region Filtros

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox spacing="12.0" prefWidth="620.0" style="-fx-background-color: white;"
+      xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.tracker.presentacion.controllers.FormularioOfertaController">
+    <padding>
+        <Insets bottom="24.0" left="24.0" right="24.0" top="20.0"/>
+    </padding>
+
+    <Label fx:id="lblTitulo" style="-fx-text-fill: #0F766E;" text="Nueva candidatura">
+        <font>
+            <Font name="System Bold" size="22.0"/>
+        </font>
+    </Label>
+
+    <GridPane hgap="16.0" vgap="12.0">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="50.0"/>
+            <ColumnConstraints percentWidth="50.0"/>
+        </columnConstraints>
+
+        <VBox spacing="4.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+            <Label text="Título"/>
+            <TextField fx:id="txtTitulo" promptText="ej. Software Developer"/>
+        </VBox>
+        <VBox spacing="4.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+            <Label text="Empresa"/>
+            <ComboBox fx:id="comboEmpresa" maxWidth="Infinity" promptText="Seleccione la empresa"/>
+        </VBox>
+
+        <VBox spacing="4.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+            <Label text="Estado"/>
+            <ComboBox fx:id="comboEstado" maxWidth="Infinity" promptText="Seleccione el estado"/>
+        </VBox>
+        <VBox spacing="4.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Label text="Fecha de aplicación"/>
+            <DatePicker fx:id="dateFecha" maxWidth="Infinity"/>
+        </VBox>
+
+        <VBox spacing="4.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
+            <Label text="URL del llamado"/>
+            <TextField fx:id="txtEnlace" promptText="Ingrese la URL de la candidatura"/>
+        </VBox>
+        <VBox spacing="4.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Label text="Salario"/>
+            <TextField fx:id="txtSalario" promptText="Ingrese el salario de la candidatura"/>
+        </VBox>
+    </GridPane>
+
+    <Label text="Descripción"/>
+    <TextArea fx:id="txtDescripcion" prefRowCount="3" promptText="Ingrese la descripción del puesto" wrapText="true"/>
+
+    <Label text="Notas"/>
+    <TextArea fx:id="txtNotas" prefRowCount="4" promptText="Ingrese notas relevantes del llamado" wrapText="true"/>
+
+    <HBox alignment="CENTER_RIGHT" spacing="12.0">
+        <Button onAction="#cancelar" text="Cancelar"/>
+        <Button fx:id="btnGuardar" onAction="#guardar" text="Agregar candidatura"
+                style="-fx-background-color: #0F766E; -fx-text-fill: white; -fx-background-radius: 8;"/>
+    </HBox>
+</VBox>
