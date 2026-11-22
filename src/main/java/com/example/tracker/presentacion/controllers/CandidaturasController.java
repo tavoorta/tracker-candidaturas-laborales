@@ -2,7 +2,7 @@ package com.example.tracker.presentacion.controllers;
 
 import com.example.tracker.datos.enums.EstadoOferta;
 import com.example.tracker.datos.modelo.Oferta;
-import com.example.tracker.negocio.OfertaCandidatura;
+import com.example.tracker.negocio.ServicioOferta;
 import com.example.tracker.presentacion.celdas.CeldaAcciones;
 import com.example.tracker.presentacion.celdas.CeldaEstado;
 import javafx.beans.property.SimpleObjectProperty;
@@ -26,9 +26,9 @@ import java.util.ResourceBundle;
 
 public class CandidaturasController implements Initializable {
 
-    private OfertaCandidatura servicio;
+    private ServicioOferta servicio;
 
-    public CandidaturasController(OfertaCandidatura servicio) {
+    public CandidaturasController(ServicioOferta servicio) {
         this.servicio = servicio;
     }
 
@@ -92,6 +92,7 @@ public class CandidaturasController implements Initializable {
     private void cambiarEstado(ActionEvent actionEvent) {
         Oferta oferta = tablaCandidaturas.getSelectionModel().getSelectedItem();
         servicio.cambiarEstado(oferta, oferta.getEstado());
+        recargarTabla();
     }
 
     private void eliminarOferta(ActionEvent actionEvent) {
@@ -106,11 +107,16 @@ public class CandidaturasController implements Initializable {
         Optional<ButtonType> respuesta = confirmacion.showAndWait();
         if (respuesta.isPresent() && respuesta.get() == ButtonType.OK) {
             servicio.borrar(oferta);
-
-            int pagina = paginaActual;
-            aplicarFiltros();
-            mostrarPagina(Math.min(pagina, totalPaginas()));
+            cargarEmpresas();
+            recargarTabla();
         }
+    }
+
+    /** Vuelve a aplicar los filtros sin salir de la página actual. */
+    private void recargarTabla() {
+        int pagina = paginaActual;
+        aplicarFiltros();
+        mostrarPagina(Math.min(pagina, totalPaginas()));
     }
 
     private void verOferta(ActionEvent actionEvent) {
@@ -176,13 +182,25 @@ public class CandidaturasController implements Initializable {
         }
         comboEstado.getSelectionModel().selectFirst();
 
-        comboEmpresa.getItems().add(TODAS_LAS_EMPRESAS);
-        comboEmpresa.getItems().addAll(servicio.listarEmpresas());
-        comboEmpresa.getSelectionModel().selectFirst();
+        cargarEmpresas();
 
         txtBuscar.textProperty().addListener((obs, anterior, nuevo) -> aplicarFiltros());
         comboEstado.setOnAction(e -> aplicarFiltros());
         comboEmpresa.setOnAction(e -> aplicarFiltros());
+    }
+
+    /** Llena el desplegable de empresas y mantiene la elegida si sigue existiendo. */
+    private void cargarEmpresas() {
+        String seleccionada = comboEmpresa.getValue();
+
+        comboEmpresa.getItems().setAll(TODAS_LAS_EMPRESAS);
+        comboEmpresa.getItems().addAll(servicio.listarEmpresas());
+
+        if (comboEmpresa.getItems().contains(seleccionada)) {
+            comboEmpresa.setValue(seleccionada);
+        } else {
+            comboEmpresa.getSelectionModel().selectFirst();
+        }
     }
 
     /** Pide al servicio las ofertas que cumplen los filtros */

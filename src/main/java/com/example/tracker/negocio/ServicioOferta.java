@@ -5,10 +5,6 @@ import com.example.tracker.datos.enums.EstadoOferta;
 import com.example.tracker.datos.modelo.Oferta;
 import lombok.RequiredArgsConstructor;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -17,10 +13,9 @@ import java.util.List;
  * a dónde van los datos, eso lo resuelve {@link DAO}.
  */
 @RequiredArgsConstructor
-public class OfertaCandidatura {
+public class ServicioOferta {
 
     private final DAO<Oferta> repository;
-    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     /**
      * Borra una candidatura (borrado lógico: queda en la base de datos con Active = 0).

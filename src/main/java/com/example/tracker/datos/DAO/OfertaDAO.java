@@ -31,6 +31,7 @@ public class OfertaDAO implements DAO<Oferta> {
             + "FechaPostulacion = ?, Enlace = ?, Salario = ?, Notas = ? WHERE OfertaId = ?";
 
     private static String sqlDelete = "UPDATE OFERTA SET Active = 0 WHERE OfertaId = ?";
+    private static String sqlCount = "SELECT COUNT(*) FROM OFERTA";
 
     @Override
     public List<Oferta> findAll() {
@@ -109,6 +110,20 @@ public class OfertaDAO implements DAO<Oferta> {
 
             ps.setLong(1, id);
             ps.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public boolean tablaVacia() {
+        try (Connection conn = ds.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sqlCount);
+             ResultSet rs = ps.executeQuery()) {
+
+            rs.next();
+            return rs.getInt(1) == 0;
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

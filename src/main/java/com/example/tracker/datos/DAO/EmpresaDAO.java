@@ -22,6 +22,7 @@ public class EmpresaDAO implements DAO<Empresa> {
     private static String sqlUpdate = "UPDATE EMPRESA SET Nombre = ?, Sector = ?, Web = ?, Ubicacion = ?, LinkedIn = ?, "
             + "Notas = ?, FechaRegistro = ? WHERE EmpresaId = ?";
     private static String sqlDelete = "UPDATE EMPRESA SET Active = 0 WHERE EmpresaId = ?";
+    private static String sqlCount = "SELECT COUNT(*) FROM EMPRESA";
 
     @Override
     public List<Empresa> findAll() {
@@ -98,6 +99,20 @@ public class EmpresaDAO implements DAO<Empresa> {
 
             ps.setLong(1, id);
             ps.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public boolean tablaVacia() {
+        try (Connection conn = ds.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sqlCount);
+             ResultSet rs = ps.executeQuery()) {
+
+            rs.next();
+            return rs.getInt(1) == 0;
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -3,7 +3,7 @@ package com.example.tracker;
 import com.example.tracker.presentacion.controllers.CandidaturasController;
 import com.example.tracker.presentacion.controllers.LoginController;
 import com.example.tracker.presentacion.controllers.ShellController;
-import com.example.tracker.negocio.OfertaCandidatura;
+import com.example.tracker.negocio.ServicioOferta;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
@@ -15,13 +15,13 @@ public class SceneNavigator {
 
     private static Stage stage;
 
-    private static OfertaCandidatura servicioOferta;
+    private static ServicioOferta servicioOferta;
 
     public static void setStage(Stage stage) {
         SceneNavigator.stage = stage;
     }
 
-    public static void setServicioOferta(OfertaCandidatura servicioOferta) {
+    public static void setServicioOferta(ServicioOferta servicioOferta) {
         SceneNavigator.servicioOferta = servicioOferta;
     }
 

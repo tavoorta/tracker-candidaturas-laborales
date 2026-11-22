@@ -37,13 +37,13 @@ public class ImportadorCsv {
      */
     public void importar(String rutaEmpresas, String rutaOfertas) {
 
-        if (empresaDAO.findAll().isEmpty()) {
+        if (empresaDAO.tablaVacia()) {
             for (Empresa empresa : leerEmpresas(rutaEmpresas)) {
                 empresaDAO.save(empresa);
             }
         }
 
-        if (ofertaDAO.findAll().isEmpty()) {
+        if (ofertaDAO.tablaVacia()) {
             List<Empresa> empresas = empresaDAO.findAll();
 
             for (Oferta oferta : leerOfertas(rutaOfertas)) {
