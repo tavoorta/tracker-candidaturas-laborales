@@ -55,19 +55,14 @@ public class CeldaEstado extends TableCell<Oferta, EstadoOferta> {
             @Override
             protected void updateItem(EstadoOferta item, boolean empty) {
                 super.updateItem(item, empty);
-                setText(empty || item == null ? null : etiqueta(item));
+                setText(empty || item == null ? null : item.toString());
                 setStyle("-fx-text-fill: " + colorTexto(estado) + "; -fx-font-weight: bold;");
             }
         });
     }
 
-    //region Colores y etiqueta de cada estado
-    private String etiqueta(EstadoOferta estado) {
-        String nombre = estado.name().toLowerCase();
-        return Character.toUpperCase(nombre.charAt(0)) + nombre.substring(1);
-    }
-
-    private String colorFondo(EstadoOferta estado) {
+    //region Colores de cada estado
+    public static String colorFondo(EstadoOferta estado) {
         return switch (estado) {
             case ENTREVISTA -> "#0F766E";
             case RECHAZADO -> "#FF8B78";
@@ -76,7 +71,7 @@ public class CeldaEstado extends TableCell<Oferta, EstadoOferta> {
         };
     }
 
-    private String colorTexto(EstadoOferta estado) {
+    public static String colorTexto(EstadoOferta estado) {
         return switch (estado) {
             case ENTREVISTA -> "white";
             case RECHAZADO -> "#7A1D0F";
@@ -84,5 +79,5 @@ public class CeldaEstado extends TableCell<Oferta, EstadoOferta> {
             case ACEPTADO -> "#166534";
         };
     }
-    //endregion Colores y etiqueta de cada estado
+    //endregion Colores de cada estado
 }

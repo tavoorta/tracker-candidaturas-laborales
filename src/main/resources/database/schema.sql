@@ -19,7 +19,6 @@ create table if not exists OFERTA (
     FechaPostulacion DATE not null,
     Enlace           VARCHAR(200),
     Salario          DECIMAL(10,2),
-    Notas            VARCHAR(255),
     Active           BOOLEAN not null default 1,
     CONSTRAINT FK_Oferta_Empresa FOREIGN KEY (EmpresaId) REFERENCES EMPRESA(EmpresaId)
 );
@@ -33,6 +32,15 @@ create table if not exists ENTREVISTA (
     Resultado    VARCHAR(30),
     Active       BOOLEAN not null default 1,
     CONSTRAINT FK_Entrevista_Oferta FOREIGN KEY (OfertaId) REFERENCES OFERTA(OfertaId)
+);
+
+create table if not exists NOTA (
+    NotaId   INTEGER PRIMARY KEY AUTOINCREMENT,
+    OfertaId INTEGER not null,
+    Fecha    DATE not null,
+    Texto    VARCHAR(255) not null,
+    Active   BOOLEAN not null default 1,
+    CONSTRAINT FK_Nota_Oferta FOREIGN KEY (OfertaId) REFERENCES OFERTA(OfertaId)
 );
 
 create table if not exists ACTIVIDAD (

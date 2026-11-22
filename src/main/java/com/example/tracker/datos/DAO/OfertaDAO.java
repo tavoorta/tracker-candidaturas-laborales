@@ -27,11 +27,11 @@ public class OfertaDAO implements DAO<Oferta> {
 
     private static String sqlFindById = sqlSelect + " AND o.OfertaId = ?";
 
-    private static String sqlInsert = "INSERT INTO OFERTA (EmpresaId, Titulo, Descripcion, Estado, FechaPostulacion, Enlace, Salario, Notas) "
-            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    private static String sqlInsert = "INSERT INTO OFERTA (EmpresaId, Titulo, Descripcion, Estado, FechaPostulacion, Enlace, Salario) "
+            + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     private static String sqlUpdate = "UPDATE OFERTA SET EmpresaId = ?, Titulo = ?, Descripcion = ?, Estado = ?, "
-            + "FechaPostulacion = ?, Enlace = ?, Salario = ?, Notas = ? WHERE OfertaId = ?";
+            + "FechaPostulacion = ?, Enlace = ?, Salario = ? WHERE OfertaId = ?";
 
     private static String sqlDelete = "UPDATE OFERTA SET Active = 0 WHERE OfertaId = ?";
     private static String sqlCount = "SELECT COUNT(*) FROM OFERTA";
@@ -84,7 +84,6 @@ public class OfertaDAO implements DAO<Oferta> {
             ps.setString(5, entity.getFechaPostulacion() != null ? entity.getFechaPostulacion().toString() : null);
             ps.setString(6, entity.getEnlace());
             ps.setDouble(7, entity.getSalario());
-            ps.setString(8, entity.getNotas());
 
             ps.executeUpdate();
 
@@ -113,8 +112,7 @@ public class OfertaDAO implements DAO<Oferta> {
             ps.setString(5, entity.getFechaPostulacion() != null ? entity.getFechaPostulacion().toString() : null);
             ps.setString(6, entity.getEnlace());
             ps.setDouble(7, entity.getSalario());
-            ps.setString(8, entity.getNotas());
-            ps.setLong(9, entity.getOfertaId());
+            ps.setLong(8, entity.getOfertaId());
 
             ps.executeUpdate();
 
@@ -168,7 +166,6 @@ public class OfertaDAO implements DAO<Oferta> {
         oferta.setFechaPostulacion(rs.getString("FechaPostulacion") != null ? LocalDate.parse(rs.getString("FechaPostulacion")) : null);
         oferta.setEnlace(rs.getString("Enlace"));
         oferta.setSalario(rs.getDouble("Salario"));
-        oferta.setNotas(rs.getString("Notas"));
         oferta.setActive(rs.getBoolean("Active"));
         return oferta;
     }

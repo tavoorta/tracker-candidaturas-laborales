@@ -4,11 +4,9 @@ import lombok.*;
 
 import java.time.LocalDate;
 
-@Getter
-@Setter
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
-@ToString
+@AllArgsConstructor
 public class Empresa {
     private Long empresaId;
     private String nombre;

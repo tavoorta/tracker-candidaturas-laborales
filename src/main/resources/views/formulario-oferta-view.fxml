@@ -56,9 +56,6 @@
     <Label text="Descripción"/>
     <TextArea fx:id="txtDescripcion" prefRowCount="3" promptText="Ingrese la descripción del puesto" wrapText="true"/>
 
-    <Label text="Notas"/>
-    <TextArea fx:id="txtNotas" prefRowCount="4" promptText="Ingrese notas relevantes del llamado" wrapText="true"/>
-
     <HBox alignment="CENTER_RIGHT" spacing="12.0">
         <Button onAction="#cancelar" text="Cancelar"/>
         <Button fx:id="btnGuardar" onAction="#guardar" text="Agregar candidatura"

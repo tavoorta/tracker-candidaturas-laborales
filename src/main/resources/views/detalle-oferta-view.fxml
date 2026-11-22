@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox spacing="12.0"
+      xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.tracker.presentacion.controllers.DetalleOfertaController">
+    <padding>
+        <Insets bottom="24.0" left="32.0" right="32.0" top="8.0"/>
+    </padding>
+
+    <Hyperlink onAction="#volver" text="‹ Volver a candidaturas"/>
+
+    <!-- Cabecera: título, empresa, estado y botón Cover Letter -->
+    <HBox>
+        <VBox spacing="12.0" HBox.hgrow="ALWAYS">
+            <Label fx:id="lblTitulo">
+                <font>
+                    <Font name="System Bold" size="26.0"/>
+                </font>
+            </Label>
+            <Label fx:id="lblEmpresa">
+                <font>
+                    <Font name="System Bold" size="20.0"/>
+                </font>
+            </Label>
+            <Label fx:id="lblEstado"/>
+        </VBox>
+        <Button mnemonicParsing="false" text="Generar Cover Letter con MentorIA"/>
+    </HBox>
+
+    <GridPane hgap="16.0" vgap="16.0" VBox.vgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="60.0"/>
+            <ColumnConstraints percentWidth="40.0"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints percentHeight="50.0"/>
+            <RowConstraints percentHeight="50.0"/>
+        </rowConstraints>
+
+        <!-- Tarjeta de datos de la oferta -->
+        <VBox spacing="12.0" GridPane.columnIndex="0" GridPane.rowIndex="0"
+              style="-fx-background-color: white; -fx-background-radius: 12; -fx-border-color: #E2E8F0; -fx-border-radius: 12;">
+            <padding>
+                <Insets bottom="16.0" left="20.0" right="20.0" top="16.0"/>
+            </padding>
+            <HBox spacing="40.0">
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <ImageView  fitHeight="32.0" fitWidth="32.0" preserveRatio="true">
+                        <Image url="@../images/icon-calender_clock.png"/>
+                    </ImageView>
+                    <VBox spacing="4.0">
+                        <Label text="Fecha de candidatura"/>
+                        <Label fx:id="lblFecha" style="-fx-font-weight: bold;"/>
+                    </VBox>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <ImageView  fitHeight="32.0" fitWidth="32.0" preserveRatio="true">
+                        <Image url="@../images/icon-euro-circle-filled.png"/>
+                    </ImageView>
+                    <VBox spacing="4.0">
+                        <Label text="Salario"/>
+                        <Label fx:id="lblSalario" style="-fx-font-weight: bold;"/>
+                    </VBox>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <ImageView  fitHeight="32.0" fitWidth="32.0" preserveRatio="true">
+                        <Image url="@../images/icon-admin-site.png"/>
+                    </ImageView>
+                    <VBox spacing="4.0">
+                        <Label text="Sitio web"/>
+                        <Label fx:id="lblEnlace" style="-fx-font-weight: bold;"/>
+                    </VBox>
+                </HBox>
+            </HBox>
+            <!-- Descripción del rol -->
+            <Label text="Descripción del rol" style="-fx-font-weight: bold;"/>
+            <Label fx:id="lblDescripcion" wrapText="true"/>
+        </VBox>
+
+        <!-- Tarjeta de notas -->
+        <VBox spacing="12.0" GridPane.columnIndex="0" GridPane.rowIndex="1"
+              style="-fx-background-color: white; -fx-background-radius: 12; -fx-border-color: #E2E8F0; -fx-border-radius: 12;">
+            <padding>
+                <Insets bottom="16.0" left="20.0" right="20.0" top="16.0"/>
+            </padding>
+            <Label text="Notas" style="-fx-font-weight: bold;"/>
+            <HBox spacing="12.0">
+                <TextField fx:id="txtNuevaNota" promptText="Agregar una nueva nota" HBox.hgrow="ALWAYS"/>
+                <Button onAction="#agregarNota" text="Agregar"/>
+            </HBox>
+            <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" style="-fx-background-color: transparent;">
+                <Label fx:id="lblNotas" wrapText="true"/>
+            </ScrollPane>
+        </VBox>
+
+        <!-- Tarjeta de contactos (datos de ejemplo por ahora hasta V3) -->
+        <VBox spacing="12.0" GridPane.columnIndex="1" GridPane.rowIndex="0"
+              style="-fx-background-color: white; -fx-background-radius: 12; -fx-border-color: #E2E8F0; -fx-border-radius: 12;">
+            <padding>
+                <Insets bottom="16.0" left="20.0" right="20.0" top="16.0"/>
+            </padding>
+            <HBox alignment="CENTER_LEFT">
+                <Label text="Contactos" style="-fx-font-weight: bold;" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                <Button mnemonicParsing="false" text="+"/>
+            </HBox>
+            <!-- Contacto con su icono -->
+            <HBox spacing="10.0">
+                <ImageView fitHeight="20.0" fitWidth="20.0" preserveRatio="true">
+                    <Image url="@../images/icon-actividad-contacto.png"/>
+                </ImageView>
+                <VBox spacing="2.0">
+                    <Label text="Cristina Canobra - Jefa administrativa" style="-fx-font-weight: bold;"/>
+                    <Label text="Teléfono: 602123456"/>
+                    <Label text="Mail: cristina@cristina.com"/>
+                </VBox>
+            </HBox>
+            <!-- Contacto con su icono -->
+            <HBox spacing="10.0">
+                <ImageView fitHeight="20.0" fitWidth="20.0" preserveRatio="true">
+                    <Image url="@../images/icon-actividad-contacto.png"/>
+                </ImageView>
+                <VBox spacing="2.0">
+                    <Label text="Adrián Bustelo - Jefe de Ventas" style="-fx-font-weight: bold;"/>
+                    <Label text="Teléfono: 602123456"/>
+                    <Label text="Mail: adrian@adrian.com"/>
+                </VBox>
+            </HBox>
+        </VBox>
+
+        <!-- Tarjeta de historial de entrevistas -->
+        <VBox spacing="12.0" GridPane.columnIndex="1" GridPane.rowIndex="1"
+              style="-fx-background-color: white; -fx-background-radius: 12; -fx-border-color: #E2E8F0; -fx-border-radius: 12;">
+            <padding>
+                <Insets bottom="16.0" left="20.0" right="20.0" top="16.0"/>
+            </padding>
+            <HBox alignment="CENTER_LEFT">
+                <Label text="Historial de entrevistas" style="-fx-font-weight: bold;" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                <Button onAction="#nuevaEntrevista" text="+"/>
+            </HBox>
+            <TableView fx:id="tablaEntrevistas" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colFechaEntrevista" prefWidth="90.0" text="Fecha"/>
+                    <TableColumn fx:id="colTipo" prefWidth="130.0" text="Tipo"/>
+                    <TableColumn fx:id="colNotasEntrevista" prefWidth="180.0" text="Notas"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </GridPane>
+</VBox>

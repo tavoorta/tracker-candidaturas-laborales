@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox spacing="12.0" prefWidth="620.0" style="-fx-background-color: white;"
+      xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.tracker.presentacion.controllers.FormularioEntrevistaController">
+    <padding>
+        <Insets bottom="24.0" left="24.0" right="24.0" top="20.0"/>
+    </padding>
+
+    <Label style="-fx-text-fill: #0F766E;" text="Nueva entrevista">
+        <font>
+            <Font name="System Bold" size="22.0"/>
+        </font>
+    </Label>
+
+    <GridPane hgap="16.0" vgap="12.0">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="50.0"/>
+            <ColumnConstraints percentWidth="50.0"/>
+        </columnConstraints>
+
+        <VBox spacing="4.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+            <Label text="Fecha de entrevista"/>
+            <DatePicker fx:id="dateFecha" maxWidth="Infinity"/>
+        </VBox>
+        <VBox spacing="4.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+            <Label text="Tipo de entrevista"/>
+            <ComboBox fx:id="comboTipo" maxWidth="Infinity" promptText="Seleccione el tipo de entrevista"/>
+        </VBox>
+
+        <VBox spacing="4.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+            <Label text="Rol"/>
+            <TextField fx:id="txtRol" editable="false"/>
+        </VBox>
+        <VBox spacing="4.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Label text="Empresa"/>
+            <TextField fx:id="txtEmpresa" editable="false"/>
+        </VBox>
+    </GridPane>
+
+    <Label text="Notas"/>
+    <TextArea fx:id="txtNotas" prefRowCount="4" promptText="Ingrese notas relevantes de la entrevista" wrapText="true"/>
+
+    <HBox alignment="CENTER_RIGHT" spacing="12.0">
+        <Button onAction="#cancelar" text="Cancelar"/>
+        <Button onAction="#guardar" text="Agregar entrevista"
+                style="-fx-background-color: #0F766E; -fx-text-fill: white; -fx-background-radius: 8;"/>
+    </HBox>
+</VBox>

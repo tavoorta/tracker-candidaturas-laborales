@@ -1,10 +1,14 @@
 package com.example.tracker;
 
 import com.example.tracker.presentacion.controllers.CandidaturasController;
+import com.example.tracker.presentacion.controllers.DetalleOfertaController;
+import com.example.tracker.presentacion.controllers.FormularioEntrevistaController;
 import com.example.tracker.presentacion.controllers.FormularioOfertaController;
 import com.example.tracker.presentacion.controllers.LoginController;
 import com.example.tracker.presentacion.controllers.ShellController;
 import com.example.tracker.negocio.ServicioEmpresa;
+import com.example.tracker.negocio.ServicioEntrevista;
+import com.example.tracker.negocio.ServicioNota;
 import com.example.tracker.negocio.ServicioOferta;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -17,12 +21,19 @@ import java.io.IOException;
 public class SceneNavigator {
 
     private static Stage stage;
+    private static StackPane contenido;
 
     private static ServicioOferta servicioOferta;
     private static ServicioEmpresa servicioEmpresa;
+    private static ServicioEntrevista servicioEntrevista;
+    private static ServicioNota servicioNota;
 
     public static void setStage(Stage stage) {
         SceneNavigator.stage = stage;
+    }
+
+    public static void setContenido(StackPane contenido) {
+        SceneNavigator.contenido = contenido;
     }
 
     public static void setServicioOferta(ServicioOferta servicioOferta) {
@@ -31,6 +42,14 @@ public class SceneNavigator {
 
     public static void setServicioEmpresa(ServicioEmpresa servicioEmpresa) {
         SceneNavigator.servicioEmpresa = servicioEmpresa;
+    }
+
+    public static void setServicioEntrevista(ServicioEntrevista servicioEntrevista) {
+        SceneNavigator.servicioEntrevista = servicioEntrevista;
+    }
+
+    public static void setServicioNota(ServicioNota servicioNota) {
+        SceneNavigator.servicioNota = servicioNota;
     }
 
     /** Utilizado para navegar a una vista específica. */
@@ -51,7 +70,7 @@ public class SceneNavigator {
     }
 
     /** Utilizado para rellenar el contenido del shell. */
-    public static void navigateToContenido(StackPane contenido, String fxml) {
+    public static void navigateToContenido(String fxml) {
 
         FXMLLoader fxmlLoader = crearLoader(fxml);
 
@@ -91,6 +110,8 @@ public class SceneNavigator {
                 case "shell-view.fxml" -> new ShellController();
                 case "candidaturas-view.fxml" -> new CandidaturasController(servicioOferta);
                 case "formulario-oferta-view.fxml" -> new FormularioOfertaController(servicioOferta, servicioEmpresa);
+                case "detalle-oferta-view.fxml" -> new DetalleOfertaController(servicioEntrevista, servicioNota);
+                case "formulario-entrevista-view.fxml" -> new FormularioEntrevistaController(servicioEntrevista);
                 default -> throw new IllegalArgumentException("Error con fxml: " + fxml);
             };
         });

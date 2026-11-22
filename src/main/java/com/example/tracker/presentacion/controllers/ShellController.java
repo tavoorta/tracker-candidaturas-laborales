@@ -34,6 +34,7 @@ public class ShellController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        SceneNavigator.setContenido(contenido);
         cargarUsuarioActual();
         irDashboard(null);
     }
@@ -72,13 +73,13 @@ public class ShellController implements Initializable {
     }
 
     private void cargarContenido(String nombreFxml) {
-        SceneNavigator.navigateToContenido(contenido, nombreFxml);
+        SceneNavigator.navigateToContenido(nombreFxml);
     }
 
     private void marcarBotonActivo(Label botonActivo) {
         for (Label boton : new Label[]{btnDashboard, btnCandidaturas, btnEmpresas}) {
-            boolean esElActivo = boton == botonActivo;
-            boton.setStyle(esElActivo
+            boolean esActivo = boton == botonActivo;
+            boton.setStyle(esActivo
                     ? "-fx-text-fill: white; -fx-background-color: #0F766E; -fx-padding: 12 16; -fx-cursor: hand;"
                     : "-fx-text-fill: white; -fx-background-radius: 0; -fx-padding: 12 16; -fx-cursor: hand;");
         }

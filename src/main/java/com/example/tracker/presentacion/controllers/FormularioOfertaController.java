@@ -54,8 +54,6 @@ public class FormularioOfertaController implements Initializable {
     @javafx.fxml.FXML
     private TextArea txtDescripcion;
     @javafx.fxml.FXML
-    private TextArea txtNotas;
-    @javafx.fxml.FXML
     private Button btnGuardar;
     //endregion FXML
 
@@ -79,7 +77,6 @@ public class FormularioOfertaController implements Initializable {
             txtEnlace.setText(oferta.getEnlace());
             txtSalario.setText(String.format(Locale.ROOT, "%.0f", oferta.getSalario()));
             txtDescripcion.setText(oferta.getDescripcion());
-            txtNotas.setText(oferta.getNotas());
         }
     }
 
@@ -98,7 +95,6 @@ public class FormularioOfertaController implements Initializable {
         oferta.setFechaPostulacion(dateFecha.getValue());
         oferta.setEnlace(txtEnlace.getText());
         oferta.setDescripcion(txtDescripcion.getText());
-        oferta.setNotas(txtNotas.getText());
 
         try {
             oferta.setSalario(txtSalario.getText().isBlank() ? 0 : Double.parseDouble(txtSalario.getText()));

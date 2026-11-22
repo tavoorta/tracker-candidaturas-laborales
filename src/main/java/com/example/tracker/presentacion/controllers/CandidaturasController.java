@@ -124,6 +124,8 @@ public class CandidaturasController implements Initializable {
     }
 
     private void verOferta(ActionEvent actionEvent) {
+        AppContext.getInstance().put("oferta", tablaCandidaturas.getSelectionModel().getSelectedItem());
+        SceneNavigator.navigateToContenido("detalle-oferta-view.fxml");
     }
 
     private void editarOferta(ActionEvent actionEvent) {
@@ -161,7 +163,7 @@ public class CandidaturasController implements Initializable {
     private void cargarFiltros() {
         comboEstado.getItems().add(TODOS_LOS_ESTADOS);
         for (EstadoOferta estado : EstadoOferta.values()) {
-            comboEstado.getItems().add(estado.name());
+            comboEstado.getItems().add(estado.toString());
         }
         comboEstado.getSelectionModel().selectFirst();
 

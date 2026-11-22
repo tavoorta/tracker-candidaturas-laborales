@@ -5,11 +5,9 @@ import lombok.*;
 
 import java.time.LocalDate;
 
-@Getter
-@Setter
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
-@ToString
+@AllArgsConstructor
 public class Oferta {
     private Long ofertaId;
     private Empresa empresa;
@@ -19,6 +17,5 @@ public class Oferta {
     private LocalDate fechaPostulacion;
     private String enlace;
     private double salario;
-    private String notas;
     private boolean active;
 }

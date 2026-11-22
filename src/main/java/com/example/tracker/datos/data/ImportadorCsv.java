@@ -1,9 +1,11 @@
 package com.example.tracker.datos.data;
 
 import com.example.tracker.datos.DAO.EmpresaDAO;
+import com.example.tracker.datos.DAO.NotaDAO;
 import com.example.tracker.datos.DAO.OfertaDAO;
 import com.example.tracker.datos.enums.EstadoOferta;
 import com.example.tracker.datos.modelo.Empresa;
+import com.example.tracker.datos.modelo.Nota;
 import com.example.tracker.datos.modelo.Oferta;
 
 import java.io.IOException;
@@ -26,10 +28,12 @@ public class ImportadorCsv {
 
     private final EmpresaDAO empresaDAO;
     private final OfertaDAO ofertaDAO;
+    private final NotaDAO notaDAO;
 
-    public ImportadorCsv(EmpresaDAO empresaDAO, OfertaDAO ofertaDAO) {
+    public ImportadorCsv(EmpresaDAO empresaDAO, OfertaDAO ofertaDAO, NotaDAO notaDAO) {
         this.empresaDAO = empresaDAO;
         this.ofertaDAO = ofertaDAO;
+        this.notaDAO = notaDAO;
     }
 
     /**
@@ -47,7 +51,8 @@ public class ImportadorCsv {
         if (ofertaDAO.tablaVacia()) {
             List<Empresa> empresas = empresaDAO.findAll();
 
-            for (Oferta oferta : leerOfertas(rutaOfertas)) {
+            for (String linea : leerLineas(rutaOfertas, "titulo;")) {
+                Oferta oferta = crearOfertaDeString(linea);
                 Empresa empresa = buscarEmpresa(empresas, oferta.getEmpresa().getNombre());
 
                 if (empresa == null) {
@@ -59,6 +64,11 @@ public class ImportadorCsv {
 
                 oferta.setEmpresa(empresa);
                 ofertaDAO.save(oferta);
+
+                String textoNota = linea.split(";", -1)[7];
+                if (!textoNota.isBlank()) {
+                    notaDAO.save(new Nota(null, oferta, oferta.getFechaPostulacion(), textoNota, true));
+                }
             }
         }
     }
@@ -78,14 +88,6 @@ public class ImportadorCsv {
             empresas.add(crearEmpresaDeString(linea));
         }
         return empresas;
-    }
-
-    private List<Oferta> leerOfertas(String rutaCsv) {
-        List<Oferta> ofertas = new ArrayList<>();
-        for (String linea : leerLineas(rutaCsv, "titulo;")) {
-            ofertas.add(crearOfertaDeString(linea));
-        }
-        return ofertas;
     }
 
     /** Devuelve las líneas del fichero sin la cabecera ni las líneas vacías. */
@@ -136,7 +138,6 @@ public class ImportadorCsv {
         oferta.setFechaPostulacion(LocalDate.parse(campos[4], FORMATO_FECHA));
         oferta.setEnlace(campos[5]);
         oferta.setSalario(campos[6].isBlank() ? 0 : Double.parseDouble(campos[6]));
-        oferta.setNotas(campos[7]);
         return oferta;
     }
 }
