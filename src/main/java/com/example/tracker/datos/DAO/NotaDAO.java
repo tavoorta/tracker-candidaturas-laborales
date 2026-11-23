@@ -18,8 +18,12 @@ public class NotaDAO implements DAO<Nota> {
         this.ds = ds;
     }
 
-    private static String sqlSelect = "SELECT * FROM NOTA WHERE Active = 1";
-    private static String sqlFindById = sqlSelect + " AND NotaId = ?";
+    private static String sqlSelect =
+            "SELECT n.* FROM NOTA n " +
+                    "JOIN OFERTA o ON n.OfertaId = o.OfertaId " +
+                    "JOIN EMPRESA e ON o.EmpresaId = e.EmpresaId " +
+                    "WHERE n.Active = 1 AND o.Active = 1 AND e.Active = 1";
+    private static String sqlFindById = sqlSelect + " AND n.NotaId = ?";
     private static String sqlInsert = "INSERT INTO NOTA (OfertaId, Fecha, Texto) VALUES (?, ?, ?)";
     private static String sqlUpdate = "UPDATE NOTA SET OfertaId = ?, Fecha = ?, Texto = ? WHERE NotaId = ?";
     private static String sqlDelete = "UPDATE NOTA SET Active = 0 WHERE NotaId = ?";
@@ -103,8 +107,16 @@ public class NotaDAO implements DAO<Nota> {
 
     @Override
     public void deleteById(Long id) {
-        try (Connection conn = ds.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sqlDelete)) {
+        try (Connection conn = ds.getConnection()) {
+            deleteById(conn, id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void deleteById(Connection conn, Long id) {
+        try (PreparedStatement ps = conn.prepareStatement(sqlDelete)) {
 
             ps.setLong(1, id);
             ps.executeUpdate();

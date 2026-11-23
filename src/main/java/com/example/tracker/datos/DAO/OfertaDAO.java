@@ -1,6 +1,6 @@
 package com.example.tracker.datos.DAO;
 
-import com.example.tracker.datos.enums.EstadoOferta;
+import com.example.tracker.datos.enums.Estado;
 import com.example.tracker.datos.modelo.Empresa;
 import com.example.tracker.datos.modelo.Oferta;
 
@@ -23,7 +23,7 @@ public class OfertaDAO implements DAO<Oferta> {
             "SELECT o.*, e.Nombre, e.Sector, e.Web, e.FechaRegistro " +
                     "FROM OFERTA o " +
                     "JOIN EMPRESA e ON o.EmpresaId = e.EmpresaId " +
-                    "WHERE o.Active = 1";
+                    "WHERE o.Active = 1 AND e.Active = 1";
 
     private static String sqlFindById = sqlSelect + " AND o.OfertaId = ?";
 
@@ -123,8 +123,16 @@ public class OfertaDAO implements DAO<Oferta> {
 
     @Override
     public void deleteById(Long id) {
-        try (Connection conn = ds.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sqlDelete)) {
+        try (Connection conn = ds.getConnection()) {
+            deleteById(conn, id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void deleteById(Connection conn, Long id) {
+        try (PreparedStatement ps = conn.prepareStatement(sqlDelete)) {
 
             ps.setLong(1, id);
             ps.executeUpdate();
@@ -162,7 +170,7 @@ public class OfertaDAO implements DAO<Oferta> {
         oferta.setEmpresa(empresa);
         oferta.setTitulo(rs.getString("Titulo"));
         oferta.setDescripcion(rs.getString("Descripcion"));
-        oferta.setEstado(rs.getString("Estado") != null ? EstadoOferta.valueOf(rs.getString("Estado")) : EstadoOferta.PENDIENTE);
+        oferta.setEstado(rs.getString("Estado") != null ? Estado.valueOf(rs.getString("Estado")) : Estado.PENDIENTE);
         oferta.setFechaPostulacion(rs.getString("FechaPostulacion") != null ? LocalDate.parse(rs.getString("FechaPostulacion")) : null);
         oferta.setEnlace(rs.getString("Enlace"));
         oferta.setSalario(rs.getDouble("Salario"));

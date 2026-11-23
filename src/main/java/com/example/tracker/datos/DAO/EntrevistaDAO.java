@@ -1,6 +1,8 @@
 package com.example.tracker.datos.DAO;
 
+import com.example.tracker.datos.enums.Estado;
 import com.example.tracker.datos.enums.TipoEntrevista;
+import com.example.tracker.datos.modelo.Empresa;
 import com.example.tracker.datos.modelo.Entrevista;
 import com.example.tracker.datos.modelo.Oferta;
 
@@ -19,8 +21,12 @@ public class EntrevistaDAO implements DAO<Entrevista> {
         this.ds = ds;
     }
 
-    private static String sqlSelect = "SELECT * FROM ENTREVISTA WHERE Active = 1";
-    private static String sqlFindById = sqlSelect + " AND EntrevistaId = ?";
+    private static String sqlSelect =
+            "SELECT en.*, o.Titulo, e.EmpresaId, e.Nombre FROM ENTREVISTA en " +
+                    "JOIN OFERTA o ON en.OfertaId = o.OfertaId " +
+                    "JOIN EMPRESA e ON o.EmpresaId = e.EmpresaId " +
+                    "WHERE en.Active = 1 AND o.Active = 1 AND e.Active = 1";
+    private static String sqlFindById = sqlSelect + " AND en.EntrevistaId = ?";
     private static String sqlInsert = "INSERT INTO ENTREVISTA (OfertaId, Fecha, Tipo, Notas, Resultado) VALUES (?, ?, ?, ?, ?)";
     private static String sqlUpdate = "UPDATE ENTREVISTA SET OfertaId = ?, Fecha = ?, Tipo = ?, Notas = ?, Resultado = ? WHERE EntrevistaId = ?";
     private static String sqlDelete = "UPDATE ENTREVISTA SET Active = 0 WHERE EntrevistaId = ?";
@@ -70,7 +76,7 @@ public class EntrevistaDAO implements DAO<Entrevista> {
             ps.setString(2, entity.getFecha().toString());
             ps.setString(3, entity.getTipo().name());
             ps.setString(4, entity.getNotas());
-            ps.setString(5, entity.getResultado());
+            ps.setString(5, entity.getResultado().name());
 
             ps.executeUpdate();
 
@@ -96,7 +102,7 @@ public class EntrevistaDAO implements DAO<Entrevista> {
             ps.setString(2, entity.getFecha().toString());
             ps.setString(3, entity.getTipo().name());
             ps.setString(4, entity.getNotas());
-            ps.setString(5, entity.getResultado());
+            ps.setString(5, entity.getResultado().name());
             ps.setLong(6, entity.getEntrevistaId());
 
             ps.executeUpdate();
@@ -108,8 +114,16 @@ public class EntrevistaDAO implements DAO<Entrevista> {
 
     @Override
     public void deleteById(Long id) {
-        try (Connection conn = ds.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sqlDelete)) {
+        try (Connection conn = ds.getConnection()) {
+            deleteById(conn, id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void deleteById(Connection conn, Long id) {
+        try (PreparedStatement ps = conn.prepareStatement(sqlDelete)) {
 
             ps.setLong(1, id);
             ps.executeUpdate();
@@ -121,8 +135,14 @@ public class EntrevistaDAO implements DAO<Entrevista> {
 
     //region Method Mapper
     private static Entrevista mapper(ResultSet rs) throws SQLException {
+        Empresa empresa = new Empresa();
+        empresa.setEmpresaId(rs.getLong("EmpresaId"));
+        empresa.setNombre(rs.getString("Nombre"));
+
         Oferta oferta = new Oferta();
         oferta.setOfertaId(rs.getLong("OfertaId"));
+        oferta.setTitulo(rs.getString("Titulo"));
+        oferta.setEmpresa(empresa);
 
         Entrevista entrevista = new Entrevista();
         entrevista.setEntrevistaId(rs.getLong("EntrevistaId"));
@@ -130,7 +150,7 @@ public class EntrevistaDAO implements DAO<Entrevista> {
         entrevista.setFecha(LocalDate.parse(rs.getString("Fecha")));
         entrevista.setTipo(TipoEntrevista.valueOf(rs.getString("Tipo")));
         entrevista.setNotas(rs.getString("Notas"));
-        entrevista.setResultado(rs.getString("Resultado"));
+        entrevista.setResultado(rs.getString("Resultado") != null ? Estado.valueOf(rs.getString("Resultado")) : Estado.PENDIENTE);
         entrevista.setActive(rs.getBoolean("Active"));
         return entrevista;
     }

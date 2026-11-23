@@ -113,8 +113,16 @@ public class EmpresaDAO implements DAO<Empresa> {
 
     @Override
     public void deleteById(Long id) {
-        try (Connection conn = ds.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sqlDelete)) {
+        try (Connection conn = ds.getConnection()) {
+            deleteById(conn, id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void deleteById(Connection conn, Long id) {
+        try (PreparedStatement ps = conn.prepareStatement(sqlDelete)) {
 
             ps.setLong(1, id);
             ps.executeUpdate();
