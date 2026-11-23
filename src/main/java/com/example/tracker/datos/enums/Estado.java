@@ -1,6 +1,6 @@
 package com.example.tracker.datos.enums;
 
-public enum EstadoOferta {
+public enum Estado {
 
     PENDIENTE("Pendiente"),
     ENTREVISTA("Entrevista"),
@@ -9,7 +9,7 @@ public enum EstadoOferta {
 
     private final String etiqueta;
 
-    EstadoOferta(String etiqueta) {
+    Estado(String etiqueta) {
         this.etiqueta = etiqueta;
     }
 

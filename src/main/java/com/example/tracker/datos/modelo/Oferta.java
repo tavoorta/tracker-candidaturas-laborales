@@ -1,6 +1,6 @@
 package com.example.tracker.datos.modelo;
 
-import com.example.tracker.datos.enums.EstadoOferta;
+import com.example.tracker.datos.enums.Estado;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -13,7 +13,7 @@ public class Oferta {
     private Empresa empresa;
     private String titulo;
     private String descripcion;
-    private EstadoOferta estado;
+    private Estado estado;
     private LocalDate fechaPostulacion;
     private String enlace;
     private double salario;

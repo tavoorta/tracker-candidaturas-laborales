@@ -1,5 +1,6 @@
 package com.example.tracker.datos.modelo;
 
+import com.example.tracker.datos.enums.Estado;
 import com.example.tracker.datos.enums.TipoEntrevista;
 import lombok.*;
 
@@ -14,6 +15,6 @@ public class Entrevista {
     private LocalDate fecha;
     private TipoEntrevista tipo;
     private String notas;
-    private String resultado;
+    private Estado resultado;
     private boolean active;
 }
