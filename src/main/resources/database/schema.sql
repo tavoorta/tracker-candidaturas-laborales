@@ -47,6 +47,7 @@ create table if not exists ACTIVIDAD (
     ActividadId INTEGER PRIMARY KEY AUTOINCREMENT,
     OfertaId    INTEGER,
     Tipo        VARCHAR(20) not null,
+    Estado      VARCHAR(20),
     Descripcion VARCHAR(255) not null,
     Fecha       DATETIME not null,
     Active      BOOLEAN not null default 1,
