@@ -2,7 +2,7 @@ package com.example.tracker.presentacion.controllers;
 
 import com.example.tracker.common.AppContext;
 import com.example.tracker.SceneNavigator;
-import com.example.tracker.datos.enums.EstadoOferta;
+import com.example.tracker.datos.enums.Estado;
 import com.example.tracker.datos.modelo.Oferta;
 import com.example.tracker.negocio.ServicioOferta;
 import com.example.tracker.presentacion.celdas.CeldaAcciones;
@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
 import javafx.scene.control.TableColumn;
@@ -38,7 +39,7 @@ public class CandidaturasController implements Initializable {
     @javafx.fxml.FXML
     private TableColumn<Oferta, String> colFecha;
     @javafx.fxml.FXML
-    private TableColumn<Oferta, EstadoOferta> colEstado;
+    private TableColumn<Oferta, Estado> colEstado;
     @javafx.fxml.FXML
     private TableView<Oferta> tablaCandidaturas;
     @javafx.fxml.FXML
@@ -59,6 +60,14 @@ public class CandidaturasController implements Initializable {
     private ComboBox<String> comboEmpresa;
     @javafx.fxml.FXML
     private Pagination paginacion;
+    @javafx.fxml.FXML
+    private TextField txtSalarioMinimo;
+    @javafx.fxml.FXML
+    private TextField txtSalarioMaximo;
+    @javafx.fxml.FXML
+    private DatePicker dateDesde;
+    @javafx.fxml.FXML
+    private DatePicker dateHasta;
     //endregion FXML
 
     private static final int TAMANO_PAGINA = 10;
@@ -91,11 +100,27 @@ public class CandidaturasController implements Initializable {
 
         cargarFiltros();
         aplicarFiltros();
+
+        // Ordenar la tabla al pulsar en el encabezado de una columna
+        tablaCandidaturas.setSortPolicy(tabla -> {
+            aplicarFiltros();
+            return true;
+        });
     }
 
     private void cambiarEstado(ActionEvent actionEvent) {
         Oferta oferta = tablaCandidaturas.getSelectionModel().getSelectedItem();
-        servicio.cambiarEstado(oferta, oferta.getEstado());
+        ComboBox<Estado> comboDeLaFila = (ComboBox<Estado>) actionEvent.getSource();
+
+        try {
+            servicio.cambiarEstado(oferta, comboDeLaFila.getValue());
+        } catch (RuntimeException e) {
+            Alert alerta = new Alert(Alert.AlertType.ERROR);
+            alerta.setTitle("No se pudo cambiar el estado");
+            alerta.setHeaderText(null);
+            alerta.setContentText(e.getMessage());
+            alerta.showAndWait();
+        }
         recargarTabla();
     }
 
@@ -162,7 +187,7 @@ public class CandidaturasController implements Initializable {
     /** Llenar los desplegables - Estado y Empresa */
     private void cargarFiltros() {
         comboEstado.getItems().add(TODOS_LOS_ESTADOS);
-        for (EstadoOferta estado : EstadoOferta.values()) {
+        for (Estado estado : Estado.values()) {
             comboEstado.getItems().add(estado.toString());
         }
         comboEstado.getSelectionModel().selectFirst();
@@ -172,6 +197,22 @@ public class CandidaturasController implements Initializable {
         txtBuscar.textProperty().addListener((obs, anterior, nuevo) -> aplicarFiltros());
         comboEstado.setOnAction(e -> aplicarFiltros());
         comboEmpresa.setOnAction(e -> aplicarFiltros());
+        txtSalarioMinimo.textProperty().addListener((obs, anterior, nuevo) -> aplicarFiltros());
+        txtSalarioMaximo.textProperty().addListener((obs, anterior, nuevo) -> aplicarFiltros());
+        dateDesde.setOnAction(e -> aplicarFiltros());
+        dateHasta.setOnAction(e -> aplicarFiltros());
+    }
+
+    @javafx.fxml.FXML
+    public void limpiarFiltros(ActionEvent actionEvent) {
+        txtBuscar.clear();
+        comboEstado.getSelectionModel().selectFirst();
+        comboEmpresa.getSelectionModel().selectFirst();
+        txtSalarioMinimo.clear();
+        txtSalarioMaximo.clear();
+        dateDesde.setValue(null);
+        dateHasta.setValue(null);
+        aplicarFiltros();
     }
 
     /** Llena el desplegable de empresas y mantiene la elegida si sigue existiendo. */
@@ -193,8 +234,48 @@ public class CandidaturasController implements Initializable {
         String estado = TODOS_LOS_ESTADOS.equals(comboEstado.getValue()) ? null : comboEstado.getValue();
         String empresa = TODAS_LAS_EMPRESAS.equals(comboEmpresa.getValue()) ? null : comboEmpresa.getValue();
 
-        ofertas = servicio.filtrar(estado, empresa, txtBuscar.getText());
+        ofertas = servicio.filtrar(estado, empresa, txtBuscar.getText(),
+                leerSalario(txtSalarioMinimo), leerSalario(txtSalarioMaximo),
+                dateDesde.getValue(), dateHasta.getValue());
+        ordenarSegunColumna();
         mostrarPagina(1);
+    }
+
+    /** Ordena la lista completa (no solo la página visible) por la columna pulsada. */
+    private void ordenarSegunColumna() {
+        if (tablaCandidaturas.getSortOrder().isEmpty()) {
+            return;
+        }
+
+        TableColumn<Oferta, ?> columna = tablaCandidaturas.getSortOrder().get(0);
+        boolean ascendente = columna.getSortType() == TableColumn.SortType.ASCENDING;
+
+        String campo = "";
+        if (columna == colEmpresa) {
+            campo = "empresa";
+        } else if (columna == colTitulo) {
+            campo = "titulo";
+        } else if (columna == colFecha) {
+            campo = "fecha";
+        } else if (columna == colEstado) {
+            campo = "estado";
+        } else if (columna == colSalario) {
+            campo = "salario";
+        }
+
+        ofertas = servicio.ordenar(ofertas, campo, ascendente);
+    }
+
+    /** Devuelve el número escrito en el campo, o null si está vacío o no es un número. */
+    private Double leerSalario(TextField campo) {
+        if (campo.getText().isBlank()) {
+            return null;
+        }
+        try {
+            return Double.parseDouble(campo.getText());
+        } catch (NumberFormatException e) {
+            return null;
+        }
     }
     //endregion Filtros
 }

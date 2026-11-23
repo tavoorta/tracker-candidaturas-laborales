@@ -1,7 +1,7 @@
 package com.example.tracker.presentacion.controllers;
 
 import com.example.tracker.common.AppContext;
-import com.example.tracker.datos.enums.EstadoOferta;
+import com.example.tracker.datos.enums.Estado;
 import com.example.tracker.datos.modelo.Oferta;
 import com.example.tracker.negocio.ServicioEmpresa;
 import com.example.tracker.negocio.ServicioOferta;
@@ -44,7 +44,7 @@ public class FormularioOfertaController implements Initializable {
     @javafx.fxml.FXML
     private ComboBox<String> comboEmpresa;
     @javafx.fxml.FXML
-    private ComboBox<EstadoOferta> comboEstado;
+    private ComboBox<Estado> comboEstado;
     @javafx.fxml.FXML
     private DatePicker dateFecha;
     @javafx.fxml.FXML
@@ -60,8 +60,8 @@ public class FormularioOfertaController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         comboEmpresa.getItems().addAll(servicioEmpresa.listarNombres());
-        comboEstado.getItems().addAll(EstadoOferta.values());
-        comboEstado.setValue(EstadoOferta.PENDIENTE);
+        comboEstado.getItems().addAll(Estado.values());
+        comboEstado.setValue(Estado.PENDIENTE);
         dateFecha.setValue(LocalDate.now());
 
         if (AppContext.getInstance().getDatos().containsKey("oferta")) {

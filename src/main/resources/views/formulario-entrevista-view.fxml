@@ -13,7 +13,7 @@
         <Insets bottom="24.0" left="24.0" right="24.0" top="20.0"/>
     </padding>
 
-    <Label style="-fx-text-fill: #0F766E;" text="Nueva entrevista">
+    <Label fx:id="lblTitulo" style="-fx-text-fill: #0F766E;" text="Nueva entrevista">
         <font>
             <Font name="System Bold" size="22.0"/>
         </font>
@@ -42,6 +42,11 @@
             <Label text="Empresa"/>
             <TextField fx:id="txtEmpresa" editable="false"/>
         </VBox>
+
+        <VBox spacing="4.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
+            <Label text="Resultado"/>
+            <ComboBox fx:id="comboResultado" maxWidth="Infinity"/>
+        </VBox>
     </GridPane>
 
     <Label text="Notas"/>
@@ -49,7 +54,7 @@
 
     <HBox alignment="CENTER_RIGHT" spacing="12.0">
         <Button onAction="#cancelar" text="Cancelar"/>
-        <Button onAction="#guardar" text="Agregar entrevista"
+        <Button fx:id="btnGuardar" onAction="#guardar" text="Agregar entrevista"
                 style="-fx-background-color: #0F766E; -fx-text-fill: white; -fx-background-radius: 8;"/>
     </HBox>
 </VBox>

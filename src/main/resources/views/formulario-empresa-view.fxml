@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox spacing="12.0" prefWidth="620.0" style="-fx-background-color: white;"
+      xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.tracker.presentacion.controllers.FormularioEmpresaController">
+    <padding>
+        <Insets bottom="24.0" left="24.0" right="24.0" top="20.0"/>
+    </padding>
+
+    <Label fx:id="lblTitulo" style="-fx-text-fill: #0F766E;" text="Nueva empresa">
+        <font>
+            <Font name="System Bold" size="22.0"/>
+        </font>
+    </Label>
+
+    <GridPane hgap="16.0" vgap="12.0">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="50.0"/>
+            <ColumnConstraints percentWidth="50.0"/>
+        </columnConstraints>
+
+        <VBox spacing="4.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+            <Label text="Nombre"/>
+            <TextField fx:id="txtNombre" promptText="ej. NTT Data"/>
+        </VBox>
+        <VBox spacing="4.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
+            <Label text="Ubicación"/>
+            <TextField fx:id="txtUbicacion" promptText="ej. Málaga, España"/>
+        </VBox>
+
+        <VBox spacing="4.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+            <Label text="Sector"/>
+            <TextField fx:id="txtSector" promptText="ej. Consultoría tecnológica"/>
+        </VBox>
+        <VBox spacing="4.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Label text="URL"/>
+            <TextField fx:id="txtWeb" promptText="Ingrese la web de la empresa"/>
+        </VBox>
+
+        <VBox spacing="4.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
+            <Label text="LinkedIn"/>
+            <TextField fx:id="txtLinkedIn" promptText="Ingrese el LinkedIn de la empresa"/>
+        </VBox>
+    </GridPane>
+
+    <Label text="Notas"/>
+    <TextArea fx:id="txtNotas" prefRowCount="4" promptText="Ingrese notas relevantes de la empresa" wrapText="true"/>
+
+    <HBox alignment="CENTER_RIGHT" spacing="12.0">
+        <Button onAction="#cancelar" text="Cancelar"/>
+        <Button fx:id="btnGuardar" onAction="#guardar" text="Agregar empresa"
+                style="-fx-background-color: #0F766E; -fx-text-fill: white; -fx-background-radius: 8;"/>
+    </HBox>
+</VBox>

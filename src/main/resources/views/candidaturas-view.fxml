@@ -25,6 +25,18 @@
         <Region HBox.hgrow="ALWAYS"/>
         <Button mnemonicParsing="false" onAction="#nuevaOferta" text="Cargar candidatura"/>
     </HBox>
+    <!-- Filtros de salario y fecha de postulación -->
+    <HBox alignment="CENTER_LEFT" spacing="10.0">
+        <Label text="Salario:"/>
+        <TextField fx:id="txtSalarioMinimo" prefWidth="110.0" promptText="Mínimo"/>
+        <Label text="-"/>
+        <TextField fx:id="txtSalarioMaximo" prefWidth="110.0" promptText="Máximo"/>
+        <Label text="Fecha:"/>
+        <DatePicker fx:id="dateDesde" prefWidth="140.0" promptText="Desde"/>
+        <Label text="-"/>
+        <DatePicker fx:id="dateHasta" prefWidth="140.0" promptText="Hasta"/>
+        <Button mnemonicParsing="false" onAction="#limpiarFiltros" text="Limpiar filtros"/>
+    </HBox>
     <VBox spacing="10.0"
           style="-fx-background-color: white; -fx-background-radius: 12; -fx-border-color: #E2E8F0; -fx-border-radius: 12;"
           VBox.vgrow="ALWAYS">
@@ -40,10 +52,10 @@
             <columns>
                 <TableColumn fx:id="colEmpresa" prefWidth="170.0" text="Empresa"/>
                 <TableColumn fx:id="colTitulo" prefWidth="210.0" text="Título"/>
-                <TableColumn fx:id="colFecha" prefWidth="150.0" text="Fecha de entrevista"/>
+                <TableColumn fx:id="colFecha" prefWidth="150.0" text="Fecha de postulación"/>
                 <TableColumn fx:id="colEstado" prefWidth="140.0" text="Estado"/>
                 <TableColumn fx:id="colSalario" prefWidth="110.0" text="Salario"/>
-                <TableColumn fx:id="colAcciones" prefWidth="200.0" text=""/>
+                <TableColumn fx:id="colAcciones" prefWidth="200.0" sortable="false" text=""/>
             </columns>
         </TableView>
         <HBox alignment="CENTER_LEFT" spacing="12.0" style="-fx-border-color: #E2E8F0; -fx-border-width: 1 0 0 0;">

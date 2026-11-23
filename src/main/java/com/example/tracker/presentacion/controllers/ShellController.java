@@ -1,6 +1,8 @@
 package com.example.tracker.presentacion.controllers;
 
 import com.example.tracker.SceneNavigator;
+import com.example.tracker.common.AppContext;
+import javafx.collections.MapChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -36,23 +38,38 @@ public class ShellController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         SceneNavigator.setContenido(contenido);
         cargarUsuarioActual();
+
+        AppContext.getInstance().getDatos().addListener((MapChangeListener<String, Object>) cambio -> {
+            if (cambio.getKey().equals("vistaActual") && cambio.wasAdded()) {
+                marcarBotonDeVista((String) cambio.getValueAdded());
+            }
+        });
+
         irDashboard(null);
     }
 
     @javafx.fxml.FXML
     public void irDashboard(MouseEvent event) {
-        marcarBotonActivo(btnDashboard);
+        cargarContenido("dashboard-view.fxml");
     }
 
     @javafx.fxml.FXML
     public void irCandidaturas(MouseEvent event) {
         cargarContenido("candidaturas-view.fxml");
-        marcarBotonActivo(btnCandidaturas);
     }
 
     @javafx.fxml.FXML
     public void irEmpresas(MouseEvent event) {
-        marcarBotonActivo(btnEmpresas);
+        cargarContenido("empresas-view.fxml");
+    }
+
+    /** Marca en el menú la sección a la que pertenece la vista que se acaba de abrir. */
+    private void marcarBotonDeVista(String vista) {
+        switch (vista) {
+            case "dashboard-view.fxml" -> marcarBotonActivo(btnDashboard);
+            case "candidaturas-view.fxml", "detalle-oferta-view.fxml" -> marcarBotonActivo(btnCandidaturas);
+            case "empresas-view.fxml" -> marcarBotonActivo(btnEmpresas);
+        }
     }
 
     @javafx.fxml.FXML
