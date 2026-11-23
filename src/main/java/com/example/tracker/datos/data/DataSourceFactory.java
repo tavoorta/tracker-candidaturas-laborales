@@ -23,6 +23,7 @@ public class DataSourceFactory {
 
             SQLiteDataSource ds = new SQLiteDataSource();
             ds.setUrl(url);
+            ds.setEnforceForeignKeys(true);
             dataSource = ds;
         }
         return dataSource;

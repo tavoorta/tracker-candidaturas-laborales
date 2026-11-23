@@ -3,7 +3,7 @@ package com.example.tracker.datos.data;
 import com.example.tracker.datos.DAO.EmpresaDAO;
 import com.example.tracker.datos.DAO.NotaDAO;
 import com.example.tracker.datos.DAO.OfertaDAO;
-import com.example.tracker.datos.enums.EstadoOferta;
+import com.example.tracker.datos.enums.Estado;
 import com.example.tracker.datos.modelo.Empresa;
 import com.example.tracker.datos.modelo.Nota;
 import com.example.tracker.datos.modelo.Oferta;
@@ -134,7 +134,7 @@ public class ImportadorCsv {
         oferta.setTitulo(campos[0]);
         oferta.setEmpresa(empresa);
         oferta.setDescripcion(campos[2]);
-        oferta.setEstado(EstadoOferta.valueOf(campos[3].toUpperCase()));
+        oferta.setEstado(Estado.valueOf(campos[3].toUpperCase()));
         oferta.setFechaPostulacion(LocalDate.parse(campos[4], FORMATO_FECHA));
         oferta.setEnlace(campos[5]);
         oferta.setSalario(campos[6].isBlank() ? 0 : Double.parseDouble(campos[6]));
