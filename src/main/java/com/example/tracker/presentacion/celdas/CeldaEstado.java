@@ -1,6 +1,6 @@
 package com.example.tracker.presentacion.celdas;
 
-import com.example.tracker.datos.enums.EstadoOferta;
+import com.example.tracker.datos.enums.Estado;
 import com.example.tracker.datos.modelo.Oferta;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -14,28 +14,26 @@ import javafx.scene.control.TableCell;
  * Al elegir otro estado lo asigna a la fila, la selecciona y ejecuta la acción recibida.
  * Reutilizable en cualquier tabla de ofertas (listado, dashboard...).
  */
-public class CeldaEstado extends TableCell<Oferta, EstadoOferta> {
+public class CeldaEstado extends TableCell<Oferta, Estado> {
 
-    private final ComboBox<EstadoOferta> comboEstado;
+    private final ComboBox<Estado> comboEstado;
 
     public CeldaEstado(EventHandler<ActionEvent> cambiarEstado) {
-        comboEstado = new ComboBox<>(FXCollections.observableArrayList(EstadoOferta.values()));
+        comboEstado = new ComboBox<>(FXCollections.observableArrayList(Estado.values()));
 
         comboEstado.setOnAction(event -> {
             Oferta fila = getTableRow().getItem();
-            EstadoOferta nuevoEstado = comboEstado.getValue();
+            Estado nuevoEstado = comboEstado.getValue();
 
             if (fila != null && nuevoEstado != null && nuevoEstado != fila.getEstado()) {
-                fila.setEstado(nuevoEstado);
                 getTableView().getSelectionModel().select(fila);
                 cambiarEstado.handle(event);
-                aplicarEstilo(nuevoEstado);
             }
         });
     }
 
     @Override
-    protected void updateItem(EstadoOferta estado, boolean empty) {
+    protected void updateItem(Estado estado, boolean empty) {
         super.updateItem(estado, empty);
         if (empty || estado == null) {
             setGraphic(null);
@@ -46,14 +44,14 @@ public class CeldaEstado extends TableCell<Oferta, EstadoOferta> {
         setGraphic(comboEstado);
     }
 
-    private void aplicarEstilo(EstadoOferta estado) {
+    private void aplicarEstilo(Estado estado) {
         comboEstado.setStyle(
                 "-fx-background-color: " + colorFondo(estado) + ";"
                 + "-fx-background-radius: 12;"
                 + "-fx-mark-color: " + colorTexto(estado) + ";");
         comboEstado.setButtonCell(new ListCell<>() {
             @Override
-            protected void updateItem(EstadoOferta item, boolean empty) {
+            protected void updateItem(Estado item, boolean empty) {
                 super.updateItem(item, empty);
                 setText(empty || item == null ? null : item.toString());
                 setStyle("-fx-text-fill: " + colorTexto(estado) + "; -fx-font-weight: bold;");
@@ -62,7 +60,7 @@ public class CeldaEstado extends TableCell<Oferta, EstadoOferta> {
     }
 
     //region Colores de cada estado
-    public static String colorFondo(EstadoOferta estado) {
+    public static String colorFondo(Estado estado) {
         return switch (estado) {
             case ENTREVISTA -> "#0F766E";
             case RECHAZADO -> "#FF8B78";
@@ -71,7 +69,7 @@ public class CeldaEstado extends TableCell<Oferta, EstadoOferta> {
         };
     }
 
-    public static String colorTexto(EstadoOferta estado) {
+    public static String colorTexto(Estado estado) {
         return switch (estado) {
             case ENTREVISTA -> "white";
             case RECHAZADO -> "#7A1D0F";

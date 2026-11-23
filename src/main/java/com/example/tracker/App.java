@@ -1,4 +1,5 @@
 package com.example.tracker;
+import com.example.tracker.datos.DAO.ActividadDAO;
 import com.example.tracker.datos.DAO.EmpresaDAO;
 import com.example.tracker.datos.DAO.EntrevistaDAO;
 import com.example.tracker.datos.DAO.NotaDAO;
@@ -6,6 +7,7 @@ import com.example.tracker.datos.DAO.OfertaDAO;
 import com.example.tracker.datos.data.DataSourceFactory;
 import com.example.tracker.datos.data.ImportadorCsv;
 import com.example.tracker.datos.data.InicializadorBaseDatos;
+import com.example.tracker.negocio.ServicioActividad;
 import com.example.tracker.negocio.ServicioEmpresa;
 import com.example.tracker.negocio.ServicioEntrevista;
 import com.example.tracker.negocio.ServicioNota;
@@ -26,11 +28,15 @@ public class App extends Application {
         EmpresaDAO empresaDAO = new EmpresaDAO(dataSource);
         EntrevistaDAO entrevistaDAO = new EntrevistaDAO(dataSource);
         NotaDAO notaDAO = new NotaDAO(dataSource);
+        ActividadDAO actividadDAO = new ActividadDAO(dataSource);
         new ImportadorCsv(empresaDAO, ofertaDAO, notaDAO).importar("empresas.csv", "candidaturas.csv");
 
         SceneNavigator.setStage(stage);
-        SceneNavigator.setServicioOferta(new ServicioOferta(ofertaDAO));
-        SceneNavigator.setServicioEmpresa(new ServicioEmpresa(empresaDAO));
+        ServicioActividad servicioActividad = new ServicioActividad(actividadDAO);
+        ServicioOferta servicioOferta = new ServicioOferta(ofertaDAO, entrevistaDAO, notaDAO, dataSource, servicioActividad);
+        SceneNavigator.setServicioActividad(servicioActividad);
+        SceneNavigator.setServicioOferta(servicioOferta);
+        SceneNavigator.setServicioEmpresa(new ServicioEmpresa(empresaDAO, servicioOferta, dataSource));
         SceneNavigator.setServicioEntrevista(new ServicioEntrevista(entrevistaDAO));
         SceneNavigator.setServicioNota(new ServicioNota(notaDAO));
 

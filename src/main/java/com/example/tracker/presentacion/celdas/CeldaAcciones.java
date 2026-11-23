@@ -25,6 +25,17 @@ public class CeldaAcciones<T> extends TableCell<T, Void> {
                 crearBoton("/images/icon-eliminar.png", eliminar));
     }
 
+    public CeldaAcciones(EventHandler<ActionEvent> editar, EventHandler<ActionEvent> eliminar) {
+        contenedor = new HBox(6.0,
+                crearBoton("/images/icon-editar.png", editar),
+                crearBoton("/images/icon-eliminar.png", eliminar));
+    }
+
+    public CeldaAcciones(String rutaImagen, EventHandler<ActionEvent> accion) {
+        contenedor = new HBox(6.0,
+                crearBoton(rutaImagen, accion));
+    }
+
     private Button crearBoton(String rutaImagen, EventHandler<ActionEvent> accion) {
         ImageView icono = new ImageView(new Image(getClass().getResourceAsStream(rutaImagen)));
         icono.setFitWidth(18.0);

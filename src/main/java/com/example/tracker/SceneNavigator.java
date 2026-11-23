@@ -1,11 +1,16 @@
 package com.example.tracker;
 
+import com.example.tracker.common.AppContext;
 import com.example.tracker.presentacion.controllers.CandidaturasController;
+import com.example.tracker.presentacion.controllers.DashboardController;
 import com.example.tracker.presentacion.controllers.DetalleOfertaController;
+import com.example.tracker.presentacion.controllers.EmpresasController;
+import com.example.tracker.presentacion.controllers.FormularioEmpresaController;
 import com.example.tracker.presentacion.controllers.FormularioEntrevistaController;
 import com.example.tracker.presentacion.controllers.FormularioOfertaController;
 import com.example.tracker.presentacion.controllers.LoginController;
 import com.example.tracker.presentacion.controllers.ShellController;
+import com.example.tracker.negocio.ServicioActividad;
 import com.example.tracker.negocio.ServicioEmpresa;
 import com.example.tracker.negocio.ServicioEntrevista;
 import com.example.tracker.negocio.ServicioNota;
@@ -27,6 +32,7 @@ public class SceneNavigator {
     private static ServicioEmpresa servicioEmpresa;
     private static ServicioEntrevista servicioEntrevista;
     private static ServicioNota servicioNota;
+    private static ServicioActividad servicioActividad;
 
     public static void setStage(Stage stage) {
         SceneNavigator.stage = stage;
@@ -50,6 +56,10 @@ public class SceneNavigator {
 
     public static void setServicioNota(ServicioNota servicioNota) {
         SceneNavigator.servicioNota = servicioNota;
+    }
+
+    public static void setServicioActividad(ServicioActividad servicioActividad) {
+        SceneNavigator.servicioActividad = servicioActividad;
     }
 
     /** Utilizado para navegar a una vista específica. */
@@ -77,6 +87,7 @@ public class SceneNavigator {
         try {
             contenido.getChildren().clear();
             contenido.getChildren().add(fxmlLoader.load());
+            AppContext.getInstance().put("vistaActual", fxml);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -108,10 +119,13 @@ public class SceneNavigator {
             return switch (fxml) {
                 case "login-view.fxml" -> new LoginController();
                 case "shell-view.fxml" -> new ShellController();
+                case "dashboard-view.fxml" -> new DashboardController(servicioOferta, servicioEntrevista, servicioActividad);
                 case "candidaturas-view.fxml" -> new CandidaturasController(servicioOferta);
                 case "formulario-oferta-view.fxml" -> new FormularioOfertaController(servicioOferta, servicioEmpresa);
                 case "detalle-oferta-view.fxml" -> new DetalleOfertaController(servicioEntrevista, servicioNota);
                 case "formulario-entrevista-view.fxml" -> new FormularioEntrevistaController(servicioEntrevista);
+                case "empresas-view.fxml" -> new EmpresasController(servicioEmpresa);
+                case "formulario-empresa-view.fxml" -> new FormularioEmpresaController(servicioEmpresa);
                 default -> throw new IllegalArgumentException("Error con fxml: " + fxml);
             };
         });
