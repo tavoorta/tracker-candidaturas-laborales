@@ -2,16 +2,21 @@ package com.example.tracker.presentacion.controllers;
 
 import com.example.tracker.SceneNavigator;
 import com.example.tracker.common.AppContext;
+import com.example.tracker.datos.enums.Estado;
 import com.example.tracker.datos.modelo.Entrevista;
 import com.example.tracker.datos.modelo.Nota;
 import com.example.tracker.datos.modelo.Oferta;
 import com.example.tracker.negocio.ServicioEntrevista;
 import com.example.tracker.negocio.ServicioNota;
+import com.example.tracker.presentacion.celdas.CeldaAcciones;
 import com.example.tracker.presentacion.celdas.CeldaEstado;
+import com.example.tracker.presentacion.celdas.CeldaResultado;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -19,6 +24,7 @@ import javafx.scene.control.TextField;
 
 import java.net.URL;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
@@ -55,7 +61,13 @@ public class DetalleOfertaController implements Initializable {
     @javafx.fxml.FXML
     private TextField txtNuevaNota;
     @javafx.fxml.FXML
-    private Label lblNotas;
+    private TableView<Nota> tablaNotas;
+    @javafx.fxml.FXML
+    private TableColumn<Nota, String> colFechaNota;
+    @javafx.fxml.FXML
+    private TableColumn<Nota, String> colTextoNota;
+    @javafx.fxml.FXML
+    private TableColumn<Nota, Void> colAccionesNota;
     @javafx.fxml.FXML
     private TableView<Entrevista> tablaEntrevistas;
     @javafx.fxml.FXML
@@ -63,7 +75,11 @@ public class DetalleOfertaController implements Initializable {
     @javafx.fxml.FXML
     private TableColumn<Entrevista, String> colTipo;
     @javafx.fxml.FXML
+    private TableColumn<Entrevista, Estado> colResultado;
+    @javafx.fxml.FXML
     private TableColumn<Entrevista, String> colNotasEntrevista;
+    @javafx.fxml.FXML
+    private TableColumn<Entrevista, Void> colAccionesEntrevista;
     //endregion FXML
 
     @Override
@@ -83,7 +99,15 @@ public class DetalleOfertaController implements Initializable {
 
         colFechaEntrevista.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getFecha().toString()));
         colTipo.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getTipo().toString()));
+        colResultado.setCellValueFactory(c -> new SimpleObjectProperty<>(c.getValue().getResultado()));
+        colResultado.setCellFactory(columna -> new CeldaResultado());
         colNotasEntrevista.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getNotas()));
+        colAccionesEntrevista.setCellFactory(columna -> new CeldaAcciones<>(this::editarEntrevista, this::eliminarEntrevista));
+
+        colFechaNota.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getFecha().toString()));
+        colTextoNota.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getTexto()));
+        colAccionesNota.setCellFactory(columna -> new CeldaAcciones<>("/images/icon-eliminar.png", this::eliminarNota));
+
         cargarNotas();
         cargarEntrevistas();
     }
@@ -106,16 +130,47 @@ public class DetalleOfertaController implements Initializable {
 
     @javafx.fxml.FXML
     public void nuevaEntrevista(ActionEvent actionEvent) {
+        AppContext.getInstance().getDatos().remove("entrevista");
         SceneNavigator.abrirModal("formulario-entrevista-view.fxml", "Nueva entrevista");
         cargarEntrevistas();
     }
 
-    private void cargarNotas() {
-        String texto = "";
-        for (Nota nota : servicioNota.listarPorOferta(oferta)) {
-            texto += nota.getFecha() + "\n" + nota.getTexto() + "\n\n";
+    private void editarEntrevista(ActionEvent actionEvent) {
+        AppContext.getInstance().put("entrevista", tablaEntrevistas.getSelectionModel().getSelectedItem());
+        SceneNavigator.abrirModal("formulario-entrevista-view.fxml", "Editar entrevista");
+        cargarEntrevistas();
+    }
+
+    private void eliminarEntrevista(ActionEvent actionEvent) {
+        Entrevista entrevista = tablaEntrevistas.getSelectionModel().getSelectedItem();
+
+        if (confirmarBorrado("¿Seguro que desea eliminar la " + entrevista.getTipo() + " del " + entrevista.getFecha() + "?")) {
+            servicioEntrevista.borrar(entrevista);
+            cargarEntrevistas();
         }
-        lblNotas.setText(texto);
+    }
+
+    private void eliminarNota(ActionEvent actionEvent) {
+        Nota nota = tablaNotas.getSelectionModel().getSelectedItem();
+
+        if (confirmarBorrado("¿Seguro que desea eliminar la nota del " + nota.getFecha() + "?")) {
+            servicioNota.borrar(nota);
+            cargarNotas();
+        }
+    }
+
+    private boolean confirmarBorrado(String mensaje) {
+        Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmacion.setTitle("Confirmar borrado");
+        confirmacion.setHeaderText(null);
+        confirmacion.setContentText(mensaje);
+
+        Optional<ButtonType> respuesta = confirmacion.showAndWait();
+        return respuesta.isPresent() && respuesta.get() == ButtonType.OK;
+    }
+
+    private void cargarNotas() {
+        tablaNotas.getItems().setAll(servicioNota.listarPorOferta(oferta));
     }
 
     private void cargarEntrevistas() {

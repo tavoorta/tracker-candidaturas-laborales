@@ -96,9 +96,13 @@
                 <TextField fx:id="txtNuevaNota" promptText="Agregar una nueva nota" HBox.hgrow="ALWAYS"/>
                 <Button onAction="#agregarNota" text="Agregar"/>
             </HBox>
-            <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" style="-fx-background-color: transparent;">
-                <Label fx:id="lblNotas" wrapText="true"/>
-            </ScrollPane>
+            <TableView fx:id="tablaNotas" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colFechaNota" prefWidth="100.0" text="Fecha"/>
+                    <TableColumn fx:id="colTextoNota" prefWidth="420.0" text="Nota"/>
+                    <TableColumn fx:id="colAccionesNota" prefWidth="50.0" text=""/>
+                </columns>
+            </TableView>
         </VBox>
 
         <!-- Tarjeta de contactos (datos de ejemplo por ahora hasta V3) -->
@@ -135,23 +139,26 @@
             </HBox>
         </VBox>
 
-        <!-- Tarjeta de historial de entrevistas -->
-        <VBox spacing="12.0" GridPane.columnIndex="1" GridPane.rowIndex="1"
-              style="-fx-background-color: white; -fx-background-radius: 12; -fx-border-color: #E2E8F0; -fx-border-radius: 12;">
-            <padding>
-                <Insets bottom="16.0" left="20.0" right="20.0" top="16.0"/>
-            </padding>
-            <HBox alignment="CENTER_LEFT">
-                <Label text="Historial de entrevistas" style="-fx-font-weight: bold;" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
-                <Button onAction="#nuevaEntrevista" text="+"/>
-            </HBox>
-            <TableView fx:id="tablaEntrevistas" VBox.vgrow="ALWAYS">
-                <columns>
-                    <TableColumn fx:id="colFechaEntrevista" prefWidth="90.0" text="Fecha"/>
-                    <TableColumn fx:id="colTipo" prefWidth="130.0" text="Tipo"/>
-                    <TableColumn fx:id="colNotasEntrevista" prefWidth="180.0" text="Notas"/>
-                </columns>
-            </TableView>
-        </VBox>
+        <!-- Panel expandible de historial de entrevistas: se pliega/despliega con un clic en el título -->
+        <TitledPane text="Historial de entrevistas" expanded="true" collapsible="true" maxHeight="Infinity"
+                    GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP">
+            <VBox spacing="12.0">
+                <padding>
+                    <Insets bottom="16.0" left="20.0" right="20.0" top="16.0"/>
+                </padding>
+                <HBox alignment="CENTER_RIGHT">
+                    <Button onAction="#nuevaEntrevista" text="+"/>
+                </HBox>
+                <TableView fx:id="tablaEntrevistas" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colFechaEntrevista" prefWidth="90.0" text="Fecha"/>
+                        <TableColumn fx:id="colTipo" prefWidth="120.0" text="Tipo"/>
+                        <TableColumn fx:id="colResultado" prefWidth="110.0" text="Resultado"/>
+                        <TableColumn fx:id="colNotasEntrevista" prefWidth="120.0" text="Notas"/>
+                        <TableColumn fx:id="colAccionesEntrevista" prefWidth="70.0" text=""/>
+                    </columns>
+                </TableView>
+            </VBox>
+        </TitledPane>
     </GridPane>
 </VBox>
