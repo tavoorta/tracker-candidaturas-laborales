@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox spacing="16.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tracker.presentacion.controllers.DashboardController">
+   <padding>
+      <Insets bottom="24.0" left="32.0" right="32.0" top="8.0" />
+   </padding>
+   <Label text="Dashboard">
+      <font>
+         <Font name="System Bold" size="26.0" />
+      </font>
+   </Label>
+
+   <HBox spacing="16.0">
+      <VBox spacing="6.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-border-color: #E2E8F0; -fx-border-radius: 12;" HBox.hgrow="ALWAYS">
+         <padding>
+            <Insets bottom="14.0" left="16.0" right="16.0" top="14.0" />
+         </padding>
+         <HBox alignment="CENTER_LEFT" spacing="10.0">
+            <ImageView fitHeight="54.0" fitWidth="54.0">
+               <image>
+                  <Image url="@../images/icon-ofertas.png" />
+               </image>
+            </ImageView>
+            <VBox>
+               <Label fx:id="lblOfertas">
+                  <font>
+                     <Font name="System Bold" size="22.0" />
+                  </font>
+               </Label>
+               <Label fx:id="lblTituloOfertas" />
+            </VBox>
+         </HBox>
+         <Label fx:id="lblVariacionOfertas" style="-fx-font-size: 11;" />
+      </VBox>
+      <VBox spacing="6.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-border-color: #E2E8F0; -fx-border-radius: 12;" HBox.hgrow="ALWAYS">
+         <padding>
+            <Insets bottom="14.0" left="16.0" right="16.0" top="14.0" />
+         </padding>
+         <HBox alignment="CENTER_LEFT" spacing="10.0">
+            <ImageView fitHeight="44.05" fitWidth="41.0">
+               <image>
+                  <Image url="@../images/icon-entrevistas.png" />
+               </image>
+            </ImageView>
+            <VBox>
+               <Label fx:id="lblEntrevistas">
+                  <font>
+                     <Font name="System Bold" size="22.0" />
+                  </font>
+               </Label>
+               <Label fx:id="lblTituloEntrevistas" />
+            </VBox>
+         </HBox>
+         <Label fx:id="lblVariacionEntrevistas" style="-fx-font-size: 11;" />
+      </VBox>
+      <VBox spacing="6.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-border-color: #E2E8F0; -fx-border-radius: 12;" HBox.hgrow="ALWAYS">
+         <padding>
+            <Insets bottom="14.0" left="16.0" right="16.0" top="14.0" />
+         </padding>
+         <HBox alignment="CENTER_LEFT" spacing="10.0">
+            <ImageView fitHeight="44.05" fitWidth="41.0">
+               <image>
+                  <Image url="@../images/icon-pendientes.png" />
+               </image>
+            </ImageView>
+            <VBox>
+               <Label fx:id="lblPendientes">
+                  <font>
+                     <Font name="System Bold" size="22.0" />
+                  </font>
+               </Label>
+               <Label fx:id="lblTituloPendientes" />
+            </VBox>
+         </HBox>
+         <Label fx:id="lblVariacionPendientes" style="-fx-font-size: 11;" />
+      </VBox>
+      <VBox spacing="6.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-border-color: #E2E8F0; -fx-border-radius: 12;" HBox.hgrow="ALWAYS">
+         <padding>
+            <Insets bottom="14.0" left="16.0" right="16.0" top="14.0" />
+         </padding>
+         <HBox alignment="CENTER_LEFT" spacing="10.0">
+            <ImageView fitHeight="40.0" fitWidth="55.0">
+               <image>
+                  <Image url="@../images/icon-rechazos.png" />
+               </image>
+            </ImageView>
+            <VBox>
+               <Label fx:id="lblRechazos">
+                  <font>
+                     <Font name="System Bold" size="22.0" />
+                  </font>
+               </Label>
+               <Label fx:id="lblTituloRechazos" />
+            </VBox>
+         </HBox>
+         <Label fx:id="lblVariacionRechazos" style="-fx-font-size: 11;" />
+      </VBox>
+   </HBox>
+
+   <HBox spacing="16.0">
+      <VBox spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-border-color: #E2E8F0; -fx-border-radius: 12;" HBox.hgrow="ALWAYS">
+         <padding>
+            <Insets bottom="16.0" left="20.0" right="20.0" top="16.0" />
+         </padding>
+         <Label text="Próximas entrevistas">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+         </Label>
+         <TableView fx:id="tablaProximasEntrevistas" prefHeight="180.0">
+            <columns>
+               <TableColumn fx:id="colEntrevistaEmpresa" prefWidth="140.0" text="Empresa" />
+               <TableColumn fx:id="colEntrevistaTitulo" prefWidth="170.0" text="Título" />
+               <TableColumn fx:id="colEntrevistaFecha" prefWidth="140.0" text="Fecha de entrevista" />
+               <TableColumn fx:id="colEntrevistaInfo" prefWidth="40.0" sortable="false" text="" />
+            </columns>
+         </TableView>
+      </VBox>
+      <VBox spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-border-color: #E2E8F0; -fx-border-radius: 12;" HBox.hgrow="ALWAYS">
+         <padding>
+            <Insets bottom="16.0" left="20.0" right="20.0" top="16.0" />
+         </padding>
+         <Label text="Actividad reciente">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+         </Label>
+         <TableView fx:id="tablaActividad" prefHeight="180.0">
+            <columns>
+               <TableColumn fx:id="colActividadIcono" prefWidth="35.0" sortable="false" text="" />
+               <TableColumn fx:id="colActividadDescripcion" prefWidth="300.0" text="Actividad" />
+            </columns>
+         </TableView>
+      </VBox>
+   </HBox>
+
+   <VBox spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-border-color: #E2E8F0; -fx-border-radius: 12;" VBox.vgrow="ALWAYS">
+      <padding>
+         <Insets bottom="16.0" left="20.0" right="20.0" top="16.0" />
+      </padding>
+      <Label text="Últimas candidaturas">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tablaUltimasCandidaturas" prefHeight="220.0" VBox.vgrow="ALWAYS">
+         <columns>
+            <TableColumn fx:id="colUltimaEmpresa" prefWidth="170.0" text="Empresa" />
+            <TableColumn fx:id="colUltimaTitulo" prefWidth="210.0" text="Título" />
+            <TableColumn fx:id="colUltimaFecha" prefWidth="150.0" text="Fecha de postulación" />
+            <TableColumn fx:id="colUltimoEstado" prefWidth="140.0" text="Estado" />
+            <TableColumn fx:id="colUltimoSalario" prefWidth="110.0" text="Salario" />
+            <TableColumn fx:id="colUltimasAcciones" prefWidth="60.0" sortable="false" text="" />
+         </columns>
+      </TableView>
+   </VBox>
+</VBox>
