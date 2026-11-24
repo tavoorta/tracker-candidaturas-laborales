@@ -42,12 +42,21 @@ public class ServicioNota {
      * @return las notas de esa candidatura
      */
     public List<Nota> listarPorOferta(Oferta oferta) {
-        List<Nota> listaOferta = new ArrayList<>();
+        List<Nota> notasDeOferta = new ArrayList<>();
         for (Nota nota : repository.findAll()) {
             if (nota.getOferta().getOfertaId().equals(oferta.getOfertaId())) {
-                listaOferta.add(nota);
+                notasDeOferta.add(nota);
             }
         }
-        return listaOferta;
+        return notasDeOferta;
+    }
+
+    /**
+     * Borra una nota (borrado lógico: queda en la base de datos con Active = 0).
+     *
+     * @param nota nota a borrar
+     */
+    public void borrar(Nota nota) {
+        repository.deleteById(nota.getNotaId());
     }
 }
