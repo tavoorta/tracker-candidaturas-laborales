@@ -14,6 +14,7 @@ public class CeldaActividad extends TableCell<Actividad, Actividad> {
 
     private final ImageView icono;
 
+    /** Crea la celda con el icono vacío. */
     public CeldaActividad() {
         icono = new ImageView();
         icono.setFitWidth(20.0);

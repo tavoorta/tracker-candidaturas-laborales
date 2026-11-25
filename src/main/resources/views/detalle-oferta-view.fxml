@@ -139,7 +139,7 @@
             </HBox>
         </VBox>
 
-        <!-- Panel expandible de historial de entrevistas: se pliega/despliega con un clic en el título -->
+        <!-- Panel expandible del historial de entrevistas -->
         <TitledPane text="Historial de entrevistas" expanded="true" collapsible="true" maxHeight="Infinity"
                     GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="TOP">
             <VBox spacing="12.0">

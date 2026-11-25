@@ -13,10 +13,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/** Acceso a la tabla ENTREVISTA con JDBC. */
 public class EntrevistaDAO implements DAO<Entrevista> {
 
     private DataSource ds;
 
+    /**
+     * @param ds origen de las conexiones a la base de datos
+     */
     public EntrevistaDAO(DataSource ds) {
         this.ds = ds;
     }

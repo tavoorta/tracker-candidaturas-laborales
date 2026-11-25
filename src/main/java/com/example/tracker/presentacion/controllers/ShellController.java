@@ -15,6 +15,7 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/** Ventana principal: menú lateral y zona central donde se cargan las demás vistas. */
 public class ShellController implements Initializable {
 
     //region FXML
@@ -48,16 +49,31 @@ public class ShellController implements Initializable {
         irDashboard(null);
     }
 
+    /**
+     * Carga el Dashboard en la zona central.
+     *
+     * @param event clic en el menú
+     */
     @javafx.fxml.FXML
     public void irDashboard(MouseEvent event) {
         cargarContenido("dashboard-view.fxml");
     }
 
+    /**
+     * Carga la pantalla de candidaturas en la zona central.
+     *
+     * @param event clic en el menú
+     */
     @javafx.fxml.FXML
     public void irCandidaturas(MouseEvent event) {
         cargarContenido("candidaturas-view.fxml");
     }
 
+    /**
+     * Carga la pantalla de empresas en la zona central.
+     *
+     * @param event clic en el menú
+     */
     @javafx.fxml.FXML
     public void irEmpresas(MouseEvent event) {
         cargarContenido("empresas-view.fxml");
@@ -72,6 +88,11 @@ public class ShellController implements Initializable {
         }
     }
 
+    /**
+     * Pide confirmación y vuelve al inicio de sesión.
+     *
+     * @param event clic en el menú
+     */
     @javafx.fxml.FXML
     public void cerrarSesion(MouseEvent event) {
         Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION);
@@ -85,6 +106,11 @@ public class ShellController implements Initializable {
         }
     }
 
+    /**
+     * Cambia entre modo claro y oscuro (se implementa con CSS en la v3).
+     *
+     * @param actionEvent evento del botón
+     */
     @javafx.fxml.FXML
     public void modoOscuro(ActionEvent actionEvent) {
     }

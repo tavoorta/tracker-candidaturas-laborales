@@ -27,10 +27,17 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * Pantalla de candidaturas: tabla paginada con filtros, alta y edición, cambio de
+ * estado, detalle y borrado.
+ */
 public class CandidaturasController implements Initializable {
 
     private ServicioOferta servicio;
 
+    /**
+     * @param servicio servicio de candidaturas
+     */
     public CandidaturasController(ServicioOferta servicio) {
         this.servicio = servicio;
     }
@@ -77,6 +84,11 @@ public class CandidaturasController implements Initializable {
     private List<Oferta> ofertas;
     private int paginaActual = 1;
 
+    /**
+     * Abre el formulario para crear una candidatura y recarga la tabla al cerrarlo.
+     *
+     * @param actionEvent evento del botón
+     */
     @javafx.fxml.FXML
     public void nuevaOferta(ActionEvent actionEvent) {
         AppContext.getInstance().getDatos().remove("oferta");
@@ -184,7 +196,7 @@ public class CandidaturasController implements Initializable {
 
     //region Filtros
 
-    /** Llenar los desplegables - Estado y Empresa */
+    /** Llena los desplegables de estado y empresa. */
     private void cargarFiltros() {
         comboEstado.getItems().add(TODOS_LOS_ESTADOS);
         for (Estado estado : Estado.values()) {
@@ -203,6 +215,11 @@ public class CandidaturasController implements Initializable {
         dateHasta.setOnAction(e -> aplicarFiltros());
     }
 
+    /**
+     * Vacía todos los filtros y vuelve a cargar la tabla.
+     *
+     * @param actionEvent evento del botón
+     */
     @javafx.fxml.FXML
     public void limpiarFiltros(ActionEvent actionEvent) {
         txtBuscar.clear();
@@ -229,7 +246,7 @@ public class CandidaturasController implements Initializable {
         }
     }
 
-    /** Pide al servicio las ofertas que cumplen los filtros */
+    /** Pide al servicio las ofertas que cumplen los filtros, las ordena y muestra la primera página. */
     private void aplicarFiltros() {
         String estado = TODOS_LOS_ESTADOS.equals(comboEstado.getValue()) ? null : comboEstado.getValue();
         String empresa = TODAS_LAS_EMPRESAS.equals(comboEmpresa.getValue()) ? null : comboEmpresa.getValue();

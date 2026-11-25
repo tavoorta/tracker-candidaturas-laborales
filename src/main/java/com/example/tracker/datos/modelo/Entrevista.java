@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 
+/** Entrevista de una candidatura (tabla ENTREVISTA). */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

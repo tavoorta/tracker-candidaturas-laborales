@@ -1,5 +1,9 @@
 package com.example.tracker.datos.enums;
 
+/**
+ * Estado de una candidatura. También se usa como resultado de una entrevista y
+ * en la actividad reciente.
+ */
 public enum Estado {
 
     PENDIENTE("Pendiente"),

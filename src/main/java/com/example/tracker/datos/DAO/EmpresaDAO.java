@@ -9,10 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/** Acceso a la tabla EMPRESA con JDBC. */
 public class EmpresaDAO implements DAO<Empresa> {
 
     private DataSource ds;
 
+    /**
+     * @param ds origen de las conexiones a la base de datos
+     */
     public EmpresaDAO(DataSource ds) {
         this.ds = ds;
     }
@@ -132,6 +136,12 @@ public class EmpresaDAO implements DAO<Empresa> {
         }
     }
 
+    /**
+     * Indica si la tabla no tiene ningún registro, ni activo ni borrado. Se usa para
+     * cargar los CSV solo la primera vez.
+     *
+     * @return {@code true} si la tabla está vacía
+     */
     public boolean tablaVacia() {
         try (Connection conn = ds.getConnection();
              PreparedStatement ps = conn.prepareStatement(sqlCount);

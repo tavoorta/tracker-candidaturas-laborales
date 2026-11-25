@@ -31,6 +31,10 @@ public class FormularioOfertaController implements Initializable {
     private final ServicioOferta servicioOferta;
     private final ServicioEmpresa servicioEmpresa;
 
+    /**
+     * @param servicioOferta  servicio de candidaturas
+     * @param servicioEmpresa servicio de empresas
+     */
     public FormularioOfertaController(ServicioOferta servicioOferta, ServicioEmpresa servicioEmpresa) {
         this.servicioOferta = servicioOferta;
         this.servicioEmpresa = servicioEmpresa;
@@ -80,6 +84,12 @@ public class FormularioOfertaController implements Initializable {
         }
     }
 
+    /**
+     * Guarda los datos del formulario y cierra la ventana. Si algún dato no es válido,
+     * muestra el error y deja la ventana abierta.
+     *
+     * @param actionEvent evento del botón
+     */
     @javafx.fxml.FXML
     public void guardar(ActionEvent actionEvent) {
         Oferta oferta = new Oferta();
@@ -107,6 +117,11 @@ public class FormularioOfertaController implements Initializable {
         }
     }
 
+    /**
+     * Cierra el formulario sin guardar.
+     *
+     * @param actionEvent evento del botón
+     */
     @javafx.fxml.FXML
     public void cancelar(ActionEvent actionEvent) {
         cerrar();

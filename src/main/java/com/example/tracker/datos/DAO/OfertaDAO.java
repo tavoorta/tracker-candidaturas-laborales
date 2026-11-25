@@ -11,10 +11,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/** Acceso a la tabla OFERTA (con los datos de su empresa) con JDBC. */
 public class OfertaDAO implements DAO<Oferta> {
 
     private DataSource ds;
 
+    /**
+     * @param ds origen de las conexiones a la base de datos
+     */
     public OfertaDAO(DataSource ds) {
         this.ds = ds;
     }
@@ -142,6 +146,12 @@ public class OfertaDAO implements DAO<Oferta> {
         }
     }
 
+    /**
+     * Indica si la tabla no tiene ningún registro, ni activo ni borrado. Se usa para
+     * cargar los CSV solo la primera vez.
+     *
+     * @return {@code true} si la tabla está vacía
+     */
     public boolean tablaVacia() {
         try (Connection conn = ds.getConnection();
              PreparedStatement ps = conn.prepareStatement(sqlCount);

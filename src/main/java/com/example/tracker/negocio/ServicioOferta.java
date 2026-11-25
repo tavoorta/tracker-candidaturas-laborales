@@ -18,9 +18,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Lógica de negocio de las candidaturas: validaciones, filtrado y conversión
- * de los datos de entrada a los tipos del modelo. No sabe de dónde vienen ni
- * a dónde van los datos, eso lo resuelve {@link DAO}.
+ * Lógica de negocio de las candidaturas: validaciones, filtros, orden, estadísticas y
+ * borrado en transacción. No sabe de dónde vienen los datos, eso lo resuelve {@link DAO}.
  */
 @RequiredArgsConstructor
 public class ServicioOferta {
@@ -136,8 +135,8 @@ public class ServicioOferta {
     }
 
     /**
-     * @param estado  texto del estado a filtrar (por ejemplo "Pendiente"), o {@code null}
-     * @param empresa nombre exacto de la empresa a filtrar, o {@code null}
+     * @param estado        texto del estado a filtrar (por ejemplo "Pendiente"), o {@code null}
+     * @param empresa       nombre exacto de la empresa a filtrar, o {@code null}
      * @param texto         texto a buscar en el título o en el nombre de empresa, o {@code null}
      * @param salarioMinimo salario mínimo (incluido), o {@code null}
      * @param salarioMaximo salario máximo (incluido), o {@code null}

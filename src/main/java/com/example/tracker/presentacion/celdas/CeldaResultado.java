@@ -14,6 +14,7 @@ public class CeldaResultado extends TableCell<Entrevista, Estado> {
 
     private final ImageView icono;
 
+    /** Crea la celda con el icono vacío. */
     public CeldaResultado() {
         icono = new ImageView();
         icono.setFitWidth(18.0);

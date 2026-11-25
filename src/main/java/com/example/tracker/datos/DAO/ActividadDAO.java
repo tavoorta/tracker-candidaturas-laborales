@@ -12,10 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/** Acceso a la tabla ACTIVIDAD con JDBC. */
 public class ActividadDAO implements DAO<Actividad> {
 
     private DataSource ds;
 
+    /**
+     * @param ds origen de las conexiones a la base de datos
+     */
     public ActividadDAO(DataSource ds) {
         this.ds = ds;
     }

@@ -1,5 +1,6 @@
 package com.example.tracker.datos.enums;
 
+/** Tipo de entrevista de una candidatura. */
 public enum TipoEntrevista {
 
     RRHH("Entrevista RRHH"),

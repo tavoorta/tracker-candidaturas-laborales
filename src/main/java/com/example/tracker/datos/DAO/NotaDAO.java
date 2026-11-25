@@ -10,10 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/** Acceso a la tabla NOTA con JDBC. */
 public class NotaDAO implements DAO<Nota> {
 
     private DataSource ds;
 
+    /**
+     * @param ds origen de las conexiones a la base de datos
+     */
     public NotaDAO(DataSource ds) {
         this.ds = ds;
     }

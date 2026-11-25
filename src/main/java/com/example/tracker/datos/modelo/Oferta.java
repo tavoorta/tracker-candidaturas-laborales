@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 
+/** Candidatura a una oferta de empleo (tabla OFERTA). */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

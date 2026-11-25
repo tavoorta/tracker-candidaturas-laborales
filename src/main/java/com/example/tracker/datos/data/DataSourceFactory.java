@@ -17,6 +17,9 @@ public class DataSourceFactory {
 
     private static DataSource dataSource = null;
 
+    /**
+     * @return el DataSource de la aplicación (se crea la primera vez que se pide)
+     */
     public static DataSource getDataSource() {
         if (dataSource == null) {
             String url = leerUrl();

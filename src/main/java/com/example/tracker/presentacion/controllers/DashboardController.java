@@ -38,6 +38,11 @@ public class DashboardController implements Initializable {
     private final ServicioEntrevista servicioEntrevista;
     private final ServicioActividad servicioActividad;
 
+    /**
+     * @param servicioOferta     servicio de candidaturas
+     * @param servicioEntrevista servicio de entrevistas
+     * @param servicioActividad  servicio de actividad reciente
+     */
     public DashboardController(ServicioOferta servicioOferta, ServicioEntrevista servicioEntrevista,
                                ServicioActividad servicioActividad) {
         this.servicioOferta = servicioOferta;

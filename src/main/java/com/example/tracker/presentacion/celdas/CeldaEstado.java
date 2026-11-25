@@ -11,13 +11,16 @@ import javafx.scene.control.TableCell;
 
 /**
  * Celda de la columna "Estado": un ComboBox con forma de etiqueta de color.
- * Al elegir otro estado lo asigna a la fila, la selecciona y ejecuta la acción recibida.
- * Reutilizable en cualquier tabla de ofertas (listado, dashboard...).
+ * Al elegir otro estado selecciona la fila y ejecuta la acción recibida, que es la que
+ * guarda el cambio. Sirve para cualquier tabla de ofertas.
  */
 public class CeldaEstado extends TableCell<Oferta, Estado> {
 
     private final ComboBox<Estado> comboEstado;
 
+    /**
+     * @param cambiarEstado acción que se ejecuta al elegir otro estado, con la fila ya seleccionada
+     */
     public CeldaEstado(EventHandler<ActionEvent> cambiarEstado) {
         comboEstado = new ComboBox<>(FXCollections.observableArrayList(Estado.values()));
 
@@ -60,6 +63,10 @@ public class CeldaEstado extends TableCell<Oferta, Estado> {
     }
 
     //region Colores de cada estado
+    /**
+     * @param estado estado de la candidatura
+     * @return color de fondo de la etiqueta del estado
+     */
     public static String colorFondo(Estado estado) {
         return switch (estado) {
             case ENTREVISTA -> "#0F766E";
@@ -69,6 +76,10 @@ public class CeldaEstado extends TableCell<Oferta, Estado> {
         };
     }
 
+    /**
+     * @param estado estado de la candidatura
+     * @return color del texto de la etiqueta del estado
+     */
     public static String colorTexto(Estado estado) {
         return switch (estado) {
             case ENTREVISTA -> "white";

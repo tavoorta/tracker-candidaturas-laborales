@@ -38,6 +38,10 @@ public class DetalleOfertaController implements Initializable {
 
     private Oferta oferta;
 
+    /**
+     * @param servicioEntrevista servicio de entrevistas
+     * @param servicioNota       servicio de notas
+     */
     public DetalleOfertaController(ServicioEntrevista servicioEntrevista, ServicioNota servicioNota) {
         this.servicioEntrevista = servicioEntrevista;
         this.servicioNota = servicioNota;
@@ -112,11 +116,21 @@ public class DetalleOfertaController implements Initializable {
         cargarEntrevistas();
     }
 
+    /**
+     * Vuelve al listado de candidaturas.
+     *
+     * @param actionEvent evento del botón
+     */
     @javafx.fxml.FXML
     public void volver(ActionEvent actionEvent) {
         SceneNavigator.navigateToContenido("candidaturas-view.fxml");
     }
 
+    /**
+     * Guarda la nota escrita y recarga la tabla de notas.
+     *
+     * @param actionEvent evento del botón
+     */
     @javafx.fxml.FXML
     public void agregarNota(ActionEvent actionEvent) {
         try {
@@ -128,6 +142,11 @@ public class DetalleOfertaController implements Initializable {
         }
     }
 
+    /**
+     * Abre el formulario para agregar una entrevista y recarga el historial al cerrarlo.
+     *
+     * @param actionEvent evento del botón
+     */
     @javafx.fxml.FXML
     public void nuevaEntrevista(ActionEvent actionEvent) {
         AppContext.getInstance().getDatos().remove("entrevista");

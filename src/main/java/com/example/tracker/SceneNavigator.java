@@ -23,6 +23,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/** Navegación entre vistas: carga cada FXML y crea su controlador con el servicio que necesita. */
 public class SceneNavigator {
 
     private static Stage stage;
@@ -34,35 +35,61 @@ public class SceneNavigator {
     private static ServicioNota servicioNota;
     private static ServicioActividad servicioActividad;
 
+    /**
+     * @param stage ventana principal de la aplicación
+     */
     public static void setStage(Stage stage) {
         SceneNavigator.stage = stage;
     }
 
+    /**
+     * @param contenido zona central del shell donde se cargan las vistas
+     */
     public static void setContenido(StackPane contenido) {
         SceneNavigator.contenido = contenido;
     }
 
+    /**
+     * @param servicioOferta servicio de candidaturas
+     */
     public static void setServicioOferta(ServicioOferta servicioOferta) {
         SceneNavigator.servicioOferta = servicioOferta;
     }
 
+    /**
+     * @param servicioEmpresa servicio de empresas
+     */
     public static void setServicioEmpresa(ServicioEmpresa servicioEmpresa) {
         SceneNavigator.servicioEmpresa = servicioEmpresa;
     }
 
+    /**
+     * @param servicioEntrevista servicio de entrevistas
+     */
     public static void setServicioEntrevista(ServicioEntrevista servicioEntrevista) {
         SceneNavigator.servicioEntrevista = servicioEntrevista;
     }
 
+    /**
+     * @param servicioNota servicio de notas
+     */
     public static void setServicioNota(ServicioNota servicioNota) {
         SceneNavigator.servicioNota = servicioNota;
     }
 
+    /**
+     * @param servicioActividad servicio de actividad reciente
+     */
     public static void setServicioActividad(ServicioActividad servicioActividad) {
         SceneNavigator.servicioActividad = servicioActividad;
     }
 
-    /** Utilizado para navegar a una vista específica. */
+    /**
+     * Cambia la vista principal de la ventana.
+     *
+     * @param fxml  nombre del archivo FXML
+     * @param title título de la ventana
+     */
     public static void navigateToInjection(String fxml, String title) {
 
         FXMLLoader fxmlLoader = crearLoader(fxml);
@@ -79,7 +106,11 @@ public class SceneNavigator {
         }
     }
 
-    /** Utilizado para rellenar el contenido del shell. */
+    /**
+     * Carga una vista en la zona central del shell.
+     *
+     * @param fxml nombre del archivo FXML
+     */
     public static void navigateToContenido(String fxml) {
 
         FXMLLoader fxmlLoader = crearLoader(fxml);
@@ -93,7 +124,12 @@ public class SceneNavigator {
         }
     }
 
-    /** Abre la vista en una ventana modal y espera a que se cierre. */
+    /**
+     * Abre la vista en una ventana modal y espera a que se cierre.
+     *
+     * @param fxml  nombre del archivo FXML
+     * @param title título de la ventana
+     */
     public static void abrirModal(String fxml, String title) {
 
         FXMLLoader fxmlLoader = crearLoader(fxml);
@@ -110,7 +146,7 @@ public class SceneNavigator {
         }
     }
 
-    /** utilizado para crear un FXMLLoader con la ruta y el controllerFactory que crea cada controlador con su servicio. */
+    /** Crea el FXMLLoader de la vista con un controllerFactory que crea cada controlador con su servicio. */
     private static FXMLLoader crearLoader(String fxml) {
 
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/views/" + fxml));

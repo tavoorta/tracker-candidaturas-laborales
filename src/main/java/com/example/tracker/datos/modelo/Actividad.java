@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
+/** Evento de la actividad reciente del Dashboard (tabla ACTIVIDAD). */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

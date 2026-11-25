@@ -4,6 +4,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 
+/** Empresa a la que se envían candidaturas (tabla EMPRESA). */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

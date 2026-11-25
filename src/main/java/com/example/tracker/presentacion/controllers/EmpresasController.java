@@ -30,6 +30,9 @@ public class EmpresasController implements Initializable {
 
     private final ServicioEmpresa servicio;
 
+    /**
+     * @param servicio servicio de empresas
+     */
     public EmpresasController(ServicioEmpresa servicio) {
         this.servicio = servicio;
     }
@@ -76,6 +79,11 @@ public class EmpresasController implements Initializable {
         });
     }
 
+    /**
+     * Abre el formulario para crear una empresa y recarga la tabla al cerrarlo.
+     *
+     * @param actionEvent evento del botón
+     */
     @javafx.fxml.FXML
     public void nuevaEmpresa(ActionEvent actionEvent) {
         AppContext.getInstance().getDatos().remove("empresa");

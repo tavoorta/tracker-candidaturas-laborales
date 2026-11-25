@@ -1,5 +1,6 @@
 package com.example.tracker.datos.enums;
 
+/** Tipo de evento que se registra en la actividad reciente. */
 public enum TipoActividad {
 
     CONTACTO("Nuevo contacto"),

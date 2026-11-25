@@ -9,14 +9,21 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 /**
- * Celda de la columna "Acciones": muestra los botones ver, editar y eliminar.
+ * Celda de la columna de acciones: muestra uno, dos o tres botones con icono.
  * Al pulsar un botón selecciona su fila y ejecuta la acción recibida.
- * Reutilizable en cualquier tabla (candidaturas, empresas...).
+ * Sirve para cualquier tabla.
  */
 public class CeldaAcciones<T> extends TableCell<T, Void> {
 
     private final HBox contenedor;
 
+    /**
+     * Celda con los botones ver, editar y eliminar.
+     *
+     * @param ver      acción del botón ver
+     * @param editar   acción del botón editar
+     * @param eliminar acción del botón eliminar
+     */
     public CeldaAcciones(EventHandler<ActionEvent> ver, EventHandler<ActionEvent> editar,
                          EventHandler<ActionEvent> eliminar) {
         contenedor = new HBox(6.0,
@@ -25,12 +32,24 @@ public class CeldaAcciones<T> extends TableCell<T, Void> {
                 crearBoton("/images/icon-eliminar.png", eliminar));
     }
 
+    /**
+     * Celda con los botones editar y eliminar.
+     *
+     * @param editar   acción del botón editar
+     * @param eliminar acción del botón eliminar
+     */
     public CeldaAcciones(EventHandler<ActionEvent> editar, EventHandler<ActionEvent> eliminar) {
         contenedor = new HBox(6.0,
                 crearBoton("/images/icon-editar.png", editar),
                 crearBoton("/images/icon-eliminar.png", eliminar));
     }
 
+    /**
+     * Celda con un solo botón.
+     *
+     * @param rutaImagen ruta del icono del botón
+     * @param accion     acción al pulsarlo
+     */
     public CeldaAcciones(String rutaImagen, EventHandler<ActionEvent> accion) {
         contenedor = new HBox(6.0,
                 crearBoton(rutaImagen, accion));

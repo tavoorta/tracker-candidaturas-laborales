@@ -24,6 +24,9 @@ public class FormularioEmpresaController implements Initializable {
 
     private final ServicioEmpresa servicioEmpresa;
 
+    /**
+     * @param servicioEmpresa servicio de empresas
+     */
     public FormularioEmpresaController(ServicioEmpresa servicioEmpresa) {
         this.servicioEmpresa = servicioEmpresa;
     }
@@ -64,6 +67,12 @@ public class FormularioEmpresaController implements Initializable {
         }
     }
 
+    /**
+     * Guarda los datos del formulario y cierra la ventana. Si algún dato no es válido,
+     * muestra el error y deja la ventana abierta.
+     *
+     * @param actionEvent evento del botón
+     */
     @javafx.fxml.FXML
     public void guardar(ActionEvent actionEvent) {
         Empresa empresa = new Empresa();
@@ -93,6 +102,11 @@ public class FormularioEmpresaController implements Initializable {
         }
     }
 
+    /**
+     * Cierra el formulario sin guardar.
+     *
+     * @param actionEvent evento del botón
+     */
     @javafx.fxml.FXML
     public void cancelar(ActionEvent actionEvent) {
         cerrar();

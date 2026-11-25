@@ -16,6 +16,10 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import javax.sql.DataSource;
 
+/**
+ * Arranque de la aplicación: crea la conexión, las tablas, los DAO y los servicios,
+ * carga los datos iniciales y abre el inicio de sesión.
+ */
 public class App extends Application {
 
     @Override

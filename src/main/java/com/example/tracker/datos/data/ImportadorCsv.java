@@ -30,6 +30,11 @@ public class ImportadorCsv {
     private final OfertaDAO ofertaDAO;
     private final NotaDAO notaDAO;
 
+    /**
+     * @param empresaDAO acceso a la tabla EMPRESA
+     * @param ofertaDAO  acceso a la tabla OFERTA
+     * @param notaDAO   acceso a la tabla NOTA
+     */
     public ImportadorCsv(EmpresaDAO empresaDAO, OfertaDAO ofertaDAO, NotaDAO notaDAO) {
         this.empresaDAO = empresaDAO;
         this.ofertaDAO = ofertaDAO;
@@ -39,6 +44,9 @@ public class ImportadorCsv {
     /**
      * Importa primero las empresas y después las ofertas, para que cada oferta
      * encuentre su empresa ya guardada. Si una tabla ya tiene datos, no la toca.
+     *
+     * @param rutaEmpresas ruta del CSV de empresas
+     * @param rutaOfertas  ruta del CSV de candidaturas
      */
     public void importar(String rutaEmpresas, String rutaOfertas) {
 

@@ -10,8 +10,14 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/** Crea las tablas de la base de datos a partir de {@code /database/schema.sql}. */
 public class InicializadorBaseDatos {
 
+    /**
+     * Ejecuta el script de creación de tablas.
+     *
+     * @param dataSource origen de las conexiones a la base de datos
+     */
     public static void initialize(DataSource dataSource) {
         executeScript(dataSource, "/database/schema.sql");
     }

@@ -32,6 +32,9 @@ public class FormularioEntrevistaController implements Initializable {
 
     private Oferta oferta;
 
+    /**
+     * @param servicioEntrevista servicio de entrevistas
+     */
     public FormularioEntrevistaController(ServicioEntrevista servicioEntrevista) {
         this.servicioEntrevista = servicioEntrevista;
     }
@@ -79,6 +82,12 @@ public class FormularioEntrevistaController implements Initializable {
         }
     }
 
+    /**
+     * Guarda los datos del formulario y cierra la ventana. Si algún dato no es válido,
+     * muestra el error y deja la ventana abierta.
+     *
+     * @param actionEvent evento del botón
+     */
     @javafx.fxml.FXML
     public void guardar(ActionEvent actionEvent) {
         Entrevista entrevista = new Entrevista();
@@ -106,6 +115,11 @@ public class FormularioEntrevistaController implements Initializable {
         }
     }
 
+    /**
+     * Cierra el formulario sin guardar.
+     *
+     * @param actionEvent evento del botón
+     */
     @javafx.fxml.FXML
     public void cancelar(ActionEvent actionEvent) {
         cerrar();

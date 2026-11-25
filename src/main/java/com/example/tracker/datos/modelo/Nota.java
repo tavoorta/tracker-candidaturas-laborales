@@ -4,6 +4,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 
+/** Nota de seguimiento de una candidatura (tabla NOTA). */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
